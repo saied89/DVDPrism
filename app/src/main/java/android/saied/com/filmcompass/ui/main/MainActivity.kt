@@ -1,7 +1,8 @@
-package android.saied.com.filmcompass
+package android.saied.com.filmcompass.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.saied.com.filmcompass.R
 
 class MainActivity : AppCompatActivity() {
 
