@@ -57,6 +57,7 @@ dependencies {
     implementation "org.koin:koin-androidx-scope:$koin_version"
     // Koin AndroidX ViewModel feature
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+    testImplementation "org.koin:koin-test:$koin_version"
 
     //ktor client
     implementation "io.ktor:ktor-client-android:$ktor_version"
@@ -65,4 +66,5 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.1-alpha01'
     androidTestImplementation "androidx.test.ext:junit:1.0.0"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1-alpha01'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.2'
 }
