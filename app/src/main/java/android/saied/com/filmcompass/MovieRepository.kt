@@ -7,9 +7,9 @@ import kotlinx.coroutines.withContext
 
 class MovieRepository {
     suspend fun getRottenTomatoes(): String =
-            withContext(Dispatchers.IO) {
-                HttpClient().use { client ->
-                    client.get<String>("https://www.alef.ir/")
-                }
+        withContext(Dispatchers.IO) {
+            HttpClient().use { client ->
+                client.get<String>("https://www.alef.ir/")
             }
+        }
 }
