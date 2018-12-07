@@ -27,10 +27,11 @@ android {
 }
 
 dependencies {
-    def lifecycle_version = "2.0.0"
+    def lifecycle_version = '2.0.0'
     def koin_version = '1.0.2'
     def ktor_version = '1.0.1'
-    def coroutines_version = "1.0.1"
+    def coroutines_version = '1.0.1'
+    def arrow_version = '0.8.1'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -39,8 +40,9 @@ dependencies {
 
     //coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.0"
-    implementation 'androidx.core:core-ktx:1.0.0'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1"
+
+    implementation 'androidx.core:core-ktx:1.0.1'
 
 
     ////Lifecycle
@@ -62,9 +64,13 @@ dependencies {
     //ktor client
     implementation "io.ktor:ktor-client-android:$ktor_version"
 
+    //Arrow
+    implementation "io.arrow-kt:arrow-core:$arrow_version"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1-alpha01'
     androidTestImplementation "androidx.test.ext:junit:1.0.0"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1-alpha01'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.2'
 }
+
