@@ -63,6 +63,8 @@ dependencies {
 
     //ktor client
     implementation "io.ktor:ktor-client-android:$ktor_version"
+    testImplementation "io.ktor:ktor-client-mock-jvm:$ktor_version" //for testing
+
 
     //Arrow
     implementation "io.arrow-kt:arrow-core:$arrow_version"

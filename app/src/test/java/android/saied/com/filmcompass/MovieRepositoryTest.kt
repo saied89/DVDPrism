@@ -1,28 +1,58 @@
 package android.saied.com.filmcompass
 
-import android.saied.com.filmcompass.di.appModule
+import arrow.core.Try
+import arrow.core.orNull
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.mock.MockEngine
+import io.ktor.client.engine.mock.MockHttpResponse
+import io.ktor.http.HttpStatusCode
+import kotlinx.coroutines.io.ByteReadChannel
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import org.koin.standalone.StandAloneContext.startKoin
-import org.koin.standalone.inject
-import org.koin.test.KoinTest
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-internal class MovieRepositoryTest : KoinTest {
+internal class MovieRepositoryTest {
 
-    val movieRepository: MovieRepository by inject()
+    @Test
+    fun `no network returns failure`() = runBlocking {
 
-    @BeforeAll
-    fun setup(){
-        startKoin(listOf(appModule))
     }
 
     @Test
-    fun `html is fetched over network`() = runBlocking {
-        val html = movieRepository.getRottenTomatoes()
-        assert(html.isNotEmpty())
+    fun `http status code OK response results in Success`() = runBlocking {
+        val sampleResStr = "Hello, Saied"
+        val httpMockEngine = MockEngine {
+            MockHttpResponse(
+                call,
+                HttpStatusCode.OK,
+                ByteReadChannel(sampleResStr.toByteArray(Charsets.UTF_8))
+            )
+        }
+        val movieRepository = MovieRepository(HttpClient(httpMockEngine))
+
+        val res = movieRepository.getRottenTomatoes()
+
+        assert(res is Try.Success)
+        val resStr : String = res.orNull() ?: ""
+        assert(resStr.isNotEmpty())
+        assertEquals(sampleResStr, resStr)
     }
+
+    @Test
+    fun `http status Error response results in Failure`() = runBlocking {
+        val httpMockEngine = MockEngine {
+            MockHttpResponse(
+                call,
+                HttpStatusCode.Unauthorized
+            )
+        }
+        val movieRepository = MovieRepository(HttpClient(httpMockEngine))
+
+        val res = movieRepository.getRottenTomatoes()
+
+        assert(res is Try.Failure)
+    }
+
 }
