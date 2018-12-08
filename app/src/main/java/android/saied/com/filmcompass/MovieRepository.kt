@@ -18,5 +18,6 @@ class MovieRepository(private val httpClient: HttpClient = HttpClient()) {
                     Try.raise<String>(exp)
                 }
             }
+
         }
 }
