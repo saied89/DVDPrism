@@ -41,9 +41,6 @@ before_install:
 - yes | sdkmanager "platforms;android-27"
 - chmod +x gradlew
 
-before_script:
-  - mv movie-crawler/movie.properties.sample movie-crawler/movie.properties
-
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
