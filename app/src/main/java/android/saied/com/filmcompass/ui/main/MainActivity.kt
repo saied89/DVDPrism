@@ -21,6 +21,5 @@ class MainActivity : AppCompatActivity() {
                 is Try.Failure -> Toast.makeText(this, result.exception.message, Toast.LENGTH_SHORT).show()
             }
         })
-        viewModel.fetchHtml()
     }
 }

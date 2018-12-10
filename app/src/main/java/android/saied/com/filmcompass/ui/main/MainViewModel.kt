@@ -15,12 +15,6 @@ class MainViewModel(val movieRepo: MovieRepository) : ViewModel() {
 
     val resLiveData = MutableLiveData<Try<String>>()
 
-    fun fetchHtml(){
-        uiScope.launch {
-            resLiveData.value = movieRepo.getRottenTomatoes()
-        }
-    }
-
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
