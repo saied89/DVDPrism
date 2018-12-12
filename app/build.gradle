@@ -67,7 +67,7 @@ dependencies {
     // alternately - if using Java8, use the following instead of lifecycle-compiler
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
     // optional - Test helpers for LiveData
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0-alpha1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation "androidx.arch.core:core-testing:$lifecycle_version"
 
     ////Koin

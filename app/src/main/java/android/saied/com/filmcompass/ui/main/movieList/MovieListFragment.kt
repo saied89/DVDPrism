@@ -28,6 +28,7 @@ class MovieListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        rootView.apply {  } // fix for wierd null exception error happening in showError
         viewModel.stateLiveData.observe(this, Observer {
             progressbar.visibility = if(it is MainState.Loading) View.VISIBLE else View.INVISIBLE
             setData(it.movieList)
@@ -42,7 +43,6 @@ class MovieListFragment : Fragment() {
     }
 
     private fun showError(throwable: Throwable) {
-
         Snackbar.make(rootView, throwable.message ?: "Unkown Error", Snackbar.LENGTH_SHORT).show()
     }
 }
