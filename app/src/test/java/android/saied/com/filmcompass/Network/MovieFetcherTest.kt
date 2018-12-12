@@ -7,7 +7,6 @@ import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
-import org.junit.platform.commons.util.ClassLoaderUtils
 
 internal class MovieFetcherTest {
     @Test

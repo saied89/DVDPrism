@@ -15,11 +15,5 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        viewModel.resLiveData.observe(this, Observer { result ->
-            when(result){
-                is Try.Success -> Toast.makeText(this, result.value.length.toString(), Toast.LENGTH_SHORT).show()
-                is Try.Failure -> Toast.makeText(this, result.exception.message, Toast.LENGTH_SHORT).show()
-            }
-        })
     }
 }
