@@ -1,7 +1,6 @@
 package android.saied.com.filmcompass.Network
 
 import android.saied.com.filmcompass.fetchHtml
-import android.saied.com.filmcompass.model.MetacriticScore
 import android.saied.com.filmcompass.model.Movie
 import android.saied.com.filmcompass.parsing.parseDate
 import arrow.core.Try
@@ -72,11 +71,10 @@ sealed class MovieFetcher(protected val url: String, protected val httpClient: H
                 val dateStr = element.select(".clamp-summary-wrap .clamp-details span:nth-child(2)").html()
                 val date = parseDate(dateStr).time
                 val posterUrl = element.select(".clamp-image-wrap a img").first().absUrl("src")
-                val metaScore: MetacriticScore = element.select(".clamp-summary-wrap .clamp-score-wrap a div")
+                val metaScore = element.select(".clamp-summary-wrap .clamp-score-wrap a div")
                     .first()
                     .html()
                     .toInt()
-                    .let { MetacriticScore.byScore(it) }
                 Movie(title, date, posterUrl, metaScore)
             }
 
