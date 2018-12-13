@@ -1,10 +1,12 @@
 package android.saied.com.filmcompass.Network
 
+import arrow.core.Try
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.response
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.runBlocking
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 
@@ -26,6 +28,7 @@ internal class MovieFetcherTest {
             val movies = MovieFetcher.MetacriticFetcher(httpClient).fetchMovies()
 
             assert(movies.isSuccess())
+            assertEquals(100, (movies as Try.Success).value.size)
 
         }
     }

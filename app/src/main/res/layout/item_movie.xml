@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+    android:layout_height="120dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/posterImgView"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/a62c8a73a1f9e8ebfa8848fd75f75650_98"/>
+    <TextView
+        android:id="@+id/titleTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#424242"
+        android:text="Movie Title"
+        app:layout_constraintStart_toEndOf="@id/posterImgView"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:id="@+id/releaseDateTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Release Date:%s"
+        android:textColor="#999"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@id/posterImgView"
+        app:layout_constraintTop_toBottomOf="@id/titleTV"/>
+    <!--<androidx.cardview.widget.CardView-->
+        <!--android:id="@+id/metaScoreCardView"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="#6c3">-->
+        <!--<TextView-->
+            <!--android:layout_width="30dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--/>-->
+    <!--</androidx.cardview.widget.CardView>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
