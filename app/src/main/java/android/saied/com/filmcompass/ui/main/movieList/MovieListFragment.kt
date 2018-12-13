@@ -10,6 +10,7 @@ import android.saied.com.filmcompass.R
 import android.saied.com.filmcompass.model.Movie
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_movielist.*
@@ -32,7 +33,7 @@ class MovieListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         rootView.apply {  } // fix for wierd null exception error happening in showError
         viewModel.stateLiveData.observe(this, Observer {
-            progressbar.visibility = if(it is MainState.Loading) View.VISIBLE else View.INVISIBLE
+            progressbar.visibility = if(it is MainState.Loading) View.VISIBLE else View.GONE
             setData(it.movieList)
             when(it) {
                 is MainState.Error -> { showError(it.throwable) }
@@ -41,6 +42,7 @@ class MovieListFragment : Fragment() {
         recyclerView.run {
             layoutManager = LinearLayoutManager(context)
             adapter = this@MovieListFragment.adapter
+//            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
         viewModel.fetchMovies()
     }
