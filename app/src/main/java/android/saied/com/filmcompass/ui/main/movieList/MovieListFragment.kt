@@ -52,8 +52,6 @@ class MovieListFragment : Fragment() {
     }
 
     private fun showError(throwable: Throwable) {
-        val hostView = view
-        if(hostView != null)
-            Snackbar.make(hostView, throwable.message ?: "Unkown Error", Snackbar.LENGTH_SHORT).show()
+         Snackbar.make(rootView, throwable.message ?: "Unkown Error", Snackbar.LENGTH_SHORT).show()
     }
 }
