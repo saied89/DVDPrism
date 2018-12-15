@@ -11,6 +11,7 @@ import android.saied.com.filmcompass.model.Movie
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_movielist.*
@@ -40,7 +41,7 @@ class MovieListFragment : Fragment() {
             }
         })
         recyclerView.run {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = GridLayoutManager(context, 2)
             adapter = this@MovieListFragment.adapter
 //            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }

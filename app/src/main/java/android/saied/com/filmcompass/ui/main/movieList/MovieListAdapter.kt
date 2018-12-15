@@ -26,18 +26,16 @@ class MovieListAdapter : ListAdapter<Movie, MovieViewHolder>(movieDiffCallback) 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) =
         holder.itemView.run {
             val item = getItem(position)
-            titleTV.text = item.name
-//            releaseDateTV.text = context.getText(R.string.release_date_pattern)
-//                .toString()
-//                .format(formatDate(Date(item.releaseDate)))
             releaseDateTV.text = formatDate(Date(item.releaseDate))
-            posterImgView.setImageURI(item.posterUrl)
+            posterImgView.setImageURI(item.posterUrl_250p)
             val indicationColor = when(item.indication) {
-                MetaScore.POSITIVE -> ContextCompat.getColor(context, R.color.metaScorePositive)
-                MetaScore.MIXED -> ContextCompat.getColor(context, R.color.metaScoreMixed)
-                MetaScore.NEGATIVE -> ContextCompat.getColor(context, R.color.metaScoreNegative)
+                MetaScore.POSITIVE -> R.color.metaScorePositive
+                MetaScore.MIXED -> R.color.metaScoreMixed
+                MetaScore.NEGATIVE -> R.color.metaScoreNegative
+            }.let { colorRes ->
+                ContextCompat.getColor(context, colorRes)
             }
-            scoreWrapper.setCardBackgroundColor(indicationColor)
+            itemContainer.setBackgroundColor(indicationColor)
             scoreTV.text = item.score.toString()
         }
 }

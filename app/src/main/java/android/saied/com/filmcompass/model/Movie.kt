@@ -6,7 +6,7 @@ import java.lang.IllegalArgumentException
 data class Movie(
     val name: String,
     val releaseDate: Long,
-    val posterUrl: String,
+    val posterUrl_89p: String,
     val score: Int
 ) {
     val indication: MetaScore =
@@ -16,6 +16,9 @@ data class Movie(
             in 0..39 -> MetaScore.NEGATIVE
             else -> throw IllegalArgumentException("Metascore outside the range:$score")
         }
+
+    val posterUrl: String = posterUrl_89p.split('-').first()
+    val posterUrl_250p: String = posterUrl_89p.replace("-98", "-250h")
 }
 
 enum class MetaScore {
