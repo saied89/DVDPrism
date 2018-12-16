@@ -37,6 +37,10 @@ android {
     }
 }
 
+androidExtensions {
+    experimental = true
+}
+
 dependencies {
     def lifecycle_version = '2.0.0'
     def koin_version = '1.0.2'

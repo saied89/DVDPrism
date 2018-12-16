@@ -11,7 +11,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_movie.view.*
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.item_movie.*
 import java.util.*
 
 class MovieListAdapter : ListAdapter<Movie, MovieViewHolder>(movieDiffCallback) {
@@ -24,19 +25,9 @@ class MovieListAdapter : ListAdapter<Movie, MovieViewHolder>(movieDiffCallback) 
             }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) =
-        holder.itemView.run {
+        holder.run {
             val item = getItem(position)
-            releaseDateTV.text = formatDate(Date(item.releaseDate))
-            posterImgView.setImageURI(item.posterUrl_250p)
-            val indicationColor = when(item.indication) {
-                MetaScore.POSITIVE -> R.color.metaScorePositive
-                MetaScore.MIXED -> R.color.metaScoreMixed
-                MetaScore.NEGATIVE -> R.color.metaScoreNegative
-            }.let { colorRes ->
-                ContextCompat.getColor(context, colorRes)
-            }
-            itemContainer.setBackgroundColor(indicationColor)
-            scoreTV.text = item.score.toString()
+            bind(item)
         }
 }
 
@@ -49,4 +40,20 @@ private val movieDiffCallback = object : DiffUtil.ItemCallback<Movie>() {
         oldItem == newItem
 }
 
-class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view)
+class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view), LayoutContainer {
+    override val containerView: View? = view
+
+    fun bind(item: Movie) {
+        releaseDateTV.text = formatDate(Date(item.releaseDate))
+        posterImgView.setImageURI(item.posterUrl_250p)
+        val indicationColor = when(item.indication) {
+            MetaScore.POSITIVE -> R.color.metaScorePositive
+            MetaScore.MIXED -> R.color.metaScoreMixed
+            MetaScore.NEGATIVE -> R.color.metaScoreNegative
+        }.let { colorRes ->
+            ContextCompat.getColor(containerView!!.context, colorRes)
+        }
+        itemContainer.setBackgroundColor(indicationColor)
+        scoreTV.text = item.score.toString()
+    }
+}
