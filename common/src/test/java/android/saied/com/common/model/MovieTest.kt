@@ -1,4 +1,4 @@
-package android.saied.com.filmcompass.model
+package android.saied.com.common.model
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test

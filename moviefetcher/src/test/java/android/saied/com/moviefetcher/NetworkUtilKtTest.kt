@@ -1,6 +1,5 @@
-package android.saied.com.filmcompass
+package android.saied.com.moviefetcher
 
-import android.saied.com.moviefetcher.fetchHtml
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.MockHttpResponse
