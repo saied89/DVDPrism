@@ -1,8 +1,43 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+}
 apply plugin: 'java-library'
 
 dependencies {
+    def ktor_version = '1.0.1'
+    def arrow_version = '0.8.1'
+    def coroutines_version = '1.0.1'
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api project(":common")
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    implementation 'org.jsoup:jsoup:1.11.3' // for parsing html
+    //ktor client
+    api "io.ktor:ktor-client-android:$ktor_version"
+    testApi "io.ktor:ktor-client-mock-jvm:$ktor_version" //for testing
+
+    //Arrow
+    api "io.arrow-kt:arrow-core:$arrow_version"
+
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.2'
+
 }
 
 sourceCompatibility = "8"
 targetCompatibility = "8"
+repositories {
+    mavenCentral()
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}

@@ -1,6 +1,6 @@
 package android.saied.com.filmcompass
 
-import android.saied.com.filmcompass.Network.MovieFetcher
+import android.saied.com.moviefetcher.MovieFetcher
 import io.ktor.client.HttpClient
 
 class MovieRepository(private val httpClient: HttpClient = HttpClient()) {

@@ -1,5 +1,6 @@
 package android.saied.com.filmcompass.Network
 
+import android.saied.com.moviefetcher.MovieFetcher
 import arrow.core.Try
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine

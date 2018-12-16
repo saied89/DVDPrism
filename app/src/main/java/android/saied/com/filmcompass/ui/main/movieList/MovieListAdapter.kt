@@ -1,9 +1,9 @@
 package android.saied.com.filmcompass.ui.main.movieList
 
+import android.saied.com.common.model.MetaScore
+import android.saied.com.common.model.Movie
 import android.saied.com.filmcompass.R
-import android.saied.com.filmcompass.model.MetaScore
-import android.saied.com.filmcompass.model.Movie
-import android.saied.com.filmcompass.parsing.formatDate
+import android.saied.com.moviefetcher.formatDate
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

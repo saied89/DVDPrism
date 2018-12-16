@@ -1,12 +1,12 @@
 package android.saied.com.filmcompass
 
+import android.saied.com.moviefetcher.fetchHtml
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.MockHttpResponse
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.io.ByteReadChannel
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 /*
 * $ stands for . in function name

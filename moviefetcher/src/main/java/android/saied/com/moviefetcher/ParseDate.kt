@@ -1,4 +1,4 @@
-package android.saied.com.filmcompass.parsing
+package android.saied.com.moviefetcher
 
 import java.text.DateFormat
 import java.text.SimpleDateFormat

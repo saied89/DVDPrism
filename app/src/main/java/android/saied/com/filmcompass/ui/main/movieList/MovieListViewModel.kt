@@ -1,7 +1,7 @@
 package android.saied.com.filmcompass.ui.main.movieList
 
+import android.saied.com.common.model.Movie
 import android.saied.com.filmcompass.MovieRepository
-import android.saied.com.filmcompass.model.Movie
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import arrow.core.Try

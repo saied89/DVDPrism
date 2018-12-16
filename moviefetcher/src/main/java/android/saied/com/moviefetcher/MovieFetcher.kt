@@ -1,8 +1,6 @@
-package android.saied.com.filmcompass.Network
+package android.saied.com.moviefetcher
 
-import android.saied.com.filmcompass.fetchHtml
-import android.saied.com.filmcompass.model.Movie
-import android.saied.com.filmcompass.parsing.parseDate
+import android.saied.com.common.model.Movie
 import arrow.core.Try
 import io.ktor.client.HttpClient
 import kotlinx.coroutines.Dispatchers

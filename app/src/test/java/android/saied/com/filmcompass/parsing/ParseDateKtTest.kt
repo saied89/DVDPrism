@@ -1,5 +1,7 @@
 package android.saied.com.filmcompass.parsing
 
+import android.saied.com.moviefetcher.formatDate
+import android.saied.com.moviefetcher.parseDate
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

@@ -1,6 +1,5 @@
-package android.saied.com.filmcompass.model
+package android.saied.com.common.model
 
-import android.graphics.Color
 import java.lang.IllegalArgumentException
 
 data class Movie(

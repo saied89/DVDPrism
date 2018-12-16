@@ -1,1 +1,1 @@
-include ':app', ':moviefetcher'
+include ':app', ':moviefetcher', ':common'
