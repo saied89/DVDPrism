@@ -16,13 +16,18 @@ private const val MOVIE_EXTRA_TAG = "MOVIE_EXTRA_TAG"
 
 class DetailActivity : AppCompatActivity() {
 
-    val movie: Movie by lazy {
+    private val movie: Movie by lazy {
         intent.extras!![MOVIE_EXTRA_TAG] as Movie
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+        setSupportActionBar(toolbar)
+        supportActionBar?.run {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+        }
         posterImgView.setImageURI(movie.posterUrl_250p)
     }
 

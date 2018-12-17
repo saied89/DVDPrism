@@ -6,13 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.movieDetail.DetailActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintTop_toTopOf="parent"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"/>
+
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/posterImgView"
         android:transitionName="poster"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:viewAspectRatio="0.662"
+        android:layout_margin="8dp"
+        android:elevation="4dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintEnd_toStartOf="@id/guideline"/>
 
     <androidx.constraintlayout.widget.Guideline

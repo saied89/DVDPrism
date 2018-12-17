@@ -17,8 +17,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieListFragment : Fragment() {
 
-    val viewModel: MovieListViewModel by viewModel()
-    val adapter: MovieListAdapter by lazy { MovieListAdapter() }
+    private val viewModel: MovieListViewModel by viewModel()
+    private val adapter: MovieListAdapter by lazy { MovieListAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
