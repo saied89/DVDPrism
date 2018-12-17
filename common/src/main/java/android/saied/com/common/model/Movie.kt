@@ -1,5 +1,6 @@
 package android.saied.com.common.model
 
+import java.io.Serializable
 import java.lang.IllegalArgumentException
 
 data class Movie(
@@ -7,7 +8,7 @@ data class Movie(
     val releaseDate: Long,
     val posterUrl_89p: String,
     val score: Int
-) {
+) : Serializable {
     val indication: MetaScore =
         when (score) {
             in 61..100 -> MetaScore.POSITIVE
