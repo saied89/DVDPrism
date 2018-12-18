@@ -6,8 +6,7 @@ import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.response
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 internal class MovieFetcherTest {
@@ -29,7 +28,8 @@ internal class MovieFetcherTest {
 
             assert(movies.isSuccess())
             assertEquals(100, (movies as Try.Success).value.size)
-
+            assertNull(movies.value[0].userScore)
+            assertEquals(60, movies.value[1].userScore)
         }
     }
 

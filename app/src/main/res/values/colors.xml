@@ -3,9 +3,10 @@
     <color name="colorPrimary">#040349</color>
     <color name="colorPrimaryDark">#030233</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="metaScorePositive">#f6c3</color>
-    <color name="metaScoreMixed">#fc3</color>
-    <color name="metaScoreNegative">#f00</color>
+    <color name="scorePositive">#F6C3</color>
+    <color name="scoreMixed">#FC3</color>
+    <color name="scoreNegative">#F00</color>
+    <color name="scoreTBD">#CCC</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
 </resources>
