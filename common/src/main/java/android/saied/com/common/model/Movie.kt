@@ -7,14 +7,14 @@ data class Movie(
     val name: String,
     val releaseDate: Long,
     val posterUrl_89p: String,
-    val score: Int
+    val metaScore: Int
 ) : Serializable {
     val indication: MetaScore =
-        when (score) {
+        when (metaScore) {
             in 61..100 -> MetaScore.POSITIVE
             in 40..60 -> MetaScore.MIXED
             in 0..39 -> MetaScore.NEGATIVE
-            else -> throw IllegalArgumentException("Metascore outside the range:$score")
+            else -> throw IllegalArgumentException("Metascore outside the range:$metaScore")
         }
 
     val posterUrl: String = posterUrl_89p.split('-').first()

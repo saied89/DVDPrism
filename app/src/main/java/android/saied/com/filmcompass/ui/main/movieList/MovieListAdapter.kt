@@ -1,7 +1,5 @@
 package android.saied.com.filmcompass.ui.main.movieList
 
-import android.app.Activity
-import android.content.Intent
 import android.saied.com.common.model.MetaScore
 import android.saied.com.common.model.Movie
 import android.saied.com.filmcompass.R
@@ -10,9 +8,7 @@ import android.saied.com.moviefetcher.formatDate
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
-import androidx.core.util.Pair
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -59,7 +55,7 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view), LayoutContain
             ContextCompat.getColor(containerView!!.context, colorRes)
         }
         itemContainer.setBackgroundColor(indicationColor)
-        scoreTV.text = item.score.toString()
+        scoreTV.text = item.metaScore.toString()
         containerView?.setOnClickListener {
             DetailActivity.launchDetailActivityWithTransition(it.context, item, posterImgView)
         }
