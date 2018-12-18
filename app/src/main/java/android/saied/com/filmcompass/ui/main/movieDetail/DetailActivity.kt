@@ -28,6 +28,9 @@ class DetailActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
         }
+        this.title = movie.name
+        titleTV.text = movie.name
+
         posterImgView.setImageURI(movie.posterUrl_250p)
     }
 
