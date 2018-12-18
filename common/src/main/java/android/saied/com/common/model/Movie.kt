@@ -1,7 +1,6 @@
 package android.saied.com.common.model
 
 import java.io.Serializable
-import java.lang.IllegalArgumentException
 
 data class Movie(
     val name: String,

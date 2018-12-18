@@ -3,11 +3,11 @@ package android.saied.com.filmcompass.ui.main.movieDetail
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.saied.com.common.model.Movie
 import android.saied.com.filmcompass.R
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import kotlinx.android.synthetic.main.activity_detail.*

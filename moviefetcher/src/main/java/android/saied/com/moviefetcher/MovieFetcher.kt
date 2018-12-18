@@ -6,7 +6,6 @@ import io.ktor.client.HttpClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
-import java.lang.Exception
 
 private const val rottenTomatoUrl: String = "https://www.rottentomatoes.com/browse/dvd-streaming-new/"
 private const val metacriticUrl: String = "https://www.metacritic.com/browse/dvds/release-date/new-releases/date"

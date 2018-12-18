@@ -1,14 +1,14 @@
 package android.saied.com.filmcompass.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.saied.com.filmcompass.R
 import android.view.View
-import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import com.facebook.drawee.view.SimpleDraweeView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.SharedElementCallback
+import com.facebook.drawee.view.SimpleDraweeView
+import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainActivity : AppCompatActivity() {

@@ -3,11 +3,10 @@ package android.saied.com.filmcompass.ui.main.movieList
 
 import android.os.Bundle
 import android.saied.com.common.model.Movie
+import android.saied.com.filmcompass.R
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-import android.saied.com.filmcompass.R
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
