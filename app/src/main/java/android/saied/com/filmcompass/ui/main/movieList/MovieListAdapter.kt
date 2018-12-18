@@ -4,6 +4,8 @@ import android.saied.com.common.model.ScoreIndication
 import android.saied.com.common.model.Movie
 import android.saied.com.filmcompass.R
 import android.saied.com.filmcompass.ui.main.movieDetail.DetailActivity
+import android.saied.com.filmcompass.utils.getColor
+import android.saied.com.filmcompass.utils.metaScoreString
 import android.saied.com.moviefetcher.formatDate
 import android.view.LayoutInflater
 import android.view.View
@@ -47,17 +49,10 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view), LayoutContain
     fun bind(item: Movie) {
         releaseDateTV.text = formatDate(Date(item.releaseDate))
         posterImgView.setImageURI(item.posterUrl_250p)
-        val indicationColor = when(item.metaIndication) {
-            ScoreIndication.POSITIVE -> R.color.scorePositive
-            ScoreIndication.MIXED -> R.color.scoreMixed
-            ScoreIndication.NEGATIVE -> R.color.scoreNegative
-            ScoreIndication.TBD -> R.color.scoreTBD
-        }.let { colorRes ->
-            ContextCompat.getColor(containerView!!.context, colorRes)
-        }
+        val indicationColor = item.metaIndication.getColor(containerView!!.context)
         itemContainer.setBackgroundColor(indicationColor)
-        scoreTV.text = if(item.metaScore != null) item.metaScore.toString() else "TBD"
-        containerView?.setOnClickListener {
+        scoreTV.text = item.metaScoreString
+        containerView.setOnClickListener {
             DetailActivity.launchDetailActivityWithTransition(it.context, item, posterImgView)
         }
     }

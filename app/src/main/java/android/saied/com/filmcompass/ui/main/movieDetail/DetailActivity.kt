@@ -6,6 +6,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.saied.com.common.model.Movie
 import android.saied.com.filmcompass.R
+import android.saied.com.filmcompass.utils.getColor
+import android.saied.com.filmcompass.utils.getUserScoreBG
+import android.saied.com.filmcompass.utils.metaScoreString
+import android.saied.com.filmcompass.utils.userScoreString
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
@@ -30,8 +34,12 @@ class DetailActivity : AppCompatActivity() {
         }
         this.title = movie.name
         titleTV.text = movie.name
-
+        descriptionTV.text = movie.description
         posterImgView.setImageURI(movie.posterUrl_250p)
+        metaScoreTV.text = movie.metaScoreString
+        metaScoreTV.setBackgroundColor(movie.metaIndication.getColor(this))
+        userScoreTV.text = movie.userScoreString
+        userScoreTV.background = movie.userIndication.getUserScoreBG(this)
     }
 
     companion object {

@@ -72,6 +72,7 @@
             app:cardCornerRadius="4dp"
             app:cardBackgroundColor="@color/scoreMixed">
             <TextView
+                android:id="@+id/metaScoreTV"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
                 android:textColor="@color/white"
@@ -113,31 +114,16 @@
             android:background="@drawable/cicle_mixed"/>
     </LinearLayout>
 
-    <!--<TextView-->
-        <!--android:id="@+id/userScoreTagTV"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="16dp"-->
-        <!--android:text="Userscore:"-->
-        <!--android:textStyle="bold"-->
-        <!--app:layout_constraintEnd_toStartOf="@id/metaScoreCardView"-->
-        <!--app:layout_constraintStart_toEndOf="@id/guideline"-->
-        <!--app:layout_constraintTop_toBottomOf="@id/metaScoreTagTV" />-->
-
-    <!--<androidx.cardview.widget.CardView-->
-        <!--android:id="@+id/userScoreCardView"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_margin="8dp"-->
-        <!--android:background="#6c3"-->
-        <!--app:layout_constraintBottom_toBottomOf="@id/userScoreTagTV"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="@id/userScoreTagTV">-->
-
-        <!--<TextView-->
-            <!--android:layout_width="30dp"-->
-            <!--android:layout_height="30dp" />-->
-    <!--</androidx.cardview.widget.CardView>-->
+    <TextView
+        android:id="@+id/descriptionTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/titleTV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -146,14 +132,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
-
-    <!--<androidx.constraintlayout.widget.Barrier-->
-        <!--android:id="@+id/barrier"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--app:barrierDirection="bottom"-->
-        <!--app:constraint_referenced_ids="metaScoreTagTV,metaScoreCardView"-->
-        <!--/>-->
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

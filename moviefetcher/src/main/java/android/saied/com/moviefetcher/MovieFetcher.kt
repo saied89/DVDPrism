@@ -67,7 +67,7 @@ sealed class MovieFetcher(protected val url: String, protected val httpClient: H
                         ?.let {
                             (it * 10).toInt()
                         }
-                    val description = ""
+                    val description = element.select(".summary").html()
                     Movie(title, date, posterUrl, metaScore, userScore, description)
                 }
 }
