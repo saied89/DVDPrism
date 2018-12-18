@@ -25,7 +25,7 @@ sealed class MovieFetcher(protected val url: String, protected val httpClient: H
                         is Try.Failure -> throw res.exception
                     }
                 Try.just(parseHtml(htmlStr))
-            } catch (exp: Exception) {
+            } catch (exp: IllegalStateException) {
                 Try.raise(exp)
             }
         }
@@ -57,7 +57,7 @@ sealed class MovieFetcher(protected val url: String, protected val httpClient: H
                     val dateStr = element.select(".clamp-summary-wrap .clamp-details span:nth-child(2)").html()
                     val date = parseDate(dateStr).time
                     val posterUrl = element.select(".clamp-image-wrap a img").first().absUrl("src")
-                    val metaScore = element.select(".clamp-summary-wrap .clamp-score-wrap a div")
+                    val metaScore = element.select(".clamp-summary-wrap .browse-score-clamp .clamp-metascore a div")
                         .first()
                         .html()
                         .toInt()
