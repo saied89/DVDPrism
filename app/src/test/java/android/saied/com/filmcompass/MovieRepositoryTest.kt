@@ -19,7 +19,7 @@ internal class MovieRepositoryTest {
                 HttpStatusCode.Unauthorized
             )
         }
-        val movieRepository = MovieRepository(HttpClient(httpMockEngine))
+        val movieRepository = MovieRepository()
     }
 
 }
