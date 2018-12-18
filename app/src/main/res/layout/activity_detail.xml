@@ -10,23 +10,125 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:elevation="4dp"
         android:background="@color/colorPrimary"
-        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/posterImgView"
-        android:transitionName="poster"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:viewAspectRatio="0.662"
         android:layout_margin="8dp"
         android:elevation="4dp"
+        android:transitionName="poster"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintEnd_toStartOf="@id/guideline"/>
+        app:viewAspectRatio="0.662" />
+
+    <TextView
+        android:id="@+id/titleTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Title"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/posterImgView" />
+
+    <LinearLayout
+        android:id="@+id/metaScoreWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent">
+        <TextView
+            android:id="@+id/metaScoreTagTV"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Metascore:"
+            android:textStyle="bold"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="8dp"
+            />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/metaScoreCardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_gravity="center_vertical"
+            android:background="#6c3">
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/metaScoreWrapper"
+        app:layout_constraintEnd_toEndOf="parent">
+        <TextView
+            android:id="@+id/userScoreTagTV"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Userscore:"
+            android:textStyle="bold"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="8dp"
+            />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/userScoreCardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_gravity="center_vertical"
+            android:background="#6c3">
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <!--<TextView-->
+        <!--android:id="@+id/userScoreTagTV"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:text="Userscore:"-->
+        <!--android:textStyle="bold"-->
+        <!--app:layout_constraintEnd_toStartOf="@id/metaScoreCardView"-->
+        <!--app:layout_constraintStart_toEndOf="@id/guideline"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/metaScoreTagTV" />-->
+
+    <!--<androidx.cardview.widget.CardView-->
+        <!--android:id="@+id/userScoreCardView"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="8dp"-->
+        <!--android:background="#6c3"-->
+        <!--app:layout_constraintBottom_toBottomOf="@id/userScoreTagTV"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="@id/userScoreTagTV">-->
+
+        <!--<TextView-->
+            <!--android:layout_width="30dp"-->
+            <!--android:layout_height="30dp" />-->
+    <!--</androidx.cardview.widget.CardView>-->
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -34,5 +136,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
+
+    <!--<androidx.constraintlayout.widget.Barrier-->
+        <!--android:id="@+id/barrier"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:barrierDirection="bottom"-->
+        <!--app:constraint_referenced_ids="metaScoreTagTV,metaScoreCardView"-->
+        <!--/>-->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
