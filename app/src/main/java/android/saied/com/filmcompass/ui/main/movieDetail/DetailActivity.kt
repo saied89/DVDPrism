@@ -43,10 +43,14 @@ class DetailActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun launchDetailActivityWithTransition(context: Context, movie: Movie, view: View) {
+        fun launchDetailActivityWithTransition(context: Context, movie: Movie, posterView: View, metascoreView: View) {
             val intent = Intent(context, DetailActivity::class.java)
             intent.putExtra(MOVIE_EXTRA_TAG, movie)
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(context as Activity, Pair(view, "poster"))
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                context as Activity,
+                Pair(posterView, "poster"),
+                Pair(metascoreView, "metascore")
+            )
             context.startActivity(intent, options.toBundle())
         }
     }

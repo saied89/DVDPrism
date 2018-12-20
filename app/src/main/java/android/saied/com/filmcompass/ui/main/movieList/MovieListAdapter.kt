@@ -53,7 +53,7 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view), LayoutContain
         itemContainer.setBackgroundColor(indicationColor)
         scoreTV.text = item.metaScoreString
         containerView.setOnClickListener {
-            DetailActivity.launchDetailActivityWithTransition(it.context, item, posterImgView)
+            DetailActivity.launchDetailActivityWithTransition(it.context, item, posterImgView, scoreTV)
         }
     }
 }
