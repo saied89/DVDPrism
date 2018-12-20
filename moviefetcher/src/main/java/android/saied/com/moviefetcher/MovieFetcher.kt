@@ -60,7 +60,15 @@ sealed class MovieFetcher(protected val url: String, protected val httpClient: H
                         .first()
                         .html()
                         .toInt()
-                    Movie(title, date, posterUrl, metaScore)
+                    val userScore = element.select(".clamp-summary-wrap .browse-score-clamp .clamp-userscore a div")
+                        .first()
+                        .html()
+                        .toFloatOrNull()
+                        ?.let {
+                            (it * 10).toInt()
+                        }
+                    val description = element.select(".summary").html()
+                    Movie(title, date, posterUrl, metaScore, userScore, description)
                 }
 }
 
