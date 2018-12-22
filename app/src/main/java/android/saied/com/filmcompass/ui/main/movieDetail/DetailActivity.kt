@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.ColorDrawable
-import android.net.Uri
 import android.os.Bundle
 import android.saied.com.common.model.Movie
 import android.saied.com.filmcompass.R
@@ -18,11 +17,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.palette.graphics.Palette
+import com.facebook.common.executors.CallerThreadExecutor
 import com.facebook.common.references.CloseableReference
+import com.facebook.datasource.DataSource
+import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.drawee.view.SimpleDraweeView
-import com.facebook.imagepipeline.bitmaps.PlatformBitmapFactory
-import com.facebook.imagepipeline.request.BasePostprocessor
-import com.facebook.imagepipeline.request.ImageRequestBuilder
+import com.facebook.imagepipeline.datasource.BaseBitmapDataSubscriber
+import com.facebook.imagepipeline.image.CloseableImage
+import com.facebook.imagepipeline.request.ImageRequest
 import kotlinx.android.synthetic.main.activity_detail.*
 
 private const val MOVIE_EXTRA_TAG = "MOVIE_EXTRA_TAG"
@@ -40,72 +42,43 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.run {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
+            setDisplayShowTitleEnabled(false)
         }
-        this.title = movie.name
         titleTV.text = movie.name
         descriptionTV.text = movie.description
         metaScoreTV.text = movie.metaScoreString
         metaScoreTV.setBackgroundColor(movie.metaIndication.getColor(this))
         userScoreTV.text = movie.userScoreString
         userScoreTV.background = movie.userIndication.getUserScoreBG(this)
-        setUpPoster(posterImgView, movie.posterUrl_250p)
+        posterImgView.setImageURI(movie.posterUrl_250p)
+        setUpPalette(movie.posterUrl_250p)
     }
 
-    private fun setUpPoster(target: SimpleDraweeView, uri: String) {
-//        val controllerListener = object : BaseControllerListener<ImageInfo>(){
-//
-//            override fun onFinalImageSet(id: String?, imageInfo: ImageInfo?, animatable: Animatable?) {
-//                target.post {
-//                    Palette.from(target.drawable.toBitmap())
-//                        .generate()
-//                        .lightMutedSwatch
-//                        ?.rgb
-//                        ?.let {
-//                            toolbar.background = ColorDrawable(it)
-//                        }
-//                }
-//            }
-//
-//        }
-
-        val imageRequestBuilder = ImageRequestBuilder.newBuilderWithSource(Uri.parse(uri))
-
-        imageRequestBuilder.postprocessor = object : BasePostprocessor() {
-
-            override fun process(
-                sourceBitmap: Bitmap?,
-                bitmapFactory: PlatformBitmapFactory?
-            ): CloseableReference<Bitmap> {
-                val bitmapRef =
-                    if(sourceBitmap != null && bitmapFactory != null)
-                        bitmapFactory.createBitmap(sourceBitmap.width, sourceBitmap.height)
-                    else null
-
-                return try {
-                    val bitmap = bitmapRef?.get()
-                    target.post {
-                        Palette.from(bitmap!!)
-                            .generate()
-                            .lightMutedSwatch
-                            ?.rgb
-                            ?.let {
-                                toolbar.background = ColorDrawable(it)
-                            }
-                    }
-                    CloseableReference.cloneOrNull(bitmapRef)!!
-                } finally {
-                    CloseableReference.closeSafely(bitmapRef)
-                }
+    private fun setUpPalette(uri: String) {
+        val imagePipeline = Fresco.getImagePipeline()
+        val dataSource = imagePipeline.fetchDecodedImage(ImageRequest.fromUri(uri), this)
+        dataSource.subscribe(object : BaseBitmapDataSubscriber() {
+            override fun onFailureImpl(dataSource: DataSource<CloseableReference<CloseableImage>>?) {
+                dataSource?.close()
             }
-        }
 
-        val imageRequest = imageRequestBuilder.build()
-//        val controller = Fresco.newDraweeControllerBuilder()
-//            .setImageRequest(imageRequest)
-//            .setControllerListener(controllerListener)
-//            .build()
-        target.setImageRequest(imageRequest)
-//        posterImgView.controller = controller
+            override fun onNewResultImpl(bitmap: Bitmap?) {
+                val palette = Palette.from(bitmap!!).generate()
+                palette
+                    .lightMutedSwatch
+                    ?.rgb
+                    ?.let {
+                        toolbar.background = ColorDrawable(it)
+                    }
+                palette
+                    .darkMutedSwatch
+                    ?.rgb
+                    ?.let {
+                        window.statusBarColor = it
+                    }
+                dataSource.close()
+            }
+        }, CallerThreadExecutor.getInstance())
     }
 
     companion object {
