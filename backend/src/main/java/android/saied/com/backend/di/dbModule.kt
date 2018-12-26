@@ -1,5 +1,7 @@
-package android.saied.com.backend
+package android.saied.com.backend.di
 
+import android.saied.com.backend.MovieRepository
+import android.saied.com.backend.MovieRepositoryImp
 import android.saied.com.common.model.Movie
 import com.mongodb.client.MongoCollection
 import org.koin.dsl.module.module
