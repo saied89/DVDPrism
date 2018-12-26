@@ -4,10 +4,22 @@ plugins {
 apply plugin: 'java-library'
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    implementation project(":moviefetcher")
+    def junit5_version = '5.3.1'
+    def koin_version = '1.0.1'
+    
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+    implementation project(':moviefetcher')
+    compile 'org.litote.kmongo:kmongo:3.8.3'
 
+    //// Koin
+    // Koin for Kotlin
+    implementation "org.koin:koin-core:$koin_version"
+    // Koin for Unit tests
+    testImplementation "org.koin:koin-test:$koin_version"
+    ////
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5_version"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5_version"
 }
 
 sourceCompatibility = "8"
