@@ -39,6 +39,17 @@ dependencies {
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5_version"
 }
 
+task customFatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': "android.saied.com.backend.MainKt"
+    }
+    baseName = 'all-in-one-jar'
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    with jar
+}
+
 sourceCompatibility = "8"
 targetCompatibility = "8"
 
