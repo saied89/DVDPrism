@@ -8,3 +8,7 @@
 GET http://127.0.0.1:8080
 
 ###
+
+GET https://www.metacritic.com/browse/dvds/release-date/new-releases/date
+
+###
