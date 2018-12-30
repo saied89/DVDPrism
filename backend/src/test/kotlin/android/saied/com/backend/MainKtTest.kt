@@ -9,18 +9,20 @@ import io.ktor.server.testing.handleRequest
 import io.ktor.server.testing.withTestApplication
 import org.junit.jupiter.api.Test
 
+val dummyMovie get() = Movie("saied", 0, "", 0, 0, "")
+
 internal class MainKtTest {
     @Test
     fun `test root`() {
-        val expectedObject = Movie("saied", 0, "", 0, 0, "")
         withTestApplication({ module() }) {
             handleRequest(HttpMethod.Get, "/").apply {
                 kotlin.test.assertEquals(HttpStatusCode.OK, response.status())
-                kotlin.test.assertEquals(expectedObject, parseMovie(response.content)!!)
+                kotlin.test.assertEquals(dummyMovie, parseMovie(response.content)!!)
             }
         }
     }
 
     fun Movie.getJson(): String = ObjectMapper().registerModule(KotlinModule()).writeValueAsString(this)
-    fun parseMovie(jsonStr: String?): Movie? = ObjectMapper().registerModule(KotlinModule()).readValue(jsonStr, Movie::class.java)
+    fun parseMovie(jsonStr: String?): Movie? =
+        ObjectMapper().registerModule(KotlinModule()).readValue(jsonStr, Movie::class.java)
 }
