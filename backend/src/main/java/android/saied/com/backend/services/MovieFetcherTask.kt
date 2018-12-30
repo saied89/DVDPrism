@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.slf4j.LoggerFactory
+import java.util.*
 import kotlin.concurrent.fixedRateTimer
 
 class MovieFetcherTask(
@@ -18,6 +19,8 @@ class MovieFetcherTask(
 
     private val fetchJob = Job()
     private val serviceScope = CoroutineScope(fetchJob)
+
+    var timer: Timer? = null
 
     private suspend fun fetchMovies() {
         val moviesResult = movieFetcher.fetchMovies()
@@ -33,12 +36,12 @@ class MovieFetcherTask(
     }
 
     fun initRepeatingTask(period: Long = 120 * 60 * 1000) { //every two hours
-        fixedRateTimer("movieFetcher", initialDelay = 0, period = period) {
+        timer?.cancel() //in case another task is already running2
+        timer = fixedRateTimer("movieFetcher", initialDelay = 0, period = period) {
             serviceScope.launch {
                 logFetchTaskStart()
                 fetchMovies()
             }
-
         }
     }
 
