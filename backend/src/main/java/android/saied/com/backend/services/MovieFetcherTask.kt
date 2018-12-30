@@ -32,7 +32,7 @@ class MovieFetcherTask(
         }
     }
 
-    fun initRepeatingTask(period: Long = 120 * 60 * 1000) {
+    fun initRepeatingTask(period: Long = 120 * 60 * 1000) { //every two hours
         fixedRateTimer("movieFetcher", initialDelay = 0, period = period) {
             serviceScope.launch {
                 logFetchTaskStart()
