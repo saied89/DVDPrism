@@ -2,6 +2,7 @@ package android.saied.com.backend
 
 import android.saied.com.backend.di.appModule
 import android.saied.com.backend.di.dbModule
+import android.saied.com.backend.di.networkModule
 import android.saied.com.backend.services.MovieFetcherTask
 import com.fasterxml.jackson.databind.SerializationFeature
 import io.ktor.application.Application
@@ -19,7 +20,7 @@ import org.koin.ktor.ext.inject
 import org.koin.standalone.StandAloneContext.startKoin
 
 fun main(args: Array<String>){
-    startKoin(listOf(dbModule, appModule))
+    startKoin(listOf(dbModule, appModule, networkModule))
     EngineMain.main(args)
 }
 

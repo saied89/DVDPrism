@@ -10,12 +10,13 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api project(":common")
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
     implementation 'org.jsoup:jsoup:1.11.3' // for parsing html
     //ktor client
-    api "io.ktor:ktor-client-android:$ktor_version"
     testApi "io.ktor:ktor-client-mock-jvm:$ktor_version" //for testing
+    api "io.ktor:ktor-client-okhttp:$ktor_version"
+    api 'com.squareup.okhttp3:logging-interceptor:3.11.0'
 
     //Arrow
     api "io.arrow-kt:arrow-core:$arrow_version"
