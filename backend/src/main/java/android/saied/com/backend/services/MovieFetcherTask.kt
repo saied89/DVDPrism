@@ -3,11 +3,7 @@ package android.saied.com.backend.services
 import android.saied.com.backend.MovieRepository
 import android.saied.com.moviefetcher.MovieFetcher
 import arrow.core.Try
-import arrow.core.getOrElse
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import org.slf4j.LoggerFactory
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
