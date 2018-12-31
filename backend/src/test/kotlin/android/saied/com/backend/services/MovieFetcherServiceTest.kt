@@ -1,5 +1,6 @@
 package android.saied.com.backend.services
 
+import android.saied.com.backend.task.MovieFetcherTask
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 import org.koin.standalone.inject

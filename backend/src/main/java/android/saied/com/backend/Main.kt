@@ -3,7 +3,7 @@ package android.saied.com.backend
 import android.saied.com.backend.di.appModule
 import android.saied.com.backend.di.dbModule
 import android.saied.com.backend.di.networkModule
-import android.saied.com.backend.services.MovieFetcherTask
+import android.saied.com.backend.task.MovieFetcherTask
 import com.fasterxml.jackson.databind.SerializationFeature
 import io.ktor.application.Application
 import io.ktor.application.call

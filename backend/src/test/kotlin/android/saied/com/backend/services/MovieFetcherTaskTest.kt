@@ -1,6 +1,7 @@
 package android.saied.com.backend.services
 
 import android.saied.com.backend.MovieRepository
+import android.saied.com.backend.task.MovieFetcherTask
 import android.saied.com.moviefetcher.MovieFetcher
 import arrow.core.Try
 import io.mockk.*
