@@ -24,7 +24,7 @@ sealed class MovieFetcher(protected val url: String, protected val httpClient: H
                         is Try.Failure -> throw res.exception
                     }
                 Try.just(parseHtml(htmlStr))
-            } catch (exp: IllegalStateException) {
+            } catch (exp: Exception) {
                 Try.raise(exp)
             }
         }
