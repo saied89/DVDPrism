@@ -50,16 +50,15 @@ jar {
     }
 }
 
-//task customFatJar(type: Jar) {
-//    manifest {
-//        attributes 'Main-Class': "android.saied.com.backend.MainKt"
-//    }
-//    baseName = 'all-in-one-jar'
-//    from {
-//        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-//    }
-//    with jar
-//}
+//Display test results in gradle log. 
+test {
+    useJUnitPlatform()
+    
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+    }
+}
 
 sourceCompatibility = "8"
 targetCompatibility = "8"
