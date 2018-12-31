@@ -41,6 +41,19 @@ internal class MovieRepositoryImpTest : KoinTest {
         assertEquals(movie2, res[1])
     }
 
+    @Test
+    fun `bulk insert continues after duplicate key`() {
+        val movie1 = dummyMovie
+        val movie2 = dummyMovie
+        val movie4 = dummyMovie
+        val movie3 = movie2.copy(name = "title2")
+
+        movieRepository.saveMovies(listOf(movie1, movie2, movie3, movie4))
+
+        val res = movieRepository.getMovies()
+        assertEquals(2, res.size)
+    }
+
     //
 //    @Test
 //    fun `getInfoLessMovies returns only infoless movies`() {
