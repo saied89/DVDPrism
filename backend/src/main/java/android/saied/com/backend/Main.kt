@@ -16,6 +16,7 @@ import io.ktor.response.respond
 import io.ktor.routing.get
 import io.ktor.routing.routing
 import io.ktor.server.netty.EngineMain
+import org.koin.ktor.ext.get
 import org.koin.ktor.ext.inject
 import org.koin.standalone.StandAloneContext.startKoin
 
@@ -36,13 +37,14 @@ fun Application.module() {
         }
     }
 
-    val repository: MovieRepository by inject()
-    val fetcherService: MovieFetcherTask by inject()
+    val repository: MovieRepository = get()
+    val fetcherService: MovieFetcherTask = get()
     fetcherService.initRepeatingTask()
 
     routing {
         get("/") {
-            call.respond(repository.getMovies())
+            val movies = repository.getMovies()
+            call.respond(movies)
         }
     }
 }
