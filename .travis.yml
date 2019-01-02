@@ -3,6 +3,15 @@ jdk: oraclejdk8
 
 sudo: false
 
+services: mongodb
+
+addons:
+  apt:
+    sources:
+      - mongodb-3.4-trusty
+    packages:
+      - mongodb-org-server
+
 env:
   global:
     - ANDROID_API=28
