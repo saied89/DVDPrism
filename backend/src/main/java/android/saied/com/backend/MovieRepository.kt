@@ -10,7 +10,7 @@ interface MovieRepository {
 
     fun saveMovies(movies: List<Movie>): Try<Unit>
 
-    fun getMovies(date: Date = Date(), page: Int = 0): List<Movie>
+    fun getMovies(): List<Movie>
 
 //    fun getInfoLessMovies(): List<Movie>
 

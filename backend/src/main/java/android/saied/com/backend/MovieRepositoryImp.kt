@@ -38,7 +38,7 @@ class MovieRepositoryImp(private val mongoCollection: MongoCollection<Movie>): M
 //        }
     }
 
-    override fun getMovies(date: Date, page: Int): List<Movie> =
+    override fun getMovies(): List<Movie> =
         mongoCollection.find().asSequence().toList()
 
 }
