@@ -31,6 +31,7 @@ dependencies {
     compile "io.ktor:ktor-client-json-jvm:$ktor_version"
     compile "io.ktor:ktor-client-logging-jvm:$ktor_version"
     testImplementation "io.ktor:ktor-client-mock-jvm:$ktor_version"
+    compile "io.ktor:ktor-client-jackson:$ktor_version"
     
 
     //// Koin
