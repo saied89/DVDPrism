@@ -20,7 +20,7 @@ import io.ktor.server.netty.EngineMain
 import org.koin.ktor.ext.get
 import org.koin.standalone.StandAloneContext.startKoin
 
-fun main(args: Array<String>){
+fun main(args: Array<String>) {
     startKoin(listOf(dbModule, appModule, networkModule, jsonModule))
     EngineMain.main(args)
 }
