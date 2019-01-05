@@ -6,9 +6,10 @@ data class Movie(
     val name: String,
     val releaseDate: Long,
     val posterUrl_89p: String,
-    val metaScore: Int?,
-    val userScore: Int?,
-    val description: String
+    val metaScore: Int?,    //Null means TBD
+    val userScore: Int?,    //Null means TBD
+    val description: String,
+    val omdbDetails: OmdbDetails? = null
 ) : Serializable {
     val metaIndication: ScoreIndication =
         indicationFromScore(metaScore)

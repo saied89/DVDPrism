@@ -2,6 +2,7 @@ package android.saied.com.backend
 
 import android.saied.com.backend.di.dbModule
 import android.saied.com.common.model.Movie
+import android.saied.com.common.model.OmdbDetails
 import com.mongodb.client.MongoCollection
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
@@ -9,19 +10,22 @@ import org.koin.standalone.StandAloneContext.startKoin
 import org.koin.standalone.StandAloneContext.stopKoin
 import org.koin.standalone.inject
 import org.koin.test.KoinTest
+import org.litote.kmongo.KMongo
 import org.litote.kmongo.deleteMany
+import org.litote.kmongo.getCollection
+
+val dummyOmdbDetails = OmdbDetails("x","x","x","x","x","x",
+    "x", "x", "x","x","x","x","x", listOf(),"x",
+    "x","x", "x","x","x","x","x","x","x","x")
+
+private const val DB_NAME = "TEST"
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-internal class MovieRepositoryImpTest : KoinTest {
+internal class MovieRepositoryImpTest {
 
 
-    private val movieTestCollection: MongoCollection<Movie> by inject()
-    private val movieRepository: MovieRepository by inject()
-
-    @BeforeAll
-    fun setup() {
-        startKoin(listOf(dbModule))
-    }
+    val movieTestCollection: MongoCollection<Movie> = KMongo.createClient().getDatabase(DB_NAME).getCollection()
+    val movieRepository: MovieRepository = MovieRepositoryImp(movieTestCollection)
 
     @BeforeEach
     fun cleanDB() {
@@ -30,7 +34,7 @@ internal class MovieRepositoryImpTest : KoinTest {
 
     @Test
     fun `save 2 movies to db and check them`() {
-        val movie1 = Movie("title1", 0L, "", 0, 0, "")
+        val movie1 = Movie("title1", 0L, "", 0, 0, "", null)
         val movie2 = movie1.copy(name = "title2")
 
         movieRepository.saveMovies(listOf(movie1, movie2))
@@ -52,6 +56,17 @@ internal class MovieRepositoryImpTest : KoinTest {
 
         val res = movieRepository.getMovies()
         assertEquals(2, res.size)
+    }
+
+    @Test
+    fun `is able to store a movie with omdbDetails`() {
+        val movie = dummyMovie.copy(omdbDetails = dummyOmdbDetails)
+
+        movieRepository.saveMovies(listOf(movie))
+
+        val res = movieRepository.getMovies()
+        assertEquals(1, res.size)
+        assertNotNull(res[0].omdbDetails)
     }
 
     //
@@ -85,10 +100,4 @@ internal class MovieRepositoryImpTest : KoinTest {
 //        val jsonText = javaClass.getResource("../api/OmdpSample.json").readText()
 //        return adapter.fromJson(jsonText)!!
 //    }
-
-    @AfterAll
-    fun tearDown() {
-        stopKoin()
-    }
-
 }

@@ -7,7 +7,6 @@ apply plugin: 'jacoco'
 dependencies {
     def junit5_version = '5.3.1'
     def koin_version = '1.0.2'
-    def ktor_version = '1.1.1'
     def logback_version = '1.2.3'
     def mockK_version = '1.8.13.kotlin13'
     def mongo_version = "3.9.1"
@@ -30,7 +29,7 @@ dependencies {
     compile "io.ktor:ktor-jackson:$ktor_version"
     testCompile "io.ktor:ktor-server-tests:$ktor_version"
     compile "io.ktor:ktor-client-json-jvm:$ktor_version"
-    compile "io.ktor:ktor-client-jackson:$ktor_version"
+    compile "io.ktor:ktor-client-logging-jvm:$ktor_version"
     testImplementation "io.ktor:ktor-client-mock-jvm:$ktor_version"
     
 
@@ -44,10 +43,6 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5_version"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5_version"
     testImplementation "io.mockk:mockk:$mockK_version"
-}
-
-repositories {
-    maven { url "https://kotlin.bintray.com/kotlinx" }
 }
 
 

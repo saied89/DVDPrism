@@ -1,6 +1,7 @@
 package android.saied.com.backend.task
 
 import android.saied.com.backend.MovieRepository
+import android.saied.com.backend.fetcher.OmdbFetcher
 import android.saied.com.moviefetcher.MovieFetcher
 import arrow.core.Try
 import kotlinx.coroutines.*
@@ -10,7 +11,8 @@ import kotlin.concurrent.fixedRateTimer
 
 class MovieFetcherTask(
     private val repository: MovieRepository,
-    private val movieFetcher: MovieFetcher
+    private val movieFetcher: MovieFetcher,
+    private val omdbFetcher: OmdbFetcher
 ) {
 
     private val fetchJob = Job()
@@ -25,7 +27,14 @@ class MovieFetcherTask(
                 throw moviesResult.exception
             }
             is Try.Success -> {
-                repository.saveMovies(moviesResult.value)
+                val moviesWithDetails = moviesResult.value.map { movie ->
+                    val detailsTry = omdbFetcher.getOmdbDetails(movie.name)
+                    if(detailsTry is Try.Success)
+                        movie.copy(omdbDetails = detailsTry.value)
+                    else
+                        movie
+                }
+                repository.saveMovies(moviesWithDetails)
                 logFetchTaskSuccess()
             }
         }

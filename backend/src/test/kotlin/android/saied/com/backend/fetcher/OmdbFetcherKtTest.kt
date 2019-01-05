@@ -48,7 +48,7 @@ internal class OmdbFetcherKtTest {
         runBlocking {
             val res = subject.getOmdbDetails("test")
             assert(res is Try.Success)
-            assertEquals("1975", (res as Success).value.Year)
+            assertEquals("1975", (res as Success).value.year)
         }
     }
 

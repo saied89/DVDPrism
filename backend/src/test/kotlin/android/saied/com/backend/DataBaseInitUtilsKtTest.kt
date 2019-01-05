@@ -16,13 +16,12 @@ private const val DB_NAME = "TEST"
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class DataBaseInitUtilsKtTest {
 
-    var movieTestCollection: MongoCollection<Movie> = KMongo.createClient().getDatabase(DB_NAME).getCollection()
-    var movieRepository: MovieRepository = MovieRepositoryImp(movieTestCollection)
+    val movieTestCollection: MongoCollection<Movie> = KMongo.createClient().getDatabase(DB_NAME).getCollection()
+    val movieRepository: MovieRepository = MovieRepositoryImp(movieTestCollection)
 
     @BeforeEach
     fun setupEach() {
         movieTestCollection.drop()
-        movieTestCollection = KMongo.createClient().getDatabase(DB_NAME).getCollection()
     }
 
     private fun insertDuplicate(): Try<Unit> {
