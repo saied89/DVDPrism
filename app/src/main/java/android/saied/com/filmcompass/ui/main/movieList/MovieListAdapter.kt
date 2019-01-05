@@ -1,16 +1,14 @@
 package android.saied.com.filmcompass.ui.main.movieList
 
-import android.saied.com.common.model.ScoreIndication
 import android.saied.com.common.model.Movie
+import android.saied.com.common.model.formatDate
 import android.saied.com.filmcompass.R
 import android.saied.com.filmcompass.ui.main.movieDetail.DetailActivity
 import android.saied.com.filmcompass.utils.getColor
 import android.saied.com.filmcompass.utils.metaScoreString
-import android.saied.com.moviefetcher.formatDate
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView

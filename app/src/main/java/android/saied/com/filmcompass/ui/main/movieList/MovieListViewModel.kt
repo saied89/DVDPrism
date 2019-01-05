@@ -20,9 +20,13 @@ class MovieListViewModel(private val movieRepo: MovieRepository) : ViewModel() {
         stateLiveData.value = MainState.Loading(stateLiveData.value?.movieList ?: emptyList())
         uiScope.launch {
             val res = movieRepo.fetchMovies().run {
-                when(this) {
-                    is Try.Success -> { MainState.Success(value) }
-                    is Try.Failure -> { MainState.Error(this.exception, stateLiveData.value!!.movieList) }
+                when (this) {
+                    is Try.Success -> {
+                        MainState.Success(value)
+                    }
+                    is Try.Failure -> {
+                        MainState.Error(this.exception, stateLiveData.value!!.movieList)
+                    }
                 }
             }
             stateLiveData.value = res

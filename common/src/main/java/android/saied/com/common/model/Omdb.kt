@@ -1,5 +1,6 @@
 package android.saied.com.common.model
 import com.fasterxml.jackson.annotation.JsonProperty
+import java.io.Serializable
 
 
 data class OmdbDetails(
@@ -53,11 +54,11 @@ data class OmdbDetails(
     val imdbRating: String,
     @JsonProperty("imdbVotes")
     val imdbVotes: String
-)
+) : Serializable
 
 data class Rating(
     @JsonProperty("Source")
     val source: String,
     @JsonProperty("Value")
     val value: String
-)
+) : Serializable

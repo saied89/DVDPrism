@@ -1,6 +1,7 @@
 package android.saied.com.filmcompass.di
 
 import android.saied.com.filmcompass.MovieRepository
+import android.saied.com.filmcompass.network.MovieFetcher
 import android.saied.com.filmcompass.ui.main.MainViewModel
 import android.saied.com.filmcompass.ui.main.movieList.MovieListViewModel
 import org.koin.androidx.viewmodel.ext.koin.viewModel
@@ -11,5 +12,9 @@ val appModule = module {
 
     viewModel { MovieListViewModel(get()) }
 
-    single { MovieRepository() }
+    single {
+        MovieRepository(
+            movieFetcher = MovieFetcher(get())
+        )
+    }
 }

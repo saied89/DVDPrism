@@ -1,10 +1,11 @@
 package android.saied.com.filmcompass
 
-import android.saied.com.moviefetcher.MovieFetcher
+import android.saied.com.filmcompass.network.MovieFetcher
 
-class MovieRepository() {
+
+class MovieRepository(private val movieFetcher: MovieFetcher) {
 
     suspend fun fetchMovies() =
-        MovieFetcher.MetacriticFetcher().fetchMovies()
+        movieFetcher.fetchMovies()
 
 }

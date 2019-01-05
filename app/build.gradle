@@ -35,6 +35,12 @@ android {
             }
         }
     }
+
+    packagingOptions {
+        pickFirst 'META-INF/kotlinx-io.kotlin_module'
+        pickFirst 'META-INF/atomicfu.kotlin_module'
+        pickFirst 'META-INF/kotlinx-coroutines-io.kotlin_module'
+    }
 }
 
 androidExtensions {
@@ -44,10 +50,10 @@ androidExtensions {
 dependencies {
     def lifecycle_version = '2.0.0'
     def koin_version = '1.0.2'
-    def coroutines_version = '1.0.1'
+    def mockK_version = '1.8.13.kotlin13'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(":moviefetcher")
+    implementation project(":common")
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha01'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
@@ -56,8 +62,10 @@ dependencies {
 
     implementation 'me.zhanghai.android.materialprogressbar:library:1.6.0'
 
+    //Λrrow
+    api "io.arrow-kt:arrow-core:$arrow_version"
+
     //coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
     implementation 'androidx.core:core-ktx:1.0.1'
@@ -65,6 +73,14 @@ dependencies {
     implementation 'com.facebook.fresco:fresco:1.11.0'
 
     implementation 'androidx.palette:palette:1.0.0'
+
+    implementation "io.ktor:ktor-client-json-jvm:$ktor_version"
+    implementation "io.ktor:ktor-client-logging-jvm:$ktor_version"
+    testImplementation "io.ktor:ktor-client-mock-jvm:$ktor_version"
+    implementation "io.ktor:ktor-client-jackson:$ktor_version"
+    implementation "io.ktor:ktor-client-okhttp:$ktor_version"
+
+    testImplementation "io.mockk:mockk:$mockK_version"
 
     ////Lifecycle
     // ViewModel and LiveData

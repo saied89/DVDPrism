@@ -1,4 +1,4 @@
-package android.saied.com.moviefetcher
+package android.saied.com.common.model
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
