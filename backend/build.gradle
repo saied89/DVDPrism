@@ -5,7 +5,6 @@ apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'jacoco'
 
 dependencies {
-    def junit5_version = '5.3.1'
     def koin_version = '1.0.2'
     def logback_version = '1.2.3'
     def mockK_version = '1.8.13.kotlin13'
