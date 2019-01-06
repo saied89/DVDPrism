@@ -8,21 +8,29 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.ReceivePipelineException
 import io.ktor.client.features.BadResponseStatusException
 import io.ktor.client.request.get
+import io.ktor.client.request.parameter
 import io.ktor.http.URLProtocol
 
 class OmdbFetcher(private val client: HttpClient, private val envReader: EnviromentPropertiesReader) {
 
     private val apiKey_queryLabel = "apikey"
     private val title_queryLabel = "t"
+    private val year_querryLabel = "y"
+    private val id_querryLabel = "i"
 
-    suspend fun getOmdbDetails(title: String): Try<OmdbDetails> =
+    suspend fun getOmdbDetails(title: String, year: Int): Try<OmdbDetails> =
         try {
             val res: OmdbDetails = client.get {
                 this.url {
                     protocol = URLProtocol.HTTP
                     host = "www.omdbapi.com"
                     parameters.append(apiKey_queryLabel, envReader.getOmdbApiKey())
-                    parameters.append(title_queryLabel, title)
+                    if(disambiguationMap.containsKey(title))
+                        parameters.append(id_querryLabel, disambiguationMap[title]!!)
+                    else {
+                        parameters.append(title_queryLabel, title)
+                        parameters.append(year_querryLabel, year.toString())
+                    }
                 }
             }
             Try.just(res)
@@ -37,3 +45,8 @@ class OmdbFetcher(private val client: HttpClient, private val envReader: Envirom
 }
 
 class OMDBMovieNotFoundException(title: String): Exception("$title was not found")
+
+val disambiguationMap = mapOf(
+    "Trouble" to "tt5689632",
+    "A.X.L." to "tt5709188"
+)

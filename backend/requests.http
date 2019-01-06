@@ -9,6 +9,7 @@ GET http://www.omdbapi.com/?apikey={{omdb-apiKey}}&t=a+separation
 
 ###
 
-http://www.omdbapi.com/?apikey={{omdb-apiKey}}&t=Daughters+of+the+Sexual+Revolution%3A+The+Untold+Story+of+the+Dallas+Cowboys+Cheerleaders
+GET http://www.omdbapi.com/?apikey={{omdb-apiKey}}&i=tt5689632
+
 
 ###

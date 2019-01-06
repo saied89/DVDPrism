@@ -50,7 +50,8 @@ class DetailActivity : AppCompatActivity() {
         metaScoreTV.setBackgroundColor(movie.metaIndication.getColor(this))
         userScoreTV.text = movie.userScoreString
         userScoreTV.background = movie.userIndication.getUserScoreBG(this)
-        posterImgView.setImageURI(movie.posterUrl_250p)
+        posterImgView.setImageURI(movie.omdbDetails?.poster ?: movie.posterUrl_250p)
+        posterImgView
         setUpPalette(movie.posterUrl_250p)
     }
 

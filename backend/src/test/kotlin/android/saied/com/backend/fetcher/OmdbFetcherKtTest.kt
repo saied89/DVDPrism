@@ -46,7 +46,7 @@ internal class OmdbFetcherKtTest {
         val subject = OmdbFetcher(httpClient, mockEnvReader)
 
         runBlocking {
-            val res = subject.getOmdbDetails("test")
+            val res = subject.getOmdbDetails("test", 0)
             assert(res is Try.Success)
             assertEquals("1975", (res as Success).value.year)
         }
@@ -71,7 +71,7 @@ internal class OmdbFetcherKtTest {
         val subject = OmdbFetcher(httpClient, mockEnvReader)
 
         runBlocking {
-            val res = subject.getOmdbDetails("")
+            val res = subject.getOmdbDetails("", 0)
 
             assert(res is Try.Failure)
             assert((res as Failure).exception is OMDBMovieNotFoundException)

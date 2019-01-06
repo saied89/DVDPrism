@@ -2,6 +2,7 @@ package android.saied.com.backend.task
 
 import android.saied.com.backend.MovieRepository
 import android.saied.com.backend.fetcher.OmdbFetcher
+import android.saied.com.common.model.Movie
 import android.saied.com.moviefetcher.MovieFetcher
 import arrow.core.Try
 import kotlinx.coroutines.*
@@ -28,7 +29,12 @@ class MovieFetcherTask(
             }
             is Try.Success -> {
                 val moviesWithDetails = moviesResult.value.map { movie ->
-                    val detailsTry = omdbFetcher.getOmdbDetails(movie.name)
+                    val detailsTry = omdbFetcher.getOmdbDetails(movie.name, movie.getDvdYear()).let {
+                        if(it.isFailure())
+                            omdbFetcher.getOmdbDetails(movie.name, movie.getDvdYear() - 1)
+                        else
+                            it
+                    }
                     if(detailsTry is Try.Success)
                         movie.copy(omdbDetails = detailsTry.value)
                     else
@@ -59,6 +65,12 @@ class MovieFetcherTask(
         with(LoggerFactory.getLogger(javaClass)) {
             info("fetch movies task finished with success")
         }
+}
 
 
+
+fun Movie.getDvdYear(): Int {
+    val calendar = GregorianCalendar()
+    calendar.time = Date(releaseDate)
+    return calendar.get(Calendar.YEAR)
 }
