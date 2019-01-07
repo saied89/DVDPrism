@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Transition
-        app:constraintSetEnd="@layout/activity_detail_shrinked"
-        app:constraintSetStart="@layout/activity_detail_expanded">
+        app:constraintSetEnd="@+id/end"
+        app:constraintSetStart="@+id/start">
 
         <OnSwipe
             app:dragDirection="dragUp"
@@ -12,5 +12,171 @@
             app:touchAnchorSide="top" />
 
     </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+
+        <Constraint android:id="@id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimary"
+            android:elevation="4dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/posterImgView" />
+            />
+
+        <Constraint
+            android:id="@id/posterImgView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            android:transitionName="poster"
+            app:layout_constraintStart_toEndOf="@id/guideline3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:viewAspectRatio="0.662"
+            />
+
+        <Constraint
+            android:id="@id/metaScoreTagTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_weight="1"
+            android:text="Metascore"
+            android:textStyle="bold"
+            android:elevation="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline3"/>
+
+        <Constraint
+            android:id="@id/userScoreTagTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="32dp"
+            android:layout_weight="1"
+            android:text="Userscore"
+            android:textStyle="bold"
+            android:elevation="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintTop_toBottomOf="@id/metaScoreCardView" />
+
+        <Constraint
+            android:id="@id/userScoreTV"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/cicle_mixed"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:text="8.5"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintTop_toBottomOf="@id/userScoreTagTV"/>
+
+        <Constraint
+            android:id="@id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.3" />
+
+        <Constraint
+            android:id="@id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleTV"/>
+    </ConstraintSet>
+
+
+    <ConstraintSet android:id="@+id/end">
+
+        <Constraint android:id="@id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:elevation="4dp"
+            app:layout_constraintTop_toTopOf="parent" />
+        />
+
+        <Constraint
+            android:id="@id/posterImgView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:elevation="4dp"
+            android:transitionName="poster"
+            app:layout_constraintStart_toEndOf="@id/guideline3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:viewAspectRatio="0.662"
+            />
+
+        <Constraint
+            android:id="@id/metaScoreTagTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_weight="1"
+            android:text="Metascore"
+            android:textStyle="bold"
+            android:elevation="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleTV"
+            app:layout_constraintEnd_toStartOf="@id/guideline3"/>
+
+        <Constraint
+            android:id="@id/userScoreTagTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="24dp"
+            android:layout_weight="1"
+            android:text="Userscore"
+            android:textStyle="bold"
+            android:elevation="4dp"
+            app:layout_constraintStart_toEndOf="@id/guideline3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleTV" />
+
+        <Constraint
+            android:id="@id/userScoreTV"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/cicle_mixed"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:text="8.5"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline3"
+            app:layout_constraintTop_toBottomOf="@id/userScoreTagTV"/>
+
+        <Constraint
+            android:id="@id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <Constraint
+            android:id="@id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/metaScoreCardView"/>
+    </ConstraintSet>
 
 </MotionScene>
