@@ -45,6 +45,7 @@ class DetailActivity : AppCompatActivity() {
             setDisplayShowTitleEnabled(false)
         }
         titleTV.text = movie.name
+        oneLinetitleTV.text = movie.name
         descriptionTV.text = movie.description
         metaScoreTV.text = movie.metaScoreString
         metaScoreTV.setBackgroundColor(movie.metaIndication.getColor(this))

@@ -33,7 +33,7 @@
         android:id="@+id/metaScoreTagTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="?attr/actionBarSize"
         android:layout_weight="1"
         android:text="Metascore"
         android:textStyle="bold"
@@ -118,7 +118,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.4" />
+        app:layout_constraintGuide_percent="0.3" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"

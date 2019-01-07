@@ -37,6 +37,41 @@
             />
 
         <Constraint
+            android:id="@id/titleTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="Title"
+            android:elevation="5dp"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <Constraint
+            android:id="@id/oneLinetitleTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:maxLines="1"
+            android:text="Title"
+            android:elevation="4dp"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <Constraint
             android:id="@id/metaScoreTagTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -97,6 +132,7 @@
     </ConstraintSet>
 
 
+
     <ConstraintSet android:id="@+id/end">
 
         <Constraint android:id="@id/toolbar"
@@ -118,6 +154,42 @@
             app:layout_constraintTop_toTopOf="parent"
             app:viewAspectRatio="0.662"
             />
+
+        <Constraint
+            android:id="@id/titleTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:maxLines="1"
+            android:text="Title"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:textStyle="bold|italic"
+            android:elevation="3dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@id/oneLinetitleTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:maxLines="1"
+            android:elevation="5dp"
+            android:text="Title"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
             android:id="@id/metaScoreTagTV"
