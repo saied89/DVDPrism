@@ -15,6 +15,7 @@ import android.saied.com.filmcompass.utils.userScoreString
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.content.ContextCompat
 import androidx.core.util.Pair
 import androidx.palette.graphics.Palette
 import com.facebook.common.executors.CallerThreadExecutor
@@ -66,18 +67,16 @@ class DetailActivity : AppCompatActivity() {
 
             override fun onNewResultImpl(bitmap: Bitmap?) {
                 val palette = Palette.from(bitmap!!).generate()
-                palette
-                    .lightMutedSwatch
-                    ?.rgb
-                    ?.let {
-                        toolbar.background = ColorDrawable(it)
-                    }
-                palette
-                    .darkMutedSwatch
-                    ?.rgb
-                    ?.let {
-                        window.statusBarColor = it
-                    }
+
+                toolbar.background = palette.getLightMutedColor(
+                    ContextCompat.getColor(this@DetailActivity, R.color.defaultColor)
+                ).let {
+                    ColorDrawable(it)
+                }
+
+                window.statusBarColor = palette.getDarkMutedColor(
+                    ContextCompat.getColor(this@DetailActivity, R.color.defaultColorDark)
+                )
                 dataSource.close()
             }
         }, CallerThreadExecutor.getInstance())

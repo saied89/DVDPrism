@@ -6,6 +6,8 @@
     <color name="scorePositive">#F6C3</color>
     <color name="scoreMixed">#FC3</color>
     <color name="scoreNegative">#F00</color>
+    <color name="defaultColor">#D0D8D8</color>
+    <color name="defaultColorDark">#8d9e9e</color>
     <color name="scoreTBD">#CCC</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
