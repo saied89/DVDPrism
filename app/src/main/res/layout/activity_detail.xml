@@ -156,12 +156,109 @@
                 android:id="@+id/descriptionTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
                 android:textColor="@color/black"
+                android:layout_margin="16dp"
                 android:textSize="16sp"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/directorTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Director:  "
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/descriptionTV"/>
+
+            <TextView
+                android:id="@+id/directorTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textSize="15sp"
+                android:text="Steven Spielberg"
+                android:textColor="@color/black"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintStart_toEndOf="@id/directorTag"
+                app:layout_constraintTop_toBottomOf="@id/descriptionTV"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/runTimeTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Runtime:  "
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/directorTV"/>
+
+            <TextView
+                android:id="@+id/runTimeTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="%d min"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintStart_toEndOf="@id/runTimeTag"
+                app:layout_constraintTop_toBottomOf="@id/directorTV"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/starringTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Starring:  "
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/runTimeTV"/>
+
+            <TextView
+                android:id="@+id/starringTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Amita Bahchan"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintStart_toEndOf="@id/starringTag"
+                app:layout_constraintTop_toBottomOf="@id/runTimeTV"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/genreTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="genre:       "
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/starringTV"/>
+
+            <TextView
+                android:id="@+id/genreTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="Action"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@id/genreTag"
+                app:layout_constraintTop_toBottomOf="@id/starringTV"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

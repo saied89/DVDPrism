@@ -53,8 +53,11 @@ class DetailActivity : AppCompatActivity() {
         userScoreTV.text = movie.userScoreString
         userScoreTV.background = movie.userIndication.getUserScoreBG(this)
         posterImgView.setImageURI(movie.omdbDetails?.poster ?: movie.posterUrl_250p)
-        posterImgView
-        setUpPalette(movie.posterUrl_250p)
+        directorTV.text = movie.omdbDetails?.director
+        runTimeTV.text = movie.omdbDetails?.runtime
+        genreTV.text = movie.omdbDetails?.genre
+        starringTV.text = movie.omdbDetails?.actors
+        setUpPalette(movie.omdbDetails?.poster ?: movie.posterUrl_250p)
     }
 
     private fun setUpPalette(uri: String) {
