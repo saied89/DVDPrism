@@ -49,15 +49,15 @@ class DetailActivity : AppCompatActivity() {
         oneLinetitleTV.text = movie.name
         descriptionTV.text = movie.description
         metaScoreTV.text = movie.metaScoreString
-        metaScoreTV.setBackgroundColor(movie.metaIndication.getColor(this))
+        metaScoreTV.setBackgroundColor(movie.getMetaIndication().getColor(this))
         userScoreTV.text = movie.userScoreString
-        userScoreTV.background = movie.userIndication.getUserScoreBG(this)
-        posterImgView.setImageURI(movie.omdbDetails?.poster ?: movie.posterUrl_250p)
+        userScoreTV.background = movie.getUserIndication().getUserScoreBG(this)
+        posterImgView.setImageURI(movie.omdbDetails?.poster ?: movie.getPosterUrl250p())
         directorTV.text = movie.omdbDetails?.director
         runTimeTV.text = movie.omdbDetails?.runtime
         genreTV.text = movie.omdbDetails?.genre
         starringTV.text = movie.omdbDetails?.actors
-        setUpPalette(movie.omdbDetails?.poster ?: movie.posterUrl_250p)
+        setUpPalette(movie.omdbDetails?.poster ?: movie.getPosterUrl250p())
     }
 
     private fun setUpPalette(uri: String) {

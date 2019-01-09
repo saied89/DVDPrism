@@ -1,7 +1,14 @@
 package android.saied.com.common.model
 
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.Index
+import androidx.room.PrimaryKey
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.io.Serializable
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@Entity(indices = [Index("name", unique = true)])
 data class Movie(
     val name: String,
     val releaseDate: Long,
@@ -9,16 +16,19 @@ data class Movie(
     val metaScore: Int?,    //Null means TBD
     val userScore: Int?,    //Null means TBD
     val description: String,
-    val omdbDetails: OmdbDetails? = null
+    @Embedded val omdbDetails: OmdbDetails? = null
 ) : Serializable {
-    val metaIndication: ScoreIndication =
+    @PrimaryKey(autoGenerate = true)
+    var dbId: Int = 0
+
+    fun getMetaIndication(): ScoreIndication =
         indicationFromScore(metaScore)
 
-    val userIndication: ScoreIndication =
+    fun getUserIndication(): ScoreIndication =
         indicationFromScore(userScore)
 
-    val posterUrl: String = posterUrl_89p.split('-').first()
-    val posterUrl_250p: String = posterUrl_89p.replace("-98", "-250h")
+    fun getPosterUrl(): String = posterUrl_89p.split('-').first()
+    fun getPosterUrl250p(): String = posterUrl_89p.replace("-98", "-250h")
 }
 
 enum class ScoreIndication {

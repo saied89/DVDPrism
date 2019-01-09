@@ -20,8 +20,6 @@ data class OmdbDetails(
     val genre: String,
     @JsonProperty("Language")
     val language: String,
-    @JsonProperty("Metascore")
-    val metascore: String,
     @JsonProperty("Plot")
     val plot: String,
     @JsonProperty("Poster")
@@ -30,8 +28,8 @@ data class OmdbDetails(
     val production: String,
     @JsonProperty("Rated")
     val rated: String,
-    @JsonProperty("Ratings")
-    val ratings: List<Rating>,
+//    @JsonProperty("Ratings")
+//    val ratings: List<Rating>,
     @JsonProperty("Released")
     val released: String,
     @JsonProperty("Response")

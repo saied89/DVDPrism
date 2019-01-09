@@ -46,8 +46,8 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view), LayoutContain
 
     fun bind(item: Movie) {
         releaseDateTV.text = formatDate(Date(item.releaseDate))
-        posterImgView.setImageURI(item.posterUrl_250p)
-        val indicationColor = item.metaIndication.getColor(containerView!!.context)
+        posterImgView.setImageURI(item.getPosterUrl250p())
+        val indicationColor = item.getMetaIndication().getColor(containerView!!.context)
         itemContainer.setBackgroundColor(indicationColor)
         scoreTV.text = item.metaScoreString
         containerView.setOnClickListener {
