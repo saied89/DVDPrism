@@ -26,7 +26,7 @@ internal class OmdbFetcherKtTest {
         every { mockEnvReader.getOmdbApiKey() } returns dummyApiKey
         val testEngine = MockEngine {
             when (url.toString()) {
-                "http://www.omdbapi.com/?apikey=$dummyApiKey&t=test" ->
+                "http://www.omdbapi.com/?apikey=$dummyApiKey&t=test&y=0" ->
                     response(
                         status = HttpStatusCode.OK,
                         content = content,

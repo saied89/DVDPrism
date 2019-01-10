@@ -14,6 +14,7 @@ import androidx.room.ForeignKey.CASCADE
     indices = [Index("movieId", unique = true)]
 )
 data class FavMovie(val movieId: Int = 0) {
-    @PrimaryKey(autoGenerate = true) var id: Int = 0
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
 }
 

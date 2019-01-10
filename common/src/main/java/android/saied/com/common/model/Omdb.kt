@@ -1,8 +1,9 @@
 package android.saied.com.common.model
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.io.Serializable
 
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class OmdbDetails(
     @JsonProperty("Actors")
     val actors: String,

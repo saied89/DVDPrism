@@ -15,8 +15,8 @@ import org.litote.kmongo.deleteMany
 import org.litote.kmongo.getCollection
 
 val dummyOmdbDetails = OmdbDetails("x","x","x","x","x","x",
-    "x", "x", "x","x","x","x","x", listOf(),"x",
-    "x","x", "x","x","x","x","x","x","x","x")
+    "x", "x", "x","x","x","x","x","x",
+    "x","x", "x","x","x","x","x","x","x")
 
 private const val DB_NAME = "TEST"
 
