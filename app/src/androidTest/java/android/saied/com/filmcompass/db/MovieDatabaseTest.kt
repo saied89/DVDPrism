@@ -10,7 +10,6 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import junit.framework.TestCase.assertEquals
-import kotlinx.io.IOException
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -46,17 +45,6 @@ internal class MovieDatabaseTest {
     }
 
     @Test
-    fun addToFavsAndVerify() {
-        val favMovie = FavMovie("saied")
-
-        movieDAO.addToFav(favMovie)
-
-        val res = movieDAO.getFavMovies()
-        assertEquals(1, res.size)
-        assertEquals(favMovie, res[0])
-    }
-
-    @Test
     fun saveMovieAndVerify() {
         val dummyMovie = Movie("saied", 0, "", 0, 0, "")
 
@@ -65,6 +53,24 @@ internal class MovieDatabaseTest {
         val res = movieDAO.getAllMovies().blockingObserve()
         assertEquals(1, res?.size)
         assertEquals(dummyMovie, res!![0])
+    }
+
+    @Test
+    fun addMovieToFavsAndVerify() {
+        val dummyMovies = listOf(
+            Movie("saied", 0, "", 0, 0, ""),
+            Movie("saied1", 0, "", 0, 0, ""),
+            Movie("saied2", 0, "", 0, 0, "")
+        )
+        movieDAO.insertMovies(dummyMovies)
+        val movies = movieDAO.getAllMovies().blockingObserve()!!
+        movieDAO.addToFav(FavMovie(movies[0].id))
+        movieDAO.addToFav(FavMovie(movies[2].id))
+
+        val res = movieDAO.getFavMovies()
+        assertEquals(2, res.size)
+        assertEquals(res[0], movies[0])
+        assertEquals(res[1], movies[2])
     }
 }
 

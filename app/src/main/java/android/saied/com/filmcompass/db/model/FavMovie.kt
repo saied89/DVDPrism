@@ -1,14 +1,19 @@
 package android.saied.com.filmcompass.db.model
 
-import android.saied.com.common.model.OmdbDetails
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.Index
-import androidx.room.PrimaryKey
+import android.saied.com.common.model.Movie
+import androidx.room.*
+import androidx.room.ForeignKey.CASCADE
 
-@Entity(indices = [Index("name", unique = true)])
-data class FavMovie(val name: String) {
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
+@Entity(
+    foreignKeys = [ForeignKey(
+        entity = Movie::class,
+        parentColumns = arrayOf("id"),
+        childColumns = arrayOf("movieId"),
+        onDelete = CASCADE
+    )],
+    indices = [Index("movieId", unique = true)]
+)
+data class FavMovie(val movieId: Int = 0) {
+    @PrimaryKey(autoGenerate = true) var id: Int = 0
 }
 

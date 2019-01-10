@@ -4,6 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.io.Serializable
 
@@ -18,8 +19,9 @@ data class Movie(
     val description: String,
     @Embedded val omdbDetails: OmdbDetails? = null
 ) : Serializable {
+    @JsonIgnore
     @PrimaryKey(autoGenerate = true)
-    var dbId: Int = 0
+    var id: Int = 0
 
     fun getMetaIndication(): ScoreIndication =
         indicationFromScore(metaScore)

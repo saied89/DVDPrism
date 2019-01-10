@@ -16,8 +16,8 @@ interface MovieDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovies(movieList: List<Movie>)
 
-    @Query("SELECT * FROM FavMovie")
-    fun getFavMovies(): List<FavMovie>
+    @Query("SELECT Movie.* FROM FavMovie INNER JOIN Movie ON Movie.id = movieId")
+    fun getFavMovies(): List<Movie>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun addToFav(favMovie: FavMovie)
