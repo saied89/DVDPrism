@@ -24,7 +24,7 @@ internal class MovieFetcherTaskTest {
             coEvery { fetchMovies() } returns Try.just(dummyMovies)
         }
         val omdbFetcher = mockk<OmdbFetcher>(relaxed = true) {
-            coEvery { getOmdbDetails(dummyMovie.name, 1970) } returns Try.just(dummyOmdbDetails)
+            coEvery { getOmdbDetails(dummyMovie.name) } returns Try.just(dummyOmdbDetails)
         }
         val subject = MovieFetcherTask(repository, movieFetcher, omdbFetcher)
 
@@ -35,7 +35,7 @@ internal class MovieFetcherTaskTest {
             movieFetcher.fetchMovies()
         }
         coVerify(exactly = 4) {
-            omdbFetcher.getOmdbDetails(dummyMovie.name, 1970)
+            omdbFetcher.getOmdbDetails(dummyMovie.name)
         }
 
     }

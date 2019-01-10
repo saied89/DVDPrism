@@ -20,13 +20,13 @@ internal class OmdbFetcherKtTest {
 
     @Test
     fun `omdbfetcher returns data on OK response`() {
-        val content = javaClass.classLoader.getResource("OmdpSample.json").readText()
+        val content = javaClass.classLoader.getResource("OmdpSample2.json").readText()
         val dummyApiKey = "dummyApiKey"
         val mockEnvReader = mockk<EnviromentPropertiesReader>()
         every { mockEnvReader.getOmdbApiKey() } returns dummyApiKey
         val testEngine = MockEngine {
             when (url.toString()) {
-                "http://www.omdbapi.com/?apikey=$dummyApiKey&t=test&y=0" ->
+                "http://www.omdbapi.com/?apikey=$dummyApiKey&t=test" ->
                     response(
                         status = HttpStatusCode.OK,
                         content = content,
@@ -46,9 +46,9 @@ internal class OmdbFetcherKtTest {
         val subject = OmdbFetcher(httpClient, mockEnvReader)
 
         runBlocking {
-            val res = subject.getOmdbDetails("test", 0)
+            val res = subject.getOmdbDetails("test")
             assert(res is Try.Success)
-            assertEquals("1975", (res as Success).value.year)
+            assertEquals("2017", (res as Success).value.year)
         }
     }
 
@@ -71,7 +71,7 @@ internal class OmdbFetcherKtTest {
         val subject = OmdbFetcher(httpClient, mockEnvReader)
 
         runBlocking {
-            val res = subject.getOmdbDetails("", 0)
+            val res = subject.getOmdbDetails("")
 
             assert(res is Try.Failure)
             assert((res as Failure).exception is OMDBMovieNotFoundException)

@@ -18,7 +18,7 @@ class OmdbFetcher(private val client: HttpClient, private val envReader: Envirom
     private val year_querryLabel = "y"
     private val id_querryLabel = "i"
 
-    suspend fun getOmdbDetails(title: String, year: Int): Try<OmdbDetails> =
+    suspend fun getOmdbDetails(title: String): Try<OmdbDetails> =
         try {
             val res: OmdbDetails = client.get {
                 this.url {
@@ -29,7 +29,6 @@ class OmdbFetcher(private val client: HttpClient, private val envReader: Envirom
                         parameters.append(id_querryLabel, disambiguationMap[title]!!)
                     else {
                         parameters.append(title_queryLabel, title)
-                        parameters.append(year_querryLabel, year.toString())
                     }
                 }
             }

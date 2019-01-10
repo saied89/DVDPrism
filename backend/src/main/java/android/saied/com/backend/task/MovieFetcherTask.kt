@@ -29,9 +29,9 @@ class MovieFetcherTask(
             }
             is Try.Success -> {
                 val moviesWithDetails = moviesResult.value.map { movie ->
-                    val detailsTry = omdbFetcher.getOmdbDetails(movie.name, movie.getDvdYear()).let {
+                    val detailsTry = omdbFetcher.getOmdbDetails(movie.name).let {
                         if(it.isFailure())
-                            omdbFetcher.getOmdbDetails(movie.name, movie.getDvdYear() - 1)
+                            omdbFetcher.getOmdbDetails(movie.name)
                         else
                             it
                     }
