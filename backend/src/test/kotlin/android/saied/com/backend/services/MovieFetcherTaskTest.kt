@@ -5,7 +5,6 @@ import android.saied.com.backend.dummyMovie
 import android.saied.com.backend.dummyOmdbDetails
 import android.saied.com.backend.fetcher.OmdbFetcher
 import android.saied.com.backend.task.MovieFetcherTask
-import android.saied.com.common.model.OmdbDetails
 import android.saied.com.moviefetcher.MovieFetcher
 import arrow.core.Try
 import io.mockk.*
@@ -24,7 +23,7 @@ internal class MovieFetcherTaskTest {
             coEvery { fetchMovies() } returns Try.just(dummyMovies)
         }
         val omdbFetcher = mockk<OmdbFetcher>(relaxed = true) {
-            coEvery { getOmdbDetails(dummyMovie.name) } returns Try.just(dummyOmdbDetails)
+            coEvery { getOmdbDetailsByTitle(dummyMovie.name) } returns Try.just(dummyOmdbDetails)
         }
         val subject = MovieFetcherTask(repository, movieFetcher, omdbFetcher)
 
@@ -35,7 +34,7 @@ internal class MovieFetcherTaskTest {
             movieFetcher.fetchMovies()
         }
         coVerify(exactly = 4) {
-            omdbFetcher.getOmdbDetails(dummyMovie.name)
+            omdbFetcher.getOmdbDetailsByTitle(dummyMovie.name)
         }
 
     }
