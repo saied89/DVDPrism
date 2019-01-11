@@ -1,6 +1,6 @@
 package android.saied.com.filmcompass.di
 
-import android.saied.com.filmcompass.MovieRepository
+import android.saied.com.filmcompass.repository.MovieRepository
 import android.saied.com.filmcompass.db.MovieDatabase
 import android.saied.com.filmcompass.network.MovieFetcher
 import androidx.room.Room
@@ -13,16 +13,17 @@ val dbModule = module {
             androidContext().applicationContext,
             MovieDatabase::class.java,
             "Movie_database"
-        )
+        ).build().movieDao()
     }
 
-    single {
-        get<MovieDatabase>().movieDao()
-    }
+//    single {
+//        get<MovieDatabase>().movieDao()
+//    }
 
     single {
         MovieRepository(
-            movieFetcher = MovieFetcher(get())
+            movieFetcher = MovieFetcher(get()),
+            movieDAO = get()
         )
     }
 }
