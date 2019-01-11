@@ -19,6 +19,8 @@ class MovieListFragment : Fragment() {
     private val viewModel: MovieListViewModel by viewModel()
     private val adapter: MovieListAdapter by lazy { MovieListAdapter() }
 
+    private var snackbar: Snackbar? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,12 +31,15 @@ class MovieListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rootView.apply {  } // fix for wierd null exception error happening in showError
+        rootView.apply { } // fix for wierd null exception error happening in showError
         viewModel.stateLiveData.observe(this, Observer {
-            progressbar.visibility = if(it is MainState.Loading) View.VISIBLE else View.GONE
+            progressbar.visibility = if (it is MainState.Loading) View.VISIBLE else View.GONE
+            snackbar?.dismiss()
             setData(it.movieList)
-            when(it) {
-                is MainState.Error -> { showError(it.throwable) }
+            when (it) {
+                is MainState.Error -> {
+                    showError(it.throwable)
+                }
             }
         })
         recyclerView.run {
@@ -42,7 +47,7 @@ class MovieListFragment : Fragment() {
             adapter = this@MovieListFragment.adapter
 //            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
-        viewModel.fetchMovies()
+        viewModel.refreshMovies()
     }
 
     private fun setData(movies: List<Movie>) {
@@ -50,6 +55,10 @@ class MovieListFragment : Fragment() {
     }
 
     private fun showError(throwable: Throwable) {
-         Snackbar.make(rootView, throwable.message ?: "Unkown Error", Snackbar.LENGTH_SHORT).show()
+        snackbar = Snackbar.make(rootView, throwable.message ?: "Unkown Error", Snackbar.LENGTH_INDEFINITE)
+            .setAction("retry") {
+                viewModel.refreshMovies()
+            }
+        snackbar?.show()
     }
 }

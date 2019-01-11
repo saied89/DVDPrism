@@ -21,7 +21,7 @@ class MovieListViewModel(private val movieRepo: MovieRepository) : ViewModel() {
         }
     }
 
-    fun fetchMovies() {
+    fun refreshMovies() {
         stateLiveData.value = MainState.Loading(stateLiveData.value?.movieList ?: emptyList())
         uiScope.launch {
             stateLiveData.value = movieRepo.refreshMovies().let {

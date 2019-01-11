@@ -6,6 +6,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.ReceivePipelineException
 import io.ktor.client.request.get
 import io.ktor.http.URLProtocol
+import java.net.ConnectException
 
 class MovieFetcher(private val httpClient: HttpClient) {
     suspend fun fetchMovies(): Try<List<Movie>> =
@@ -19,6 +20,8 @@ class MovieFetcher(private val httpClient: HttpClient) {
             }
             Try.just(res)
         } catch (exp: ReceivePipelineException) {
+            Try.raise(exp)
+        } catch (exp: ConnectException) {
             Try.raise(exp)
         }
 }
