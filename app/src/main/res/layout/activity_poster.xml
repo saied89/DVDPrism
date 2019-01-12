@@ -9,6 +9,7 @@
 
     <me.relex.photodraweeview.PhotoDraweeView
         android:id="@+id/photoView"
+        android:transitionName="poster"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         app:placeholderImageScaleType="fitCenter"
