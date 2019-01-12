@@ -14,7 +14,7 @@
             android:id="@+id/frag"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:name="android.saied.com.filmcompass.ui.main.movieList.MovieListFragment" />
+            android:name="android.saied.com.filmcompass.ui.movieList.MovieListFragment" />
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.appbar.AppBarLayout

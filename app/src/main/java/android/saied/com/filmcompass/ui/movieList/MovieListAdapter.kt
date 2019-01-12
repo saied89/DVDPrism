@@ -1,9 +1,9 @@
-package android.saied.com.filmcompass.ui.main.movieList
+package android.saied.com.filmcompass.ui.movieList
 
 import android.saied.com.common.model.Movie
 import android.saied.com.common.model.formatDate
 import android.saied.com.filmcompass.R
-import android.saied.com.filmcompass.ui.main.movieDetail.DetailActivity
+import android.saied.com.filmcompass.ui.movieDetail.DetailActivity
 import android.saied.com.filmcompass.utils.getColor
 import android.saied.com.filmcompass.utils.metaScoreString
 import android.view.LayoutInflater

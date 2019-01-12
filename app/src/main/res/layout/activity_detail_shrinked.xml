@@ -131,7 +131,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.main.movieDetail.DetailActivity">
+            tools:context=".ui.movieDetail.DetailActivity">
 
             <TextView
                 android:id="@+id/descriptionTV"

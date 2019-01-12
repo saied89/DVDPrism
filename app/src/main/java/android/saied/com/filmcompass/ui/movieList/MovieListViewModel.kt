@@ -1,4 +1,4 @@
-package android.saied.com.filmcompass.ui.main.movieList
+package android.saied.com.filmcompass.ui.movieList
 
 import android.saied.com.common.model.Movie
 import android.saied.com.filmcompass.repository.MovieRepository

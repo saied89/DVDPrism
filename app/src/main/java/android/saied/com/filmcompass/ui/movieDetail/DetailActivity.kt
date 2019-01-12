@@ -1,4 +1,4 @@
-package android.saied.com.filmcompass.ui.main.movieDetail
+package android.saied.com.filmcompass.ui.movieDetail
 
 import android.app.Activity
 import android.content.Context
@@ -22,7 +22,6 @@ import com.facebook.common.executors.CallerThreadExecutor
 import com.facebook.common.references.CloseableReference
 import com.facebook.datasource.DataSource
 import com.facebook.drawee.backends.pipeline.Fresco
-import com.facebook.drawee.view.SimpleDraweeView
 import com.facebook.imagepipeline.datasource.BaseBitmapDataSubscriber
 import com.facebook.imagepipeline.image.CloseableImage
 import com.facebook.imagepipeline.request.ImageRequest
