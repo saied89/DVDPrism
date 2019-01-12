@@ -9,10 +9,7 @@ import android.os.Bundle
 import android.saied.com.common.model.Movie
 import android.saied.com.filmcompass.R
 import android.saied.com.filmcompass.ui.poster.PosterActivity
-import android.saied.com.filmcompass.utils.getColor
-import android.saied.com.filmcompass.utils.getUserScoreBG
-import android.saied.com.filmcompass.utils.metaScoreString
-import android.saied.com.filmcompass.utils.userScoreString
+import android.saied.com.filmcompass.utils.*
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -80,7 +77,11 @@ class DetailActivity : AppCompatActivity() {
         starringTV.text = movie.omdbDetails?.actors
         setUpPalette(movie.omdbDetails?.poster ?: movie.getPosterUrl250p())
         posterImgView.setOnClickListener {
-            PosterActivity.launchPosterActivityWithTransition(this, movie.getPosterUrl(), it)
+            PosterActivity.launchPosterActivityWithTransition(
+                this,
+                movie.omdbDetails?.highResPosterUrl ?: movie.getPosterUrl(),
+                it
+            )
         }
     }
 

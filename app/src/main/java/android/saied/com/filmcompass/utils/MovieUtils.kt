@@ -3,6 +3,7 @@ package android.saied.com.filmcompass.utils
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.saied.com.common.model.Movie
+import android.saied.com.common.model.OmdbDetails
 import android.saied.com.common.model.ScoreIndication
 import android.saied.com.filmcompass.R
 import androidx.core.content.ContextCompat
@@ -32,3 +33,6 @@ fun ScoreIndication.getUserScoreBG(context: Context): Drawable =
     }.let { colorRes ->
         ContextCompat.getDrawable(context, colorRes)!!
     }
+
+val OmdbDetails.highResPosterUrl: String
+    get() = poster.replace("SX300", "SX640")
