@@ -9,6 +9,7 @@ import android.saied.com.filmcompass.utils.metaScoreString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +17,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_movie.*
 import java.util.*
 
-class MovieListAdapter : ListAdapter<Movie, MovieViewHolder>(movieDiffCallback) {
+class MovieListAdapter : PagedListAdapter<Movie, MovieViewHolder>(movieDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder =
         LayoutInflater.from(parent.context)
@@ -25,11 +26,13 @@ class MovieListAdapter : ListAdapter<Movie, MovieViewHolder>(movieDiffCallback) 
                 MovieViewHolder(it)
             }
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) =
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         holder.run {
-            val item = getItem(position)
-            bind(item)
+            getItem(position)?.let {
+                bind(it)
+            }
         }
+    }
 }
 
 

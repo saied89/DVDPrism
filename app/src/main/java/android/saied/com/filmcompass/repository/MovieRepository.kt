@@ -1,11 +1,16 @@
 package android.saied.com.filmcompass.repository
 
+import android.saied.com.common.model.Movie
 import android.saied.com.filmcompass.db.MovieDAO
 import android.saied.com.filmcompass.network.MovieFetcher
+import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import arrow.core.Try
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+private const val DATABASE_PAGE_SIZE = 10
 
 class MovieRepository(
     private val movieFetcher: MovieFetcher,
@@ -19,13 +24,17 @@ class MovieRepository(
                 try {
                     movieDAO.insertMovies(allMoviesTry.value)
                     Try.just(Unit)
-                }catch (exp: Exception) {
+                } catch (exp: Exception) {
                     Try.raise<Unit>(exp)
                 }
             } else Try.raise((allMoviesTry as Try.Failure).exception)
         }
 
-    fun getAllMovies() =
-        movieDAO.getAllMovies()
+    fun getAllMovies(): LiveData<PagedList<Movie>> {
+        return LivePagedListBuilder(
+            movieDAO.getAllMovies(),
+            DATABASE_PAGE_SIZE
+        ).build()
+    }
 
 }
