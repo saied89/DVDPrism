@@ -29,7 +29,7 @@ data class Movie(
     fun getUserIndication(): ScoreIndication =
         indicationFromScore(userScore)
 
-    fun getPosterUrl(): String = posterUrl_89p.split('-').first()
+    fun getPosterUrl(): String = posterUrl_89p.replace("-98", "")
     fun getPosterUrl250p(): String = posterUrl_89p.replace("-98", "-250h")
 }
 

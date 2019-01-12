@@ -24,8 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="android.saied.com.filmcompass.ui.movieDetail.DetailActivity"
-            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".ui.movieDetail.DetailActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ui.poster.PosterActivity"></activity>
     </application>
 
 </manifest>

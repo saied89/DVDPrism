@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.saied.com.common.model.Movie
 import android.saied.com.filmcompass.R
+import android.saied.com.filmcompass.ui.poster.PosterActivity
 import android.saied.com.filmcompass.utils.getColor
 import android.saied.com.filmcompass.utils.getUserScoreBG
 import android.saied.com.filmcompass.utils.metaScoreString
@@ -57,6 +58,9 @@ class DetailActivity : AppCompatActivity() {
         genreTV.text = movie.omdbDetails?.genre
         starringTV.text = movie.omdbDetails?.actors
         setUpPalette(movie.omdbDetails?.poster ?: movie.getPosterUrl250p())
+        posterImgView.setOnClickListener {
+            PosterActivity.launchPosterActivity(this, movie.getPosterUrl())
+        }
     }
 
     private fun setUpPalette(uri: String) {
