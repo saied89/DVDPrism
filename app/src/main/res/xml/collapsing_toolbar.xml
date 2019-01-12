@@ -4,7 +4,8 @@
 
     <Transition
         app:constraintSetEnd="@+id/end"
-        app:constraintSetStart="@+id/start">
+        app:constraintSetStart="@+id/start"
+        app:interpolator="easeInOut">
 
         <OnSwipe
             app:dragDirection="dragUp"
@@ -246,7 +247,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:fillViewport="true"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/metaScoreCardView"/>
     </ConstraintSet>
