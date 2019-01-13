@@ -36,17 +36,17 @@ class MovieRepository(private val movieFetcher: MovieFetcher, private val movieD
         ).build()
     }
 
-    suspend fun addToFavs(movieId: Int) =
+    suspend fun addToFavs(title: String) =
         withContext(Dispatchers.IO) {
-            movieDAO.addToFav(FavMovie(movieId))
+            movieDAO.addToFav(FavMovie(title))
         }
 
-    suspend fun removeFromFavs(movieId: Int) =
+    suspend fun removeFromFavs(title: String) =
         withContext(Dispatchers.IO) {
-            movieDAO.deleteFav(movieId)
+            movieDAO.deleteFav(title)
         }
 
-    fun isMovieFavorite(movieId: Int): LiveData<Boolean> = Transformations.map(movieDAO.selectFav(movieId)) {
+    fun isMovieFavorite(title: String): LiveData<Boolean> = Transformations.map(movieDAO.selectFav(title)) {
         it != null
     }
 

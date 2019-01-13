@@ -38,7 +38,7 @@ class DetailActivity : AppCompatActivity() {
     val viewModel: DetailsViewModel by viewModel()
 
     val isFavoriteLiveData: LiveData<Boolean> by lazy {
-        viewModel.getIsFavoriteLiveData(movie.id)
+        viewModel.getIsFavoriteLiveData(movie.name)
     }
 
     val movie: Movie by lazy {
@@ -70,6 +70,8 @@ class DetailActivity : AppCompatActivity() {
             }
         })
 
+        bindMovie(movie)
+
         isFavoriteLiveData.observe(this, Observer {
             when(it) {
                 true -> R.drawable.ic_favorite_black_24dp
@@ -81,9 +83,9 @@ class DetailActivity : AppCompatActivity() {
 
         favFab.setOnClickListener {
             if(isFavoriteLiveData.value ?: false)
-                viewModel.removeFromFavorites(movie.id)
+                viewModel.removeFromFavorites(movie.name)
             else
-                viewModel.addToFavorites(movie.id)
+                viewModel.addToFavorites(movie.name)
         }
     }
 

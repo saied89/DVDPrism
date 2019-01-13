@@ -65,8 +65,8 @@ internal class MovieDatabaseTest {
         )
         movieDAO.insertMovies(dummyMovies)
         val movies: List<Movie> = movieDAO.getAllMovies().toLiveData(20).blockingObserve()!!
-        movieDAO.addToFav(FavMovie(movies[0].id))
-        movieDAO.addToFav(FavMovie(movies[2].id))
+        movieDAO.addToFav(FavMovie(movies[0].name))
+        movieDAO.addToFav(FavMovie(movies[2].name))
 
         val res = movieDAO.getFavMovies()
         assertEquals(2, res.size)
@@ -84,10 +84,10 @@ internal class MovieDatabaseTest {
             )
         )
         val movies: List<Movie> = movieDAO.getAllMovies().toLiveData(20).blockingObserve()!!
-        movieDAO.addToFav(FavMovie(movies[0].id))
-        movieDAO.addToFav(FavMovie(movies[2].id))
+        movieDAO.addToFav(FavMovie(movies[0].name))
+        movieDAO.addToFav(FavMovie(movies[2].name))
 
-        movieDAO.deleteFav(movies[0].id)
+        movieDAO.deleteFav(movies[0].name)
 
         val res = movieDAO.getFavMovies()
         assertEquals(1, res.size)
@@ -105,12 +105,12 @@ internal class MovieDatabaseTest {
         )
         val movies: List<Movie> = movieDAO.getAllMovies().toLiveData(20).blockingObserve()!!
 
-        val res = movieDAO.selectFav(movies[2].id)
+        val res = movieDAO.selectFav(movies[2].name)
 
-        movieDAO.addToFav(FavMovie(movies[0].id))
+        movieDAO.addToFav(FavMovie(movies[0].name))
         assertNull(res.blockingObserve())
 
-        movieDAO.addToFav(FavMovie(movies[2].id))
+        movieDAO.addToFav(FavMovie(movies[2].name))
         assertNotNull(res.blockingObserve() != null)
     }
 }

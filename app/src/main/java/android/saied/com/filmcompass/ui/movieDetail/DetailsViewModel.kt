@@ -12,11 +12,11 @@ class DetailsViewModel(private val movieRepository: MovieRepository) : ViewModel
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    fun getIsFavoriteLiveData(movieId: Int) = movieRepository.isMovieFavorite(movieId)
+    fun getIsFavoriteLiveData(title: String) = movieRepository.isMovieFavorite(title)
 
-    fun addToFavorites(movieId: Int) = uiScope.launch { movieRepository.addToFavs(movieId) }
+    fun addToFavorites(title: String) = uiScope.launch { movieRepository.addToFavs(title) }
 
-    fun removeFromFavorites(movieId: Int) = uiScope.launch { movieRepository.removeFromFavs(movieId) }
+    fun removeFromFavorites(title: String) = uiScope.launch { movieRepository.removeFromFavs(title) }
 
     override fun onCleared() {
         super.onCleared()

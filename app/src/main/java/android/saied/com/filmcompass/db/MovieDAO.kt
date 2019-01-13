@@ -14,16 +14,15 @@ interface MovieDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovies(movieList: List<Movie>)
 
-    @Query("SELECT Movie.* FROM FavMovie INNER JOIN Movie ON Movie.id = movieId")
+    @Query("SELECT Movie.* FROM FavMovie INNER JOIN Movie ON Movie.name = FavMovie.title")
     fun getFavMovies(): List<Movie>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun addToFav(favMovie: FavMovie)
 
-    @Query("DELETE FROM FavMovie WHERE movieId = :movieId")
-    fun deleteFav(movieId: Int)
+    @Query("DELETE FROM FavMovie WHERE title = :title")
+    fun deleteFav(title: String)
 
-    @Query("SELECT * FROM FavMovie WHERE movieId = :movieId")
-    fun selectFav(movieId: Int): LiveData<FavMovie>
-
+    @Query("SELECT * FROM FavMovie WHERE title = :title")
+    fun selectFav(title: String): LiveData<FavMovie>
 }
