@@ -2,11 +2,9 @@ package android.saied.com.filmcompass.db
 
 import android.saied.com.common.model.Movie
 import android.saied.com.filmcompass.db.model.FavMovie
+import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface MovieDAO {
@@ -21,4 +19,11 @@ interface MovieDAO {
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun addToFav(favMovie: FavMovie)
+
+    @Query("DELETE FROM FavMovie WHERE movieId = :movieId")
+    fun deleteFav(movieId: Int)
+
+    @Query("SELECT * FROM FavMovie WHERE movieId = :movieId")
+    fun selectFav(movieId: Int): LiveData<FavMovie>
+
 }

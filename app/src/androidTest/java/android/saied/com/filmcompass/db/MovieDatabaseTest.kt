@@ -6,10 +6,11 @@ import android.saied.com.filmcompass.db.model.FavMovie
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.paging.toLiveData
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.*
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -50,7 +51,7 @@ internal class MovieDatabaseTest {
 
         movieDAO.insertMovies(listOf(dummyMovie))
 
-        val res = movieDAO.getAllMovies().blockingObserve()
+        val res = movieDAO.getAllMovies().toLiveData(20).blockingObserve()
         assertEquals(1, res?.size)
         assertEquals(dummyMovie, res!![0])
     }
@@ -63,7 +64,7 @@ internal class MovieDatabaseTest {
             Movie("saied2", 0, "", 0, 0, "")
         )
         movieDAO.insertMovies(dummyMovies)
-        val movies = movieDAO.getAllMovies().blockingObserve()!!
+        val movies: List<Movie> = movieDAO.getAllMovies().toLiveData(20).blockingObserve()!!
         movieDAO.addToFav(FavMovie(movies[0].id))
         movieDAO.addToFav(FavMovie(movies[2].id))
 
@@ -71,6 +72,46 @@ internal class MovieDatabaseTest {
         assertEquals(2, res.size)
         assertEquals(res[0], movies[0])
         assertEquals(res[1], movies[2])
+    }
+
+    @Test
+    fun deleteFavAndVerify() {
+        movieDAO.insertMovies(
+            listOf(
+                Movie("saied", 0, "", 0, 0, ""),
+                Movie("saied1", 0, "", 0, 0, ""),
+                Movie("saied2", 0, "", 0, 0, "")
+            )
+        )
+        val movies: List<Movie> = movieDAO.getAllMovies().toLiveData(20).blockingObserve()!!
+        movieDAO.addToFav(FavMovie(movies[0].id))
+        movieDAO.addToFav(FavMovie(movies[2].id))
+
+        movieDAO.deleteFav(movies[0].id)
+
+        val res = movieDAO.getFavMovies()
+        assertEquals(1, res.size)
+        assertEquals(res[0], movies[2])
+    }
+
+    @Test
+    fun selectFavoriteLiveDataIsUpdateOnDeleteAndAdd() {
+        movieDAO.insertMovies(
+            listOf(
+                Movie("saied", 0, "", 0, 0, ""),
+                Movie("saied1", 0, "", 0, 0, ""),
+                Movie("saied2", 0, "", 0, 0, "")
+            )
+        )
+        val movies: List<Movie> = movieDAO.getAllMovies().toLiveData(20).blockingObserve()!!
+
+        val res = movieDAO.selectFav(movies[2].id)
+
+        movieDAO.addToFav(FavMovie(movies[0].id))
+        assertNull(res.blockingObserve())
+
+        movieDAO.addToFav(FavMovie(movies[2].id))
+        assertNotNull(res.blockingObserve() != null)
     }
 }
 

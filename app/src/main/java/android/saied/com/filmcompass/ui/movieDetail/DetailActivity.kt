@@ -17,6 +17,8 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.app.SharedElementCallback
 import androidx.core.content.ContextCompat
 import androidx.core.util.Pair
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.palette.graphics.Palette
 import com.facebook.common.executors.CallerThreadExecutor
 import com.facebook.common.references.CloseableReference
@@ -27,10 +29,21 @@ import com.facebook.imagepipeline.datasource.BaseBitmapDataSubscriber
 import com.facebook.imagepipeline.image.CloseableImage
 import com.facebook.imagepipeline.request.ImageRequest
 import kotlinx.android.synthetic.main.activity_detail.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val MOVIE_EXTRA_TAG = "MOVIE_EXTRA_TAG"
 
 class DetailActivity : AppCompatActivity() {
+
+    val viewModel: DetailsViewModel by viewModel()
+
+    val isFavoriteLiveData: LiveData<Boolean> by lazy {
+        viewModel.getIsFavoriteLiveData(movie.id)
+    }
+
+    val movie: Movie by lazy {
+        intent.extras!![MOVIE_EXTRA_TAG] as Movie
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,10 +70,22 @@ class DetailActivity : AppCompatActivity() {
             }
         })
 
-        bindMovie(getMovieFromExtras())
-    }
+        isFavoriteLiveData.observe(this, Observer {
+            when(it) {
+                true -> R.drawable.ic_favorite_black_24dp
+                false -> R.drawable.ic_favorite_border_black_24dp
+            }.also {
+                favFab.setImageDrawable(resources.getDrawable(it, theme))
+            }
+        })
 
-    private fun getMovieFromExtras() = intent.extras!![MOVIE_EXTRA_TAG] as Movie
+        favFab.setOnClickListener {
+            if(isFavoriteLiveData.value ?: false)
+                viewModel.removeFromFavorites(movie.id)
+            else
+                viewModel.addToFavorites(movie.id)
+        }
+    }
 
     private fun bindMovie(movie: Movie) {
         titleTV.text = movie.name
