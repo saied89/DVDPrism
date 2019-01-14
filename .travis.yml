@@ -22,6 +22,7 @@ env:
 android:
   components:
     - tools
+    - tools
     - platform-tools
     # The BuildTools version used by your project
     - build-tools-$ANDROID_BUILD_TOOLS
@@ -37,7 +38,7 @@ android:
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-addon-google_apis-google-$EMU_ANDROID_API
+    #- sys-img-armeabi-v7a-addon-google_apis-google-$EMU_ANDROID_API
     - sys-img-armeabi-v7a-android-$EMULATOR_API
 
     # Support library
@@ -49,8 +50,9 @@ android:
     - google-gdk-license-.+
 
 before_install:
-  - yes | sdkmanager "platforms;android-27"
+  - yes | sdkmanager "platforms;android-28"
   - chmod +x gradlew
+  - ./gradlew dependencies || true
 
 before_script:
   - android list sdk --extended --no-ui --all
