@@ -6,6 +6,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.ReceivePipelineException
 import io.ktor.client.request.get
 import io.ktor.http.URLProtocol
+import java.io.IOException
 import java.net.ConnectException
 
 class MovieFetcher(private val httpClient: HttpClient) {
@@ -22,6 +23,8 @@ class MovieFetcher(private val httpClient: HttpClient) {
         } catch (exp: ReceivePipelineException) {
             Try.raise(exp)
         } catch (exp: ConnectException) {
+            Try.raise(exp)
+        } catch (exp: IOException) {
             Try.raise(exp)
         }
 }
