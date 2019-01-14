@@ -1,7 +1,7 @@
+sudo: required
 language: android
 jdk: oraclejdk8
 
-sudo: false
 
 services: mongodb
 
@@ -20,38 +20,37 @@ env:
     - CODECOV_TOKEN=51c0b2f0-c0e3-40fe-8b87-98328d8f7775
 
 android:
-components:
-- tools
-- platform-tools
+  components:
+    - tools
+    - platform-tools
+    # The BuildTools version used by your project
+    - build-tools-$ANDROID_BUILD_TOOLS
+    - android-$ANDROID_API
+    - android-$EMU_ANDROID_API
+    #- android-$EMULATOR_API
 
-# The BuildTools version used by your project
-- build-tools-$ANDROID_BUILD_TOOLS
-- android-$ANDROID_API
-- android-$EMU_ANDROID_API
-#- android-$EMULATOR_API
+    # Additional components
+    - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository
+    - addon-google_apis-google-$ANDROID_API
 
-# Additional components
-- extra-google-google_play_services
-- extra-google-m2repository
-- extra-android-m2repository
-- addon-google_apis-google-$ANDROID_API
+    # Specify at least one system image,
+    # if you need to run emulator(s) during your tests
+    - sys-img-armeabi-v7a-addon-google_apis-google-$EMU_ANDROID_API
+    - sys-img-armeabi-v7a-android-$EMULATOR_API
 
-# Specify at least one system image,
-# if you need to run emulator(s) during your tests
-- sys-img-armeabi-v7a-addon-google_apis-google-$EMU_ANDROID_API
-- sys-img-armeabi-v7a-android-$EMULATOR_API
+    # Support library
+    - extra-android-support
 
-# Support library
-- extra-android-support
-
-licenses:
-- android-sdk-preview-license-.+
-- android-sdk-license-.+
-- google-gdk-license-.+
+  licenses:
+    - android-sdk-preview-license-.+
+    - android-sdk-license-.+
+    - google-gdk-license-.+
 
 before_install:
-- yes | sdkmanager "platforms;android-27"
-- chmod +x gradlew
+  - yes | sdkmanager "platforms;android-27"
+  - chmod +x gradlew
 
 before_script:
   - android list sdk --extended --no-ui --all
@@ -60,16 +59,6 @@ before_script:
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
-
-before_cache:
-- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-cache:
-  directories:
-  - $HOME/.gradle/caches/
-  - $HOME/.gradle/wrapper/
-  - $HOME/.android/build-cache
-
 
 script:
   - android list target
