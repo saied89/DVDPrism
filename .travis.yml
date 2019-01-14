@@ -15,7 +15,7 @@ addons:
 env:
   global:
     - ANDROID_API=28
-    - ANDROID_BUILD_TOOLS=27.0.3
+    - ANDROID_BUILD_TOOLS=28.0.3
     - CODECOV_TOKEN=51c0b2f0-c0e3-40fe-8b87-98328d8f7775
 
 android:
