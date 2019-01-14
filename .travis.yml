@@ -36,7 +36,7 @@ components:
 
 # Specify at least one system image,
 # if you need to run emulator(s) during your tests
-#- sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API
+- sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API
 #- sys-img-armeabi-v7a-android-$EMULATOR_API
 
 # Support library
@@ -51,6 +51,12 @@ before_install:
 - yes | sdkmanager "platforms;android-27"
 - chmod +x gradlew
 
+before_script:
+  - echo no | android create avd --force -n test -t android-$ANDROID_API --abi armeabi-v7a
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
+
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -62,6 +68,7 @@ cache:
 
 
 script:
+  - android list target
   - ./gradlew build check jacocoTestReport
 
 after_success:
