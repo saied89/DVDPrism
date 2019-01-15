@@ -14,21 +14,22 @@ class MovieListViewModel(private val movieRepo: MovieRepository) : ViewModel() {
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    val stateLiveData = MediatorLiveData<MainState>()
+    private val _stateLiveData = MediatorLiveData<MainState>()
+    val stateLiveData: LiveData<MainState> = _stateLiveData
 
     init {
-        stateLiveData.addSource(movieRepo.getAllMovies()) {
-            stateLiveData.value = stateLiveData.value?.mutateMovieList(it)
+        _stateLiveData.addSource(movieRepo.getAllMovies()) {
+            _stateLiveData.value = _stateLiveData.value?.mutateMovieList(it)
         }
     }
 
     fun refreshMovies() {
-        stateLiveData.value = MainState.Loading(stateLiveData.value?.movieList)
+        _stateLiveData.value = MainState.Loading(_stateLiveData.value?.movieList)
         uiScope.launch {
-            stateLiveData.value = movieRepo.refreshMovies().let {
+            _stateLiveData.value = movieRepo.refreshMovies().let {
                 if (it is Try.Failure) {
-                    MainState.Error(it.exception, stateLiveData.value!!.movieList)
-                } else stateLiveData.value?.let {
+                    MainState.Error(it.exception, _stateLiveData.value!!.movieList)
+                } else _stateLiveData.value?.let {
                     MainState.Success(it.movieList)
                 }
             }

@@ -163,4 +163,5 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:1.1.0"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.2'
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
 }

@@ -7,6 +7,7 @@ import android.saied.com.filmcompass.R
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
@@ -17,7 +18,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieListFragment : Fragment() {
 
-    private val viewModel: MovieListViewModel by viewModel()
+    @VisibleForTesting
+    val viewModel: MovieListViewModel by viewModel()
     private val adapter: MovieListAdapter by lazy { MovieListAdapter() }
 
     private var snackbar: Snackbar? = null
