@@ -38,7 +38,7 @@ android:
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
-    - sys-img-x86-android-$EMU_ANDROID_API
+    - sys-img-armeabi-v7a-android-$EMU_ANDROID_API
     - sys-img-armeabi-v7a-addon-google_apis-google-$EMU_ANDROID_API
 
     # Support library
