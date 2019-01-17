@@ -10,7 +10,7 @@ There are several broad goals in this project of which some are achieved, others
 
 ## Transition APIs and the new MotionLayout
 
-## Complete Architectural components
+## Using all of Architectural components
 
 ## Coroutines & networking with Ktor Client
 
