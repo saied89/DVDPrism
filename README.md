@@ -8,15 +8,15 @@ I'm a professional Android developer. I made this project to practice and apply 
 
 There are several broad goals in this project of which some are achieved, others are close to compeletion while others will be persued in phase 2 after the release of the application.
 
-## Transition APIs and the new MotionLayout
+### Transition APIs and the new MotionLayout
 
-## Using all of Architectural components
+### Using all of Architectural components
 
-## Coroutines & networking with Ktor Client
+### Coroutines & networking with Ktor Client
 
-## Code sharing between app and backend through a common module
+### Code sharing between app and backend through a common module
 
-## Complete code coverage and integration of CI/CD
+### Complete code coverage and integration of CI/CD
 
 
 
