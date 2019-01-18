@@ -41,7 +41,7 @@ class MovieListViewModelAndroidTest {
             every { getAllMovies() } returns liveData
             coEvery { refreshMovies() } returns Try.just(Unit)
         }
-        val subject = MovieListViewModel(mockRepository)
+        val subject = MovieListViewModelImp(mockRepository)
         subject.refreshMovies()
 
         coVerify(exactly = 1) {
