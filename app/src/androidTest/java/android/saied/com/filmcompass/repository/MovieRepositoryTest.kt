@@ -9,7 +9,6 @@ import androidx.test.core.app.ApplicationProvider
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
 import org.junit.rules.TestRule
 
 class MovieRepositoryTest {
@@ -18,7 +17,6 @@ class MovieRepositoryTest {
 
     private lateinit var movieDAO: MovieDAO
     private lateinit var db: MovieDatabase
-    private lateinit var movieRepository: MovieRepository
 
     @Before
     fun createDB() {
