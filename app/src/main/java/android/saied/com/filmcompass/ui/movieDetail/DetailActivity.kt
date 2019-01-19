@@ -11,6 +11,7 @@ import android.saied.com.filmcompass.R
 import android.saied.com.filmcompass.ui.poster.PosterActivity
 import android.saied.com.filmcompass.utils.*
 import android.view.View
+import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityOptionsCompat
@@ -31,7 +32,8 @@ import com.facebook.imagepipeline.request.ImageRequest
 import kotlinx.android.synthetic.main.activity_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-private const val MOVIE_EXTRA_TAG = "MOVIE_EXTRA_TAG"
+@VisibleForTesting
+const val MOVIE_EXTRA_TAG = "MOVIE_EXTRA_TAG"
 
 class DetailActivity : AppCompatActivity() {
 

@@ -23,6 +23,7 @@ import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
 import androidx.annotation.IdRes
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.UiObject
@@ -34,6 +35,9 @@ import org.junit.rules.TestRule
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest : KoinTest {
 
+//    @get:Rule
+//    val intentsTestRule = IntentsTestRule(MainActivity::class.java)
+
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
 
@@ -44,7 +48,7 @@ class MainActivityTest : KoinTest {
         declare {
             viewModel(override = true) {
                 mockk<MovieListViewModel>(relaxUnitFun = true) {
-                    every { stateLiveData } returns MediatorLiveData<MainState>().apply {
+                    every { stateLiveData } returns MutableLiveData<MainState>().apply {
                         value = MainState.Success(mockData)
                     }
                 }
@@ -55,6 +59,40 @@ class MainActivityTest : KoinTest {
 
         onView(withId(R.id.recyclerView)).check(matches(RecyclerViewMatchers.hasItemCount(mockData!!.size)))
     }
+
+//    @Test
+//    fun tapOnMovieItemOpensDetailsActivity() {
+//        val element = Movie("", 0, "", 0, 0, "")
+//        val mockData = listOf(element, element, element).asPagedList()
+//        declare {
+//            viewModel(override = true) {
+//                mockk<MovieListViewModel>(relaxUnitFun = true) {
+//                    every { stateLiveData } returns MediatorLiveData<MainState>().apply {
+//                        value = MainState.Success(mockData)
+//                    }
+//                }
+//            }
+//            viewModel(override = true) {
+//                mockk<DetailsViewModel> {
+//                    every { getIsFavoriteLiveData(any()) } returns MediatorLiveData<Boolean>().apply {
+//                        value = false
+//                    }
+//                }
+//            }
+//        }
+//        val scenario = ActivityScenario.launch(MainActivity::class.java)
+//
+//        onView(ViewMatchers.withId(R.id.recyclerView))
+//            .perform(
+//                RecyclerViewActions.actionOnItemAtPosition<MovieViewHolder>(
+//                    1,
+//                    click()
+//                )
+//            )
+//
+//        intended(hasComponent(DetailActivity::class.qualifiedName))
+//
+//    }
 
     @Test
     fun correctLoadingStateRender() {

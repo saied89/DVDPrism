@@ -87,6 +87,7 @@ dependencies {
     def koin_version = '1.0.2'
     def mockK_version = '1.8.13.kotlin13'
     def room_version = "2.1.0-alpha03"
+    def espresso_version = "3.1.1"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(":common")
@@ -163,7 +164,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation "androidx.test.ext:junit:1.1.0"
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    androidTestImplementation 'androidx.test:rules:1.1.1'
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.2'
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espresso_version"
 }
