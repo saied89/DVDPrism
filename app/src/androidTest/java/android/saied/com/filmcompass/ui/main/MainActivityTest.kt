@@ -1,5 +1,6 @@
 package android.saied.com.filmcompass.ui.main
 
+import android.saied.com.common.model.Movie
 import android.saied.com.filmcompass.ui.movieList.MainState
 import androidx.lifecycle.MediatorLiveData
 import androidx.test.core.app.ActivityScenario
@@ -15,18 +16,45 @@ import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.test.KoinTest
 import org.koin.test.declare
 import android.saied.com.filmcompass.R
+import android.saied.com.filmcompass.RecyclerViewMatchers
+import android.saied.com.filmcompass.asPagedList
 import android.saied.com.filmcompass.ui.movieList.MovieListViewModel
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
 import androidx.annotation.IdRes
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.UiObject
 import junit.framework.TestCase.assertTrue
+import org.junit.Rule
+import org.junit.rules.TestRule
 
 
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest : KoinTest {
+
+    @get:Rule
+    var rule: TestRule = InstantTaskExecutorRule()
+
+    @Test
+    fun correctSuccessStateRender() {
+        val element = Movie("", 0, "", 0, 0, "")
+        val mockData = listOf(element, element, element).asPagedList()
+        declare {
+            viewModel(override = true) {
+                mockk<MovieListViewModel>(relaxUnitFun = true) {
+                    every { stateLiveData } returns MediatorLiveData<MainState>().apply {
+                        value = MainState.Success(mockData)
+                    }
+                }
+            }
+        }
+
+        val scenario = ActivityScenario.launch(MainActivity::class.java)
+
+        onView(withId(R.id.recyclerView)).check(matches(RecyclerViewMatchers.hasItemCount(mockData!!.size)))
+    }
 
     @Test
     fun correctLoadingStateRender() {

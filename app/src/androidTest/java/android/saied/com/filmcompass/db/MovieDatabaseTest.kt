@@ -115,7 +115,7 @@ internal class MovieDatabaseTest {
     }
 }
 
-private fun <T> LiveData<T>.blockingObserve(): T? {
+fun <T> LiveData<T>.blockingObserve(): T? {
     var value: T? = null
     val latch = CountDownLatch(1)
 
