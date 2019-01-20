@@ -31,7 +31,7 @@ private fun <T> createMockDataSourceFactory(itemList: List<T>): DataSource.Facto
     }
 
 private val mockQuery = mockk<RoomSQLiteQuery> {
-    every { getSql() } returns ""
+    every { sql } returns ""
 }
 
 private val mockDb = mockk<RoomDatabase> {

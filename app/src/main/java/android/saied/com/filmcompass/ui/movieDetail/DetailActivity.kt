@@ -84,7 +84,7 @@ class DetailActivity : AppCompatActivity() {
         })
 
         favFab.setOnClickListener {
-            if(isFavoriteLiveData.value ?: false)
+            if(isFavoriteLiveData.value == true)
                 viewModel.removeFromFavorites(movie.name)
             else
                 viewModel.addToFavorites(movie.name)

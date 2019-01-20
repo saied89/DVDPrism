@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
 import arrow.core.Try
 
-abstract class MovieRepository(protected val movieFetcher: MovieFetcher, protected val movieDAO: MovieDAO){
+abstract class MovieRepository(protected val movieFetcher: MovieFetcher, protected val movieDAO: MovieDAO) {
     abstract suspend fun refreshMovies(): Try<Unit>
     abstract fun getAllMovies(): LiveData<PagedList<Movie>>
 
