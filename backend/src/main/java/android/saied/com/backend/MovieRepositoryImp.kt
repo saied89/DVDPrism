@@ -6,6 +6,7 @@ import com.mongodb.MongoBulkWriteException
 import com.mongodb.client.MongoCollection
 import com.mongodb.client.model.InsertManyOptions
 import org.litote.kmongo.deleteMany
+import org.litote.kmongo.sort
 import java.util.*
 
 class MovieRepositoryImp(private val mongoCollection: MongoCollection<Movie>): MovieRepository {
@@ -39,6 +40,6 @@ class MovieRepositoryImp(private val mongoCollection: MongoCollection<Movie>): M
     }
 
     override fun getMovies(): List<Movie> =
-        mongoCollection.find().asSequence().toList()
+        mongoCollection.find().sort("{ releaseDate: -1 }").asSequence().toList()
 
 }
