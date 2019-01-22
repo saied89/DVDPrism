@@ -71,7 +71,7 @@ internal class MovieDatabaseTest {
         val res = movieDAO.getFavMovies().blockingObserve()
         assertEquals(2, res?.size)
         assertEquals(res?.get(0), movies[0])
-        assertEquals(res?.get(0), movies[2])
+        assertEquals(res?.get(1), movies[2])
     }
 
     @Test
