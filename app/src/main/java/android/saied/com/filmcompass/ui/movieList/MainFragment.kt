@@ -16,7 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_movielist.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MovieListFragment : Fragment() {
+class MainFragment : Fragment() {
 
     @VisibleForTesting
     val viewModel: MovieListViewModel by viewModel()
@@ -47,7 +47,7 @@ class MovieListFragment : Fragment() {
         })
         recyclerView.run {
             layoutManager = GridLayoutManager(context, 2)
-            adapter = this@MovieListFragment.adapter
+            adapter = this@MainFragment.adapter
 //            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
         viewModel.refreshMovies()

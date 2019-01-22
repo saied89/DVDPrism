@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="android.saied.com.filmcompass.ui.movieList.MovieListFragment">
+    tools:context="android.saied.com.filmcompass.ui.movieList.MainFragment">
     <me.zhanghai.android.materialprogressbar.MaterialProgressBar
         android:id="@+id/progressbar"
         android:layout_width="match_parent"
