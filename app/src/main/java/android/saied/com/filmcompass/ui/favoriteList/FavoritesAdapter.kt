@@ -2,6 +2,7 @@ package android.saied.com.filmcompass.ui.favoriteList
 
 import android.saied.com.common.model.Movie
 import android.saied.com.filmcompass.R
+import android.saied.com.filmcompass.ui.movieDetail.DetailActivity
 import android.saied.com.filmcompass.utils.getColor
 import android.saied.com.filmcompass.utils.metaScoreString
 import android.view.LayoutInflater
@@ -42,5 +43,13 @@ class FavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), La
             runtimeTV.text = movie.omdbDetails?.runtime
             metaScoreTV.text = movie.metaScoreString
             metaScoreTV.setBackgroundColor(movie.getMetaIndication().getColor(context))
+            setOnClickListener {
+                DetailActivity.launchDetailActivityWithTransition(
+                    context = context,
+                    movie = movie,
+                    posterView = posterImgView,
+                    metascoreView = metaScoreTV
+                )
+            }
         } ?: Unit
 }
