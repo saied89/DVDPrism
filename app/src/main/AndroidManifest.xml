@@ -27,7 +27,8 @@
         <activity
             android:name=".ui.movieDetail.DetailActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".ui.poster.PosterActivity"></activity>
+        <activity android:name=".ui.poster.PosterActivity" />
+        <activity android:name=".ui.favoriteList.FavoritesActivity" />
     </application>
 
 </manifest>

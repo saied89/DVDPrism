@@ -68,10 +68,10 @@ internal class MovieDatabaseTest {
         movieDAO.addToFav(FavMovie(movies[0].name))
         movieDAO.addToFav(FavMovie(movies[2].name))
 
-        val res = movieDAO.getFavMovies()
-        assertEquals(2, res.size)
-        assertEquals(res[0], movies[0])
-        assertEquals(res[1], movies[2])
+        val res = movieDAO.getFavMovies().blockingObserve()
+        assertEquals(2, res?.size)
+        assertEquals(res?.get(0), movies[0])
+        assertEquals(res?.get(0), movies[2])
     }
 
     @Test
@@ -89,9 +89,9 @@ internal class MovieDatabaseTest {
 
         movieDAO.deleteFav(movies[0].name)
 
-        val res = movieDAO.getFavMovies()
-        assertEquals(1, res.size)
-        assertEquals(res[0], movies[2])
+        val res = movieDAO.getFavMovies().blockingObserve()
+        assertEquals(1, res?.size)
+        assertEquals(res?.get(0), movies[2])
     }
 
     @Test

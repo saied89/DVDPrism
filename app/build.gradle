@@ -99,8 +99,6 @@ dependencies {
 
     ////Room
     implementation "androidx.room:room-runtime:$room_version"
-    implementation 'com.android.support:appcompat-v7:28.+'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     kapt "androidx.room:room-compiler:$room_version" // use kapt for Kotlin
     // optional - Coroutines support for Room
     implementation "androidx.room:room-coroutines:$room_version"

@@ -15,4 +15,5 @@ abstract class MovieRepository(protected val movieFetcher: MovieFetcher, protect
 
     abstract suspend fun removeFromFavs(title: String)
     abstract fun isMovieFavorite(title: String): LiveData<Boolean>
+    abstract fun getFavMovies(): LiveData<List<Movie>>
 }

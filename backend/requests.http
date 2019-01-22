@@ -13,3 +13,6 @@ GET http://www.omdbapi.com/?apikey={{omdb-apiKey}}&i=tt5689632
 
 
 ###
+GET http://www.omdbapi.com/?apikey={{omdb-apiKey}}&s=Fail+State
+
+###

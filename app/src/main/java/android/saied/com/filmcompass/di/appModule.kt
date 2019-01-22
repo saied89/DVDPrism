@@ -1,5 +1,6 @@
 package android.saied.com.filmcompass.di
 
+import android.saied.com.filmcompass.ui.favoriteList.FavoritesViewModel
 import android.saied.com.filmcompass.ui.main.MainViewModel
 import android.saied.com.filmcompass.ui.movieDetail.DetailsViewModel
 import android.saied.com.filmcompass.ui.movieDetail.DetailsViewModelImp
@@ -14,4 +15,6 @@ val appModule = module {
     viewModel<MovieListViewModel> { MovieListViewModelImp(get()) }
 
     viewModel<DetailsViewModel> { DetailsViewModelImp(get()) }
+
+    viewModel { FavoritesViewModel(movieRepository = get()) }
 }

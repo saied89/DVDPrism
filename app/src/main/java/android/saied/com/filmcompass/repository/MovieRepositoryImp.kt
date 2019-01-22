@@ -50,5 +50,5 @@ class MovieRepositoryImp(movieFetcher: MovieFetcher, movieDAO: MovieDAO) : Movie
         it != null
     }
 
-
+    override fun getFavMovies() = movieDAO.getFavMovies()
 }
