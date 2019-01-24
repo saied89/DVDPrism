@@ -27,10 +27,13 @@ internal class MovieFetcherTaskTest {
             val dummyMovies = listOf(dummyMovie, dummyMovie)
             coEvery { fetchMovies() } returns Try.just(dummyMovies)
         }
-        val omdbFetcher = mockk<OmdbFetcher>(relaxed = true) {
+        val omdbFetcher = mockk<OmdbFetcher> {
             coEvery { getOmdbDetailsByTitle(dummyMovie.name) } returns Try.just(dummyOmdbDetails)
+            coEvery { getOmdbDetailsById(any()) } returns Try.just(dummyOmdbDetails)
         }
-        val omdbSearcher = mockk<OmdbSearcher>(relaxed = true)
+        val omdbSearcher = mockk<OmdbSearcher> {
+            coEvery { getImdbId(any(), any()) } returns Try.just("")
+        }
         val subject = MovieFetcherTask(repository, movieFetcher, omdbFetcher, omdbSearcher)
 
         subject.initRepeatingTask(500)
@@ -40,7 +43,7 @@ internal class MovieFetcherTaskTest {
             movieFetcher.fetchMovies()
         }
         coVerify(exactly = 4) {
-            omdbFetcher.getOmdbDetailsByTitle(dummyMovie.name)
+            omdbFetcher.getOmdbDetailsById(any())
         }
 
     }
