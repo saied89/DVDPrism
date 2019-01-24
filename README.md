@@ -1,5 +1,5 @@
 # FilmCompass
-[![Build Status](https://travis-ci.org/saied89/FilmCompass.svg?branch=master)](https://travis-ci.org/saied89/FilmCompass)
+[![Build Status](https://travis-ci.com/saied89/FilmCompass.svg?branch=master)](https://travis-ci.com/saied89/FilmCompass)
 [![codecov](https://codecov.io/gh/saied89/FilmCompass/branch/master/graph/badge.svg)](https://codecov.io/gh/saied89/FilmCompass) [![codebeat badge](https://codebeat.co/badges/8b43d9a1-1fb1-4a72-bf89-ca1ec9ae56a7)](https://codebeat.co/projects/github-com-saied89-filmcompass-master)
 
 This project will helps users keep track of all DVD releases. It consists of an android app and a Ktor backend. The backend will pull data from several sources, merge them and deliver data to the application through a REST API. The app will present the data to the user while also having some side functions.
