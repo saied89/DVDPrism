@@ -12,17 +12,17 @@ import io.ktor.http.URLBuilder
 import io.ktor.http.URLProtocol
 import io.ktor.http.Url
 
-class OmdbFetcher(private val client: HttpClient, private val envReader: EnviromentPropertiesReader) {
+const val apiKey_queryLabel = "apikey"
+private const val title_queryLabel = "t"
+private const val year_querryLabel = "y"
+private const val id_querryLabel = "i"
 
-    private val apiKey_queryLabel = "apikey"
-    private val title_queryLabel = "t"
-    private val year_querryLabel = "y"
-    private val id_querryLabel = "i"
+class OmdbFetcher(private val client: HttpClient, private val envReader: EnviromentPropertiesReader) {
 
     suspend fun getOmdbDetailsById(imdbId: String): Try<OmdbDetails> {
         val url = URLBuilder().apply {
             protocol = URLProtocol.HTTP
-            host = "www.omdbapi.com"
+            host = OMDB_HOST
             parameters.append(apiKey_queryLabel, envReader.getOmdbApiKey())
             parameters.append(id_querryLabel, imdbId)
         }
@@ -32,7 +32,7 @@ class OmdbFetcher(private val client: HttpClient, private val envReader: Envirom
     suspend fun getOmdbDetailsByTitle(title: String, year: Int? = null): Try<OmdbDetails> {
         val url = URLBuilder().apply {
             protocol = URLProtocol.HTTP
-            host = "www.omdbapi.com"
+            host = OMDB_HOST
             parameters.append(apiKey_queryLabel, envReader.getOmdbApiKey())
             parameters.append(title_queryLabel, title)
             if (year != null)

@@ -1,0 +1,76 @@
+{
+  "Search": [
+    {
+      "Title": "Halloween",
+      "Year": "1978",
+      "imdbID": "tt0077651",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BNzk1OGU2NmMtNTdhZC00NjdlLWE5YTMtZTQ0MGExZTQzOGQyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Halloween",
+      "Year": "2007",
+      "imdbID": "tt0373883",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BMTMzOTg4MzcxNF5BMl5BanBnXkFtZTcwMzY5MDE1MQ@@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Halloween II",
+      "Year": "1981",
+      "imdbID": "tt0082495",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BMjZmYjg0ODctOTIyYy00YzhkLTgyMzEtNjUyY2JiZjVmYzI2XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Halloween",
+      "Year": "2018",
+      "imdbID": "tt1502407",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BMmMzNjJhYjUtNzFkZi00MWQ4LWJiMDEtYWM0NTAzNGZjMTI3XkEyXkFqcGdeQXVyOTE2OTMwNDk@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Halloween H20: 20 Years Later",
+      "Year": "1998",
+      "imdbID": "tt0120694",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BNzA3ZjMzZWItNWUyNy00ZmNiLWIwYmYtN2UxNWUwMGY5Yzc2XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Halloween II",
+      "Year": "2009",
+      "imdbID": "tt1311067",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BMjE2OTEzODI0NF5BMl5BanBnXkFtZTcwMTE4MTY2Mg@@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Halloween 4: The Return of Michael Myers",
+      "Year": "1988",
+      "imdbID": "tt0095271",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BYWNiNjBhZjAtMzVkNi00MTJiLWI0NGQtODE2NmIyNmU2OTQwXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Halloween III: Season of the Witch",
+      "Year": "1982",
+      "imdbID": "tt0085636",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BN2YzYjI0MWYtYWUyZS00ZDQ4LWEzN2EtMDU4NDJmNjA2ZWFiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Halloween: Resurrection",
+      "Year": "2002",
+      "imdbID": "tt0220506",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BODczZDMxNTMtZDIxOC00YWEzLWJkMmEtZjczNGUwZDA2NTNhXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Halloween 5: The Revenge of Michael Myers",
+      "Year": "1989",
+      "imdbID": "tt0097474",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BZWE2YTU2ZjMtZjRjOS00NjQ3LWIyYzItMTk2N2YxMjY1ZGRiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
+    }
+  ],
+  "totalResults": "448",
+  "Response": "True"
+}
