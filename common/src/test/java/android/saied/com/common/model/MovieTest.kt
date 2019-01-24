@@ -41,9 +41,9 @@ internal class MovieTest {
             description = ""
         )
         assertEquals(ScoreIndication.TBD, subject.getUserIndication())
-        assertEquals(ScoreIndication.POSITIVE, subject.copy(metaScore = 61).getUserIndication())
-        assertEquals(ScoreIndication.MIXED, subject.copy(metaScore = 60).getUserIndication())
-        assertEquals(ScoreIndication.NEGATIVE, subject.copy(metaScore = 39).getUserIndication())
+        assertEquals(ScoreIndication.POSITIVE, subject.copy(userScore = 61).getUserIndication())
+        assertEquals(ScoreIndication.MIXED, subject.copy(userScore = 60).getUserIndication())
+        assertEquals(ScoreIndication.NEGATIVE, subject.copy(userScore = 39).getUserIndication())
     }
 
 
