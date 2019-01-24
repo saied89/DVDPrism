@@ -1,5 +1,6 @@
 package android.saied.com.filmcompass.ui.main
 
+import android.content.Intent
 import android.saied.com.common.model.Movie
 import android.saied.com.filmcompass.ui.movieList.MainState
 import androidx.lifecycle.MediatorLiveData
@@ -18,12 +19,23 @@ import org.koin.test.declare
 import android.saied.com.filmcompass.R
 import android.saied.com.filmcompass.RecyclerViewMatchers
 import android.saied.com.filmcompass.asPagedList
+import android.saied.com.filmcompass.ui.favoriteList.FavoritesActivity
+import android.saied.com.filmcompass.ui.favoriteList.FavoritesViewModel
+import android.saied.com.filmcompass.ui.movieDetail.DetailActivity
+import android.saied.com.filmcompass.ui.movieDetail.DetailsViewModel
 import android.saied.com.filmcompass.ui.movieList.MovieListViewModel
+import android.saied.com.filmcompass.ui.movieList.MovieViewHolder
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
 import androidx.annotation.IdRes
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.contrib.RecyclerViewActions
+import androidx.test.espresso.intent.Intents.intended
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
+import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.UiObject
@@ -35,8 +47,8 @@ import org.junit.rules.TestRule
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest : KoinTest {
 
-//    @get:Rule
-//    val intentsTestRule = IntentsTestRule(MainActivity::class.java)
+    @get:Rule
+    val intentsTestRule = IntentsTestRule(MainActivity::class.java, false, false)
 
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
@@ -60,39 +72,44 @@ class MainActivityTest : KoinTest {
         onView(withId(R.id.recyclerView)).check(matches(RecyclerViewMatchers.hasItemCount(mockData!!.size)))
     }
 
-//    @Test
-//    fun tapOnMovieItemOpensDetailsActivity() {
-//        val element = Movie("", 0, "", 0, 0, "")
-//        val mockData = listOf(element, element, element).asPagedList()
-//        declare {
-//            viewModel(override = true) {
-//                mockk<MovieListViewModel>(relaxUnitFun = true) {
-//                    every { stateLiveData } returns MediatorLiveData<MainState>().apply {
-//                        value = MainState.Success(mockData)
-//                    }
-//                }
-//            }
-//            viewModel(override = true) {
-//                mockk<DetailsViewModel> {
-//                    every { getIsFavoriteLiveData(any()) } returns MediatorLiveData<Boolean>().apply {
-//                        value = false
-//                    }
-//                }
-//            }
-//        }
-//        val scenario = ActivityScenario.launch(MainActivity::class.java)
-//
-//        onView(ViewMatchers.withId(R.id.recyclerView))
-//            .perform(
-//                RecyclerViewActions.actionOnItemAtPosition<MovieViewHolder>(
-//                    1,
-//                    click()
-//                )
-//            )
-//
-//        intended(hasComponent(DetailActivity::class.qualifiedName))
-//
-//    }
+    @Test
+    fun tapOnMovieItemOpensDetailsActivity() {
+        val element = Movie("", 0, "", 0, 0, "")
+        val mockData = listOf(element, element, element).asPagedList()
+        declare {
+            viewModel(override = true) {
+                mockk<MovieListViewModel>(relaxUnitFun = true) {
+                    every { stateLiveData } returns MediatorLiveData<MainState>().apply {
+                        value = MainState.Success(mockData)
+                    }
+                }
+            }
+            viewModel(override = true) {
+                mockk<DetailsViewModel>(relaxUnitFun = true) {
+                    every { getIsFavoriteLiveData(any()) } returns MediatorLiveData<Boolean>().apply {
+                        value = false
+                    }
+                }
+            }
+        }
+        intentsTestRule.launchActivity(
+            Intent(
+                InstrumentationRegistry.getInstrumentation().targetContext,
+                MainActivity::class.java
+            )
+        )
+
+        onView(ViewMatchers.withId(R.id.recyclerView))
+            .perform(
+                RecyclerViewActions.actionOnItemAtPosition<MovieViewHolder>(
+                    1,
+                    click()
+                )
+            )
+
+        intended(hasComponent(DetailActivity::class.qualifiedName))
+
+    }
 
     @Test
     fun correctLoadingStateRender() {
@@ -126,6 +143,34 @@ class MainActivityTest : KoinTest {
 
         onView(withId(com.google.android.material.R.id.snackbar_text))
             .check(matches(withText(testMessage)))
+    }
+
+    @Test
+    fun clickOnFavsActionLaunchesFavoritesActivity() {
+        declare {
+            viewModel(override = true) {
+                mockk<MovieListViewModel>(relaxUnitFun = true) {
+                    every { stateLiveData } returns MediatorLiveData<MainState>().apply {
+                        value = MainState.Success(null)
+                    }
+                }
+            }
+            viewModel(override = true) {
+                mockk<FavoritesViewModel>(relaxUnitFun = true) {
+                    every { favoritesLiveData } returns MutableLiveData<List<Movie>>()
+                }
+            }
+        }
+        intentsTestRule.launchActivity(
+            Intent(
+                InstrumentationRegistry.getInstrumentation().targetContext,
+                MainActivity::class.java
+            )
+        )
+
+        onView(withId(R.id.favs)).perform(click())
+
+        intended(hasComponent(FavoritesActivity::class.qualifiedName))
     }
 
     fun uiObjectWithId(@IdRes id: Int): UiObject {
