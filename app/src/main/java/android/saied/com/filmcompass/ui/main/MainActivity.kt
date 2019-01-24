@@ -3,6 +3,7 @@ package android.saied.com.filmcompass.ui.main
 import android.os.Bundle
 import android.saied.com.filmcompass.R
 import android.saied.com.filmcompass.ui.favoriteList.FavoritesActivity
+import android.saied.com.filmcompass.utils.fixExitShareElementCallback
 import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
@@ -24,20 +25,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        ActivityCompat.setExitSharedElementCallback(this, object : SharedElementCallback() {
-            override fun onSharedElementEnd(
-                sharedElementNames: List<String>,
-                sharedElements: List<View>,
-                sharedElementSnapshots: List<View>
-            ) {
-                super.onSharedElementEnd(sharedElementNames, sharedElements, sharedElementSnapshots)
-                for (view in sharedElements) {
-                    if (view is SimpleDraweeView) {
-                        view.drawable.setVisible(true, true)
-                    }
-                }
-            }
-        })
+        fixExitShareElementCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

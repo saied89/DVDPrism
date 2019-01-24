@@ -57,20 +57,7 @@ class DetailActivity : AppCompatActivity() {
             setDisplayShowTitleEnabled(false)
         }
 
-        ActivityCompat.setExitSharedElementCallback(this, object : SharedElementCallback() {
-            override fun onSharedElementEnd(
-                sharedElementNames: List<String>,
-                sharedElements: List<View>,
-                sharedElementSnapshots: List<View>
-            ) {
-                super.onSharedElementEnd(sharedElementNames, sharedElements, sharedElementSnapshots)
-                for (view in sharedElements) {
-                    if (view is SimpleDraweeView) {
-                        view.drawable.setVisible(true, true)
-                    }
-                }
-            }
-        })
+        fixExitShareElementCallback()
 
         bindMovie(movie)
 

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.saied.com.filmcompass.R
+import android.saied.com.filmcompass.utils.fixExitShareElementCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +22,9 @@ class FavoritesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favotire_list)
         setSupportActionBar(toolbar)
+
+        fixExitShareElementCallback()
+
         recyclerView.run {
             layoutManager = LinearLayoutManager(this@FavoritesActivity, RecyclerView.VERTICAL, false)
             adapter = this@FavoritesActivity.adapter
