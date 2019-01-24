@@ -12,6 +12,8 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5_version"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5_version"
     implementation "androidx.room:room-common:$room_version"
+
+    testImplementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8" //for parsing sample jsons
 }
 
 test {

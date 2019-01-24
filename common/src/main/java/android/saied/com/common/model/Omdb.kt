@@ -29,8 +29,6 @@ data class OmdbDetails(
     val production: String,
     @JsonProperty("Rated")
     val rated: String,
-//    @JsonProperty("Ratings")
-//    val ratings: List<Rating>,
     @JsonProperty("Released")
     val released: String,
     @JsonProperty("Response")
@@ -53,11 +51,4 @@ data class OmdbDetails(
     val imdbRating: String,
     @JsonProperty("imdbVotes")
     val imdbVotes: String
-) : Serializable
-
-data class Rating(
-    @JsonProperty("Source")
-    val source: String,
-    @JsonProperty("Value")
-    val value: String
 ) : Serializable
