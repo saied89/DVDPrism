@@ -3,12 +3,11 @@ package android.saied.com.backend.services
 import android.saied.com.backend.MovieRepository
 import android.saied.com.backend.dummyMovie
 import android.saied.com.backend.dummyOmdbDetails
+import android.saied.com.backend.fetcher.MovieFetcher
 import android.saied.com.backend.fetcher.OmdbFetcher
 import android.saied.com.backend.fetcher.OmdbSearcher
 import android.saied.com.backend.task.MovieFetcherTask
 import android.saied.com.common.model.Movie
-import android.saied.com.common.model.OmdbDetails
-import android.saied.com.moviefetcher.MovieFetcher
 import arrow.core.Try
 import io.mockk.*
 import io.mockk.junit5.MockKExtension

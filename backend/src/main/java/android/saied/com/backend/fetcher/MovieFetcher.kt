@@ -1,5 +1,6 @@
-package android.saied.com.moviefetcher
+package android.saied.com.backend.fetcher
 
+import android.saied.com.backend.fetchHtml
 import android.saied.com.common.model.Movie
 import android.saied.com.common.model.parseDate
 import arrow.core.Try
@@ -47,7 +48,8 @@ sealed class MovieFetcher(protected val url: String, protected val httpClient: H
 //            }
 //    }
 
-    class MetacriticFetcher(httpClient: HttpClient = HttpClient()) : MovieFetcher(metacriticUrl, httpClient) {
+    class MetacriticFetcher(httpClient: HttpClient = HttpClient()) : MovieFetcher(
+        metacriticUrl, httpClient) {
         override fun parseHtml(htmlStr: String): List<Movie> =
             Jsoup.parse(htmlStr)
                 .body()

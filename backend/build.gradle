@@ -9,13 +9,17 @@ dependencies {
     def logback_version = '1.2.3'
     def mockK_version = '1.8.13.kotlin13'
     def mongo_version = "3.9.1"
-    
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     compile 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
-    implementation project(':moviefetcher')
+    implementation project(':common')
     compile "org.litote.kmongo:kmongo:$mongo_version"
 
-    testCompile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8"
+    testCompile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8" //for parsing sample jsons
+
+    implementation 'org.jsoup:jsoup:1.11.3' // for parsing html
+
+    //Λrrow
+    api "io.arrow-kt:arrow-core:$arrow_version"
     
     //ktor
     compile "io.ktor:ktor-server-netty:$ktor_version"
@@ -31,6 +35,7 @@ dependencies {
     compile "io.ktor:ktor-client-logging-jvm:$ktor_version"
     testImplementation "io.ktor:ktor-client-mock-jvm:$ktor_version"
     compile "io.ktor:ktor-client-jackson:$ktor_version"
+    implementation "io.ktor:ktor-client-okhttp:$ktor_version"
     
 
     //// Koin
