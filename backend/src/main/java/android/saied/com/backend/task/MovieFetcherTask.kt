@@ -3,12 +3,14 @@ package android.saied.com.backend.task
 import android.saied.com.backend.MovieRepository
 import android.saied.com.backend.checkMoviesOmdbDetails
 import android.saied.com.backend.fetcher.OmdbFetcher
+import android.saied.com.backend.fetcher.OmdbSearcher
 import android.saied.com.backend.getDvdYear
 import android.saied.com.common.model.Movie
 import android.saied.com.common.model.OmdbDetails
 import android.saied.com.moviefetcher.MovieFetcher
 import arrow.core.Success
 import arrow.core.Try
+import com.google.common.annotations.VisibleForTesting
 import kotlinx.coroutines.*
 import org.slf4j.LoggerFactory
 import java.util.*
@@ -17,7 +19,8 @@ import kotlin.concurrent.fixedRateTimer
 class MovieFetcherTask(
     private val repository: MovieRepository,
     private val movieFetcher: MovieFetcher,
-    private val omdbFetcher: OmdbFetcher
+    private val omdbFetcher: OmdbFetcher,
+    private val omdbSearcher: OmdbSearcher
 ) {
 
     private val fetchJob = Job()
@@ -42,13 +45,18 @@ class MovieFetcherTask(
         }
     }
 
-    private suspend fun fetchMoviesOmdbData(movie: Movie): OmdbDetails? {
-        if (disambiguationMap.containsKey(movie.name)) {
-            val omdbDetailsTry = omdbFetcher.getOmdbDetailsById(imdbId = disambiguationMap[movie.name]!!)
-            return if (omdbDetailsTry is Try.Success)
-                omdbDetailsTry.value
-            else
-                null
+    suspend fun fetchMoviesOmdbData(movie: Movie): OmdbDetails? {
+        val imdbId: String? =
+            if (disambiguationMap.containsKey(movie.name)) disambiguationMap[movie.name]!!
+            else {
+                val imdbIdTry = omdbSearcher.getImdbId(movie.name, movie.getDvdYear())
+                if(imdbIdTry is Success) imdbIdTry.value else null
+            }
+
+        if (imdbId != null) {
+            val omdbDetailsTry = omdbFetcher.getOmdbDetailsById(imdbId = imdbId)
+            if (omdbDetailsTry is Try.Success)
+                return omdbDetailsTry.value
         }
         var omdbDetailsTry = omdbFetcher.getOmdbDetailsByTitle(movie.name)
         if (omdbDetailsTry is Try.Success && movie.checkMoviesOmdbDetails(omdbDetailsTry.value)) {

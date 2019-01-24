@@ -2,6 +2,7 @@ package android.saied.com.backend.fetcher
 
 import android.saied.com.backend.EnviromentPropertiesReader
 import android.saied.com.backend.model.OmdbSearch
+import android.saied.com.backend.model.SearchResType
 import android.saied.com.common.model.Movie
 import arrow.core.Success
 import arrow.core.Try
@@ -46,6 +47,7 @@ class OmdbSearcher(private val client: HttpClient, private val envReader: Enviro
         else {
             val omdbSearch = (searchTry as Success).value
             omdbSearch.search
+                .filter {it.type == SearchResType.MOVIE }
                 .filter {
                     title.toLowerCase() == it.title.toLowerCase() && (dvdYear - it.year.toInt() <= 2)
                 }.maxBy {

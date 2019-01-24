@@ -1,5 +1,6 @@
 package android.saied.com.backend.model
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.annotation.JsonValue
 
 
 data class OmdbSearch(
@@ -17,9 +18,13 @@ data class Search(
     @JsonProperty("Title")
     val title: String,
     @JsonProperty("Type")
-    val type: String,
+    val type: SearchResType,
     @JsonProperty("Year")
     val year: String,
     @JsonProperty("imdbID")
     val imdbID: String
 )
+
+enum class SearchResType(@JsonValue val typeStr: String) {
+    MOVIE("movie"), SERIES("series")
+}

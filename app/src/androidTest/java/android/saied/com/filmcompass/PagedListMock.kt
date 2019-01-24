@@ -5,6 +5,7 @@ import android.saied.com.filmcompass.db.blockingObserve
 import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import androidx.room.DatabaseConfiguration
 import androidx.room.RoomDatabase
 import androidx.room.RoomSQLiteQuery
 import androidx.room.paging.LimitOffsetDataSource
@@ -32,6 +33,10 @@ private fun <T> createMockDataSourceFactory(itemList: List<T>): DataSource.Facto
 
 private val mockQuery = mockk<RoomSQLiteQuery> {
     every { sql } returns ""
+}
+
+private fun getMockDb() {
+
 }
 
 private val mockDb = mockk<RoomDatabase> {
