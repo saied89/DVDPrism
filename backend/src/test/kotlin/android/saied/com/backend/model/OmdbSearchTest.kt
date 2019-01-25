@@ -1,6 +1,7 @@
 package android.saied.com.backend.model
 
 import android.saied.com.backend.di.jsonModule
+import android.saied.com.common.model.OmdbType
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -10,6 +11,7 @@ import org.koin.standalone.get
 import org.koin.test.KoinTest
 
 internal class OmdbSearchTest : KoinTest {
+
     @Test
     fun `is parsed correctly`() {
         startKoin(listOf(jsonModule))
@@ -18,8 +20,15 @@ internal class OmdbSearchTest : KoinTest {
         val res = objectMapper.readValue(content, OmdbSearch::class.java)
 
         assertEquals(10, res.search.size)
-        assertEquals(SearchResType.MOVIE, res.search[0].type)
-        assertEquals(SearchResType.SERIES, res.search[1].type)
+        assertEquals(OmdbType.MOVIE, res.search[0].type)
+        assertEquals(OmdbType.SERIES, res.search[1].type)
+        assertTrue(res.response)
+        assertEquals(448, res.totalResults)
+        assertEquals("tt0077651", res.search[0].imdbID)
+        assertEquals("Halloween", res.search[0].title)
+        assertEquals(1978, res.search[0].year)
+        assertTrue(res.search[0].poster.isNotEmpty())
+        assertTrue(res.search[0].poster.isNotEmpty())
         stopKoin()
     }
 }

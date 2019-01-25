@@ -14,6 +14,17 @@ internal class OmdbDetailsTest {
         val content = javaClass.classLoader.getResource("OmdpSample.json").readText()
         val subject = objectMapper.readValue(content, OmdbDetails::class.java)
 
-        assertEquals("Monty Python and the Holy Grail", subject.title)
+        subject.run {
+            assertEquals("Graham Chapman,John Cleese,Eric Idle,Terry Gilliam", actors)
+            assertEquals("Terry Gilliam,Terry Jones", director)
+            assertEquals("Adventure,Comedy,Fantasy", genre)
+            assertEquals("Monty Python and the Holy Grail", title)
+            assertEquals(OmdbType.MOVIE, type)
+            assertEquals("tt0071853", imdbID)
+            assertEquals("91 min", runtime)
+            assertEquals(1975, year)
+            assertTrue(poster.isNotEmpty() && poster.isNotBlank())
+            assertTrue(response)
+        }
     }
 }

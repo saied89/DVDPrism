@@ -1,22 +1,27 @@
 package android.saied.com.backend
 
-import android.saied.com.backend.di.dbModule
 import android.saied.com.common.model.Movie
 import android.saied.com.common.model.OmdbDetails
+import android.saied.com.common.model.OmdbType
 import com.mongodb.client.MongoCollection
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
-import org.koin.standalone.StandAloneContext.startKoin
-import org.koin.standalone.StandAloneContext.stopKoin
-import org.koin.standalone.inject
-import org.koin.test.KoinTest
 import org.litote.kmongo.KMongo
 import org.litote.kmongo.deleteMany
 import org.litote.kmongo.getCollection
 
-val dummyOmdbDetails = OmdbDetails("x","x","x","x","x","x",
-    "x", "x", "x","x","x","x","x","x",
-    "x","x", "x","x","x","x","x","x","x")
+val dummyOmdbDetails = OmdbDetails(
+    "",
+    "",
+    "",
+    "",
+    true,
+    "",
+    "",
+    OmdbType.MOVIE,
+    1970,
+    ""
+)
 
 private const val DB_NAME = "TEST"
 
