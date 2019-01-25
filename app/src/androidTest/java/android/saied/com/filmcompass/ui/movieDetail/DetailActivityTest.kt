@@ -14,12 +14,14 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import junit.framework.Assert.assertTrue
 import kotlinx.android.synthetic.main.activity_detail.view.*
 import kotlinx.coroutines.Job
 import org.junit.Rule
@@ -66,6 +68,26 @@ class DetailActivityTest : KoinTest {
         onView(withId(R.id.favFab)).perform(click())
         verify(exactly = 0) { mockViewModel.addToFavorites(titleStr) }
         verify(exactly = 1) { mockViewModel.removeFromFavorites(titleStr) }
+    }
+
+    @Test
+    fun clickOnBackArrowClosesActivity() {
+        val element = Movie("", 0, "", 0, 0, "")
+        val scenario = ActivityScenario.launch<DetailActivity>(
+            Intent(
+                InstrumentationRegistry.getInstrumentation().targetContext,
+                DetailActivity::class.java
+            ).apply {
+                putExtra(MOVIE_EXTRA_TAG, element)
+            }
+        )
+
+        onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click())
+
+        scenario.onActivity {
+            assertTrue(it.isFinishing)
+        }
+
     }
 
     @Test

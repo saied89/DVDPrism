@@ -76,6 +76,10 @@ class DetailActivity : AppCompatActivity() {
             else
                 viewModel.addToFavorites(movie.name)
         }
+
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun bindMovie(movie: Movie) {
