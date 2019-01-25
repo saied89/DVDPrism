@@ -46,13 +46,7 @@ class MovieFetcherTask(
     }
 
     suspend fun fetchMoviesOmdbData(movie: Movie): OmdbDetails? {
-        val imdbId: String? =
-            if (disambiguationMap.containsKey(movie.name)) disambiguationMap[movie.name]!!
-            else {
-                val imdbIdTry = omdbSearcher.getImdbId(movie.name, movie.getDvdYear())
-                if(imdbIdTry is Success) imdbIdTry.value else null
-            }
-
+        val imdbId: String? = getMovieImdbId(movie)
         if (imdbId != null) {
             val omdbDetailsTry = omdbFetcher.getOmdbDetailsById(imdbId = imdbId)
             if (omdbDetailsTry is Try.Success)
@@ -62,7 +56,7 @@ class MovieFetcherTask(
         if (omdbDetailsTry is Try.Success && movie.checkMoviesOmdbDetails(omdbDetailsTry.value)) {
             return omdbDetailsTry.value
         } else {
-            (movie.getDvdYear()..movie.getDvdYear() - 2).forEach {
+            (movie.getDvdYear() downTo movie.getDvdYear() - 2).forEach {
                 omdbDetailsTry = omdbFetcher.getOmdbDetailsByTitle(movie.name, it)
                 if (omdbDetailsTry is Success && movie.checkMoviesOmdbDetails((omdbDetailsTry as Try.Success).value)
                 ) {
@@ -71,6 +65,16 @@ class MovieFetcherTask(
             }
             return null
         }
+    }
+
+    private suspend fun getMovieImdbId(movie: Movie): String? {
+        val imdbId: String? =
+            if (disambiguationMap.containsKey(movie.name)) disambiguationMap[movie.name]!!
+            else {
+                val imdbIdTry = omdbSearcher.getImdbId(movie.name, movie.getDvdYear())
+                if (imdbIdTry is Success) imdbIdTry.value else null
+            }
+        return imdbId
     }
 
     fun initRepeatingTask(period: Long = 120 * 60 * 1000) { //every two hours

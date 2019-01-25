@@ -51,7 +51,7 @@ internal class MovieFetcherTaskTest {
     fun `correct omdb details is set`() {
         val id = "tt1502407"
         val captureSlot = CapturingSlot<List<Movie>>()
-        val mockRepo = mockk<MovieRepository>{
+        val mockRepo = mockk<MovieRepository> {
             every { saveMovies(movies = capture(captureSlot)) } returns Try.just(Unit)
         }
         val mockMovieFetcher = mockk<MovieFetcher> {
@@ -74,6 +74,82 @@ internal class MovieFetcherTaskTest {
         assertEquals(1, captureSlot.captured.size)
         assertNotNull(captureSlot.captured[0].omdbDetails)
         assertEquals("saiedMovie", captureSlot.captured[0].omdbDetails?.title)
+    }
+
+    @Test
+    fun `when omdbSearch fails getOmdbDetailsByTitle is tried`() {
+        val movieTitle = "holloween"
+        val captureSlot = CapturingSlot<List<Movie>>()
+        val mockRepo = mockk<MovieRepository> {
+            every { saveMovies(movies = capture(captureSlot)) } returns Try.just(Unit)
+        }
+        val mockMovieFetcher = mockk<MovieFetcher> {
+            coEvery { fetchMovies() } returns Try.just(listOf(dummyMovie.copy(name = movieTitle)))
+        }
+        val mockSearcher = mockk<OmdbSearcher> {
+            coEvery { getImdbId(movieTitle, 1970) } returns Try.raise(Exception())
+        }
+        val mockOmdbFetcher = mockk<OmdbFetcher> {
+            coEvery { getOmdbDetailsByTitle(movieTitle) } returns Try.just(dummyOmdbDetails.copy(title = movieTitle))
+        }
+
+        val subject = MovieFetcherTask(mockRepo, mockMovieFetcher, mockOmdbFetcher, mockSearcher)
+
+        subject.initRepeatingTask()
+        Thread.sleep(1000)
+
+        coVerify(exactly = 1) { mockOmdbFetcher.getOmdbDetailsByTitle(movieTitle) }
+        assertEquals(1, captureSlot.captured.size)
+        assertNotNull(captureSlot.captured[0].omdbDetails)
+        assertEquals(movieTitle, captureSlot.captured[0].omdbDetails?.title)
+    }
+
+    @Test
+    fun `when omdbSearch and getOmdbDetailsByTitle fail setting year parameters is tried`() {
+        val movieTitle = "holloween"
+        val year = 1970
+        val captureSlot = CapturingSlot<List<Movie>>()
+        val mockRepo = mockk<MovieRepository> {
+            every { saveMovies(movies = capture(captureSlot)) } returns Try.just(Unit)
+        }
+        val mockMovieFetcher = mockk<MovieFetcher> {
+            coEvery { fetchMovies() } returns Try.just(listOf(dummyMovie.copy(name = movieTitle)))
+        }
+        val mockSearcher = mockk<OmdbSearcher> {
+            coEvery { getImdbId(movieTitle, year) } returns Try.raise(Exception())
+        }
+        val mockOmdbFetcher = mockk<OmdbFetcher> {
+            coEvery { getOmdbDetailsByTitle(movieTitle) } returns Try.just(dummyOmdbDetails.copy(title = "wrong title"))
+            coEvery {
+                getOmdbDetailsByTitle(
+                    movieTitle,
+                    year
+                )
+            } returns Try.just(dummyOmdbDetails.copy(title = "wrong title"))
+            coEvery {
+                getOmdbDetailsByTitle(
+                    movieTitle,
+                    year - 1
+                )
+            } returns Try.just(dummyOmdbDetails.copy(title = "wrong title"))
+            coEvery {
+                getOmdbDetailsByTitle(
+                    movieTitle,
+                    year - 2
+                )
+            } returns Try.just(dummyOmdbDetails.copy(title = movieTitle))
+        }
+        val subject = MovieFetcherTask(mockRepo, mockMovieFetcher, mockOmdbFetcher, mockSearcher)
+
+        subject.initRepeatingTask()
+        Thread.sleep(1000)
+
+        coVerify(exactly = 1) { mockOmdbFetcher.getOmdbDetailsByTitle(movieTitle) }
+        coVerify(exactly = 1) { mockOmdbFetcher.getOmdbDetailsByTitle(movieTitle, year - 1) }
+        coVerify(exactly = 1) { mockOmdbFetcher.getOmdbDetailsByTitle(movieTitle, year - 2) }
+        assertEquals(1, captureSlot.captured.size)
+        assertNotNull(captureSlot.captured[0].omdbDetails)
+        assertEquals(movieTitle, captureSlot.captured[0].omdbDetails?.title)
     }
 
     @Test
