@@ -7,6 +7,6 @@ import kotlinx.coroutines.Job
 
 abstract class DetailsViewModel(protected val movieRepository: MovieRepository) : ViewModel() {
     abstract fun getIsFavoriteLiveData(title: String): LiveData<Boolean>
-    abstract fun addToFavorites(title: String): Job
-    abstract fun removeFromFavorites(title: String): Job
+    abstract fun addToFavorites(title: String)
+    abstract fun removeFromFavorites(title: String)
 }

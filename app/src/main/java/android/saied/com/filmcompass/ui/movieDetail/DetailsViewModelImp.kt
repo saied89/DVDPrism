@@ -12,9 +12,9 @@ class DetailsViewModelImp(movieRepository: MovieRepository) : DetailsViewModel(m
 
     override fun getIsFavoriteLiveData(title: String) = movieRepository.isMovieFavorite(title)
 
-    override fun addToFavorites(title: String) = uiScope.launch { movieRepository.addToFavs(title) }
+    override fun addToFavorites(title: String) { uiScope.launch { movieRepository.addToFavs(title) } }
 
-    override fun removeFromFavorites(title: String) = uiScope.launch { movieRepository.removeFromFavs(title) }
+    override fun removeFromFavorites(title: String) { uiScope.launch { movieRepository.removeFromFavs(title) } }
 
     override fun onCleared() {
         super.onCleared()

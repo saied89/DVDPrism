@@ -19,7 +19,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import kotlinx.android.synthetic.main.activity_detail.view.*
+import kotlinx.coroutines.Job
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -35,14 +37,16 @@ class DetailActivityTest : KoinTest {
 
     @Test
     fun isFavoriteIsRenderedCorrectly() {
-        val element = Movie("", 0, "", 0, 0, "")
+        val titleStr = "title"
+        val element = Movie(titleStr, 0, "", 0, 0, "")
+        val mockViewModel = mockk<DetailsViewModel>(relaxUnitFun = true) {
+            every { getIsFavoriteLiveData(any()) } returns MutableLiveData<Boolean>().apply {
+                postValue(true)
+            }
+        }
         declare {
             viewModel(override = true) {
-                mockk<DetailsViewModel>(relaxUnitFun = true) {
-                    every { getIsFavoriteLiveData(any()) } returns MutableLiveData<Boolean>().apply {
-                        value = true
-                    }
-                }
+                mockViewModel
             }
         }
         val scenario = ActivityScenario.launch<DetailActivity>(
@@ -54,19 +58,28 @@ class DetailActivityTest : KoinTest {
             }
         )
 
+
+        //test1: correct graphic is set
         onView(withId(R.id.favFab)).check(matches(drawableIsCorrect(R.drawable.ic_favorite_black_24dp)))
+
+        //test2 correct behaviour
+        onView(withId(R.id.favFab)).perform(click())
+        verify(exactly = 0) { mockViewModel.addToFavorites(titleStr) }
+        verify(exactly = 1) { mockViewModel.removeFromFavorites(titleStr) }
     }
 
     @Test
     fun notFavoriteIsRenderedCorrectly() {
-        val element = Movie("", 0, "", 0, 0, "")
+        val titleStr = "title"
+        val element = Movie(titleStr, 0, "", 0, 0, "")
+        val mockViewModel = mockk<DetailsViewModel>(relaxUnitFun = true) {
+            every { getIsFavoriteLiveData(any()) } returns MutableLiveData<Boolean>().apply {
+                postValue(false)
+            }
+        }
         declare {
             viewModel(override = true) {
-                mockk<DetailsViewModel>(relaxUnitFun = true) {
-                    every { getIsFavoriteLiveData(any()) } returns MutableLiveData<Boolean>().apply {
-                        value = false
-                    }
-                }
+                mockViewModel
             }
         }
         val scenario = ActivityScenario.launch<DetailActivity>(
@@ -78,7 +91,13 @@ class DetailActivityTest : KoinTest {
             }
         )
 
+        //test1: correct graphic is set
         onView(withId(R.id.favFab)).check(matches(drawableIsCorrect(R.drawable.ic_favorite_border_black_24dp)))
+
+        //test2 correct behaviour
+        onView(withId(R.id.favFab)).perform(click())
+        verify(exactly = 1) { mockViewModel.addToFavorites(titleStr) }
+        verify(exactly = 0) { mockViewModel.removeFromFavorites(titleStr) }
     }
 
     @Test
@@ -97,4 +116,6 @@ class DetailActivityTest : KoinTest {
 
         intended(IntentMatchers.hasComponent(PosterActivity::class.qualifiedName))
     }
+
+
 }
