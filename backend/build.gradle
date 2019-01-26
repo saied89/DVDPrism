@@ -7,7 +7,6 @@ apply plugin: 'jacoco'
 dependencies {
     def koin_version = '1.0.2'
     def logback_version = '1.2.3'
-    def mockK_version = '1.8.13.kotlin13'
     def mongo_version = "3.9.1"
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     compile 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
