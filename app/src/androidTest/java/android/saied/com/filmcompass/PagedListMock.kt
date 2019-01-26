@@ -5,7 +5,6 @@ import android.saied.com.filmcompass.db.blockingObserve
 import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import androidx.room.DatabaseConfiguration
 import androidx.room.RoomDatabase
 import androidx.room.RoomSQLiteQuery
 import androidx.room.paging.LimitOffsetDataSource
@@ -35,15 +34,11 @@ private val mockQuery = mockk<RoomSQLiteQuery> {
     every { sql } returns ""
 }
 
-private fun getMockDb() {
-
-}
-
 private val mockDb = mockk<RoomDatabase> {
     every { invalidationTracker } returns mockk(relaxUnitFun = true)
 }
 
-class MockLimitDataSource<T>(val itemList: List<T>) : LimitOffsetDataSource<T>(mockDb, mockQuery, false, null) {
+class MockLimitDataSource<T>(private val itemList: List<T>) : LimitOffsetDataSource<T>(mockDb, mockQuery, false, null) {
     override fun convertRows(cursor: Cursor?): MutableList<T> = itemList.toMutableList()
     override fun countItems(): Int = itemList.count()
     override fun isInvalid(): Boolean = false

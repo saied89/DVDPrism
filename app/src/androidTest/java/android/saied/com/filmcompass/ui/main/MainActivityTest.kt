@@ -67,7 +67,7 @@ class MainActivityTest : KoinTest {
             }
         }
 
-        val scenario = ActivityScenario.launch(MainActivity::class.java)
+        ActivityScenario.launch(MainActivity::class.java)
 
         onView(withId(R.id.recyclerView)).check(matches(RecyclerViewMatchers.hasItemCount(mockData!!.size)))
     }
@@ -122,7 +122,7 @@ class MainActivityTest : KoinTest {
                 }
             }
         }
-        val scenario = ActivityScenario.launch(MainActivity::class.java)
+        ActivityScenario.launch(MainActivity::class.java)
 
         assertTrue(uiObjectWithId(R.id.progressbar).exists())
     }
@@ -139,7 +139,7 @@ class MainActivityTest : KoinTest {
                 }
             }
         }
-        val scenario = ActivityScenario.launch(MainActivity::class.java)
+        ActivityScenario.launch(MainActivity::class.java)
 
         onView(withId(com.google.android.material.R.id.snackbar_text))
             .check(matches(withText(testMessage)))
@@ -173,7 +173,7 @@ class MainActivityTest : KoinTest {
         intended(hasComponent(FavoritesActivity::class.qualifiedName))
     }
 
-    fun uiObjectWithId(@IdRes id: Int): UiObject {
+    private fun uiObjectWithId(@IdRes id: Int): UiObject {
         val resourceId = InstrumentationRegistry.getInstrumentation().targetContext.resources.getResourceName(id)
         val selector = UiSelector().resourceId(resourceId)
         return UiDevice.getInstance(getInstrumentation()).findObject(selector)

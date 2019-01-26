@@ -56,7 +56,7 @@ internal class MainKtTest : KoinTest {
     }
 
     fun Movie.getJson(): String = ObjectMapper().registerModule(KotlinModule()).writeValueAsString(this)
-    fun parseMovie(jsonStr: String?): List<Movie> {
+    private fun parseMovie(jsonStr: String?): List<Movie> {
         val objectMapper = ObjectMapper().registerModule(KotlinModule())
         val typeFactory = objectMapper.typeFactory
         return objectMapper.readValue<List<Movie>>(

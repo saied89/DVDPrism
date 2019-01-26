@@ -1,7 +1,6 @@
 package android.saied.com.filmcompass.ui.poster
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -12,11 +11,9 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import kotlinx.android.synthetic.main.activity_poster.*
 
-
-
 class PosterActivity : AppCompatActivity() {
 
-    val posterUrl: String by lazy {
+    private val posterUrl: String by lazy {
         intent.getStringExtra(POSTER_URL_EXTRA_TAG)
     }
 
@@ -33,7 +30,7 @@ class PosterActivity : AppCompatActivity() {
     }
 
     companion object {
-        private val POSTER_URL_EXTRA_TAG = "POSTER_URL_EXTRA_TAG"
+        private const val POSTER_URL_EXTRA_TAG = "POSTER_URL_EXTRA_TAG"
 
         fun launchPosterActivityWithTransition(launchingActivity: Activity, posterUrl: String, posterView: View) {
             val intent = Intent(launchingActivity, PosterActivity::class.java)

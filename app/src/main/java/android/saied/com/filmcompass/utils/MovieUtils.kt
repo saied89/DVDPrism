@@ -15,7 +15,7 @@ val Movie.userScoreString: String
     get() = if (userScore != null) ((userScore as Int).toFloat() / 10).toString() else "TBD"
 
 fun ScoreIndication.getColor(context: Context): Int =
-    when(this) {
+    when (this) {
         ScoreIndication.POSITIVE -> R.color.scorePositive
         ScoreIndication.MIXED -> R.color.scoreMixed
         ScoreIndication.NEGATIVE -> R.color.scoreNegative
@@ -25,7 +25,7 @@ fun ScoreIndication.getColor(context: Context): Int =
     }
 
 fun ScoreIndication.getUserScoreBG(context: Context): Drawable =
-    when(this) {
+    when (this) {
         ScoreIndication.POSITIVE -> R.drawable.cicle_positive
         ScoreIndication.MIXED -> R.drawable.cicle_mixed
         ScoreIndication.NEGATIVE -> R.drawable.cicle_negative

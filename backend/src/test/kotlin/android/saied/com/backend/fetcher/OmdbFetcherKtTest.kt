@@ -1,6 +1,6 @@
 package android.saied.com.backend.fetcher
 
-import android.saied.com.backend.EnviromentPropertiesReader
+import android.saied.com.backend.EnvironmentPropertiesReader
 import arrow.core.Failure
 import arrow.core.Success
 import arrow.core.Try
@@ -22,7 +22,7 @@ internal class OmdbFetcherKtTest {
     fun `omdbfetcher returns data on OK response`() {
         val content = javaClass.classLoader.getResource("OmdpSample2.json").readText()
         val dummyApiKey = "dummyApiKey"
-        val mockEnvReader = mockk<EnviromentPropertiesReader>()
+        val mockEnvReader = mockk<EnvironmentPropertiesReader>()
         every { mockEnvReader.getOmdbApiKey() } returns dummyApiKey
         val testEngine = MockEngine {
             when (url.toString()) {
@@ -67,7 +67,7 @@ internal class OmdbFetcherKtTest {
                 serializer = JacksonSerializer()
             }
         }
-        val mockEnvReader = mockk<EnviromentPropertiesReader>(relaxed = true)
+        val mockEnvReader = mockk<EnvironmentPropertiesReader>(relaxed = true)
         val subject = OmdbFetcher(httpClient, mockEnvReader)
 
         runBlocking {

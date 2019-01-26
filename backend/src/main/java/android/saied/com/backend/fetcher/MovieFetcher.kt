@@ -9,15 +9,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 
-private const val rottenTomatoUrl: String = "https://www.rottentomatoes.com/browse/dvd-streaming-new/"
 private const val metacriticUrl: String = "https://www.metacritic.com/browse/dvds/release-date/new-releases/date"
 
-sealed class MovieFetcher(protected val url: String, protected val httpClient: HttpClient) {
+sealed class MovieFetcher(protected val url: String, private val httpClient: HttpClient) {
 
     abstract fun parseHtml(htmlStr: String): List<Movie>
 
     suspend fun fetchMovies(): Try<List<Movie>> =
-        withContext<Try<List<Movie>>>(Dispatchers.IO) {
+        withContext(Dispatchers.IO) {
             try {
                 val res = fetchHtml(url, httpClient)
                 val htmlStr: String = //TODO check if there is a better way to propagate try
@@ -27,29 +26,11 @@ sealed class MovieFetcher(protected val url: String, protected val httpClient: H
                     }
                 Try.just(parseHtml(htmlStr))
             } catch (exp: Exception) {
-                Try.raise(exp)
+                Try.raise<List<Movie>>(exp)
             }
         }
 
-//    class RottenTomatoFetcher(httpClient: HttpClient = HttpClient()) : MovieFetcher(rottenTomatoUrl, httpClient) {
-//        override suspend fun fetchMovies(): Try<List<Movie>> =
-//            withContext<Try<List<Movie>>>(Dispatchers.IO) {
-//                try {
-//                    val res = fetchHtml(url, httpClient)
-//                    val htmlStr: String = //TODO check if there is a better way to propagate try
-//                        when (res) {
-//                            is Try.Success -> res.value
-//                            is Try.Failure -> throw res.exception
-//                        }
-//                    Try.just(parseRottenTomatoHtml(htmlStr))
-//                } catch (exp: Exception) {
-//                    Try.raise(exp)
-//                }
-//            }
-//    }
-
-    class MetacriticFetcher(httpClient: HttpClient = HttpClient()) : MovieFetcher(
-        metacriticUrl, httpClient) {
+    class MetacriticFetcher(httpClient: HttpClient = HttpClient()) : MovieFetcher(metacriticUrl, httpClient) {
         override fun parseHtml(htmlStr: String): List<Movie> =
             Jsoup.parse(htmlStr)
                 .body()
@@ -74,17 +55,5 @@ sealed class MovieFetcher(protected val url: String, protected val httpClient: H
                     Movie(title, date, posterUrl, metaScore, userScore, description)
                 }
 }
-
-//    protected fun parseRottenTomatoHtml(htmlStr: String) =
-//        Jsoup.parse(htmlStr)
-//            .body()
-//            .select("div.mb-movie")
-//            .map { element ->
-//                val title = element.select("h3.movieTitle").html()
-//                val dateStr = element.select("p.release-date").html()
-//                val date = parseDate(dateStr).time
-//                Movie(title, date)
-//            }
-
 
 }

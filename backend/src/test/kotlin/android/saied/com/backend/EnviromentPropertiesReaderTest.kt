@@ -10,7 +10,7 @@ internal class EnviromentPropertiesReaderTest {
     @Test
     fun `apiKey env value is read correctly`() {
         val objectMapper = ObjectMapper()
-        val subject = EnviromentPropertiesReader(objectMapper, "rest-client.private.env.json.sample")
+        val subject = EnvironmentPropertiesReader(objectMapper, "rest-client.private.env.json.sample")
 
         assertEquals("API_KEY", subject.getOmdbApiKey())
     }

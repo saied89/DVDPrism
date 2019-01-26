@@ -13,9 +13,7 @@ import android.saied.com.filmcompass.utils.*
 import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityOptionsCompat
-import androidx.core.app.SharedElementCallback
 import androidx.core.content.ContextCompat
 import androidx.core.util.Pair
 import androidx.lifecycle.LiveData
@@ -25,7 +23,6 @@ import com.facebook.common.executors.CallerThreadExecutor
 import com.facebook.common.references.CloseableReference
 import com.facebook.datasource.DataSource
 import com.facebook.drawee.backends.pipeline.Fresco
-import com.facebook.drawee.view.SimpleDraweeView
 import com.facebook.imagepipeline.datasource.BaseBitmapDataSubscriber
 import com.facebook.imagepipeline.image.CloseableImage
 import com.facebook.imagepipeline.request.ImageRequest
@@ -37,9 +34,9 @@ const val MOVIE_EXTRA_TAG = "MOVIE_EXTRA_TAG"
 
 class DetailActivity : AppCompatActivity() {
 
-    val viewModel: DetailsViewModel by viewModel()
+    private val viewModel: DetailsViewModel by viewModel()
 
-    val isFavoriteLiveData: LiveData<Boolean> by lazy {
+    private val isFavoriteLiveData: LiveData<Boolean> by lazy {
         viewModel.getIsFavoriteLiveData(movie.name)
     }
 
@@ -62,16 +59,16 @@ class DetailActivity : AppCompatActivity() {
         bindMovie(movie)
 
         isFavoriteLiveData.observe(this, Observer {
-            when(it) {
+            when (it) {
                 true -> R.drawable.ic_favorite_black_24dp
                 false -> R.drawable.ic_favorite_border_black_24dp
-            }.also {
-                favFab.setImageDrawable(resources.getDrawable(it, theme))
+            }.also { res ->
+                favFab.setImageDrawable(resources.getDrawable(res, theme))
             }
         })
 
         favFab.setOnClickListener {
-            if(isFavoriteLiveData.value == true)
+            if (isFavoriteLiveData.value == true)
                 viewModel.removeFromFavorites(movie.name)
             else
                 viewModel.addToFavorites(movie.name)

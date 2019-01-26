@@ -1,8 +1,7 @@
 package android.saied.com.backend.model
+
 import android.saied.com.common.model.OmdbType
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.annotation.JsonValue
-
 
 data class OmdbSearch(
     @JsonProperty("Response")

@@ -16,8 +16,8 @@ private const val DB_NAME = "TEST"
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class DataBaseInitUtilsKtTest {
 
-    val movieTestCollection: MongoCollection<Movie> = KMongo.createClient().getDatabase(DB_NAME).getCollection()
-    val movieRepository: MovieRepository = MovieRepositoryImp(movieTestCollection)
+    private val movieTestCollection: MongoCollection<Movie> = KMongo.createClient().getDatabase(DB_NAME).getCollection()
+    private val movieRepository: MovieRepository = MovieRepositoryImp(movieTestCollection)
 
     @BeforeEach
     fun setupEach() {

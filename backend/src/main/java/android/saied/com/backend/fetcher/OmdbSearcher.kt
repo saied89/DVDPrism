@@ -1,6 +1,6 @@
 package android.saied.com.backend.fetcher
 
-import android.saied.com.backend.EnviromentPropertiesReader
+import android.saied.com.backend.EnvironmentPropertiesReader
 import android.saied.com.backend.model.OmdbSearch
 import android.saied.com.common.model.OmdbType
 import arrow.core.Success
@@ -12,12 +12,11 @@ import io.ktor.client.features.BadResponseStatusException
 import io.ktor.client.request.get
 import io.ktor.http.ParametersBuilder
 import io.ktor.http.URLBuilder
-import java.lang.Exception
 
 const val OMDB_HOST = "www.omdbapi.com"
 private const val search_queryLabel = "s"
 
-class OmdbSearcher(private val client: HttpClient, private val envReader: EnviromentPropertiesReader) {
+class OmdbSearcher(private val client: HttpClient, private val envReader: EnvironmentPropertiesReader) {
 
     private suspend fun searchOmdbByMovie(title: String): Try<OmdbSearch> {
         val url = URLBuilder(
@@ -42,18 +41,18 @@ class OmdbSearcher(private val client: HttpClient, private val envReader: Enviro
 
     suspend fun getImdbId(title: String, dvdYear: Int): Try<String> = searchOmdbByMovie(title).let { searchTry ->
         if (searchTry is Try.Failure)
-            Try.raise<String>(searchTry.exception)
+            Try.raise(searchTry.exception)
         else {
             val omdbSearch = (searchTry as Success).value
             omdbSearch.search
-                .filter {it.type == OmdbType.MOVIE }
+                .filter { it.type == OmdbType.MOVIE }
                 .filter {
-                    title.toLowerCase() == it.title.toLowerCase() && (dvdYear - it.year.toInt() <= 2)
+                    title.toLowerCase() == it.title.toLowerCase() && (dvdYear - it.year <= 2)
                 }.maxBy {
-                    it.year.toInt()
+                    it.year
                 }.let {
-                    if(it == null)
-                        Try.raise<String>(IllegalStateException("No appropriate search result"))
+                    if (it == null)
+                        Try.raise(IllegalStateException("No appropriate search result"))
                     else
                         Try.just(it.imdbID)
                 }

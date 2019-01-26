@@ -7,8 +7,8 @@ import io.ktor.client.request.get
 suspend fun fetchHtml(url: String, httpClient: HttpClient): Try<String> =
     httpClient.use { client ->
         try {
-            Try.just(client.get<String>(url))
+            Try.just(client.get(url))
         } catch (exp: Exception) {
-            Try.raise<String>(exp)
+            Try.raise(exp)
         }
     }

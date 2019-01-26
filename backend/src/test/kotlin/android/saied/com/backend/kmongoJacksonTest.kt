@@ -13,9 +13,9 @@ data class Model(
     val dvd: String
 )
 
-internal class kmongoJacksonTest {
+internal class KmongoJacksonTest {
 
-    val testCollection: MongoCollection<Model> = KMongo.createClient().getDatabase("TEST").getCollection()
+    private val testCollection: MongoCollection<Model> = KMongo.createClient().getDatabase("TEST").getCollection()
 
     @Test
     fun `model is saved correctly`() {

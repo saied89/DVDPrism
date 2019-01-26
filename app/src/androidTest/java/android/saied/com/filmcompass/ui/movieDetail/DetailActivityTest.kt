@@ -5,7 +5,6 @@ import android.saied.com.common.model.Movie
 import android.saied.com.filmcompass.R
 import android.saied.com.filmcompass.RecyclerViewMatchers.drawableIsCorrect
 import android.saied.com.filmcompass.ui.poster.PosterActivity
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
@@ -21,9 +20,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import junit.framework.Assert.assertTrue
-import kotlinx.android.synthetic.main.activity_detail.view.*
-import kotlinx.coroutines.Job
+import junit.framework.TestCase.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -51,7 +48,7 @@ class DetailActivityTest : KoinTest {
                 mockViewModel
             }
         }
-        val scenario = ActivityScenario.launch<DetailActivity>(
+        ActivityScenario.launch<DetailActivity>(
             Intent(
                 InstrumentationRegistry.getInstrumentation().targetContext,
                 DetailActivity::class.java
@@ -104,7 +101,8 @@ class DetailActivityTest : KoinTest {
                 mockViewModel
             }
         }
-        val scenario = ActivityScenario.launch<DetailActivity>(
+
+        ActivityScenario.launch<DetailActivity>(
             Intent(
                 InstrumentationRegistry.getInstrumentation().targetContext,
                 DetailActivity::class.java

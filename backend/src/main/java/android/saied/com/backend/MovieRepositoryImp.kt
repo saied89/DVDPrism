@@ -7,9 +7,8 @@ import com.mongodb.client.MongoCollection
 import com.mongodb.client.model.InsertManyOptions
 import org.litote.kmongo.deleteMany
 import org.litote.kmongo.sort
-import java.util.*
 
-class MovieRepositoryImp(private val mongoCollection: MongoCollection<Movie>): MovieRepository {
+class MovieRepositoryImp(private val mongoCollection: MongoCollection<Movie>) : MovieRepository {
 
     init {
         DataBaseInitUtils.createUniqueMovieIndices(mongoCollection)

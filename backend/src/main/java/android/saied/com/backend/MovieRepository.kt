@@ -2,7 +2,6 @@ package android.saied.com.backend
 
 import android.saied.com.common.model.Movie
 import arrow.core.Try
-import java.util.*
 
 interface MovieRepository {
 

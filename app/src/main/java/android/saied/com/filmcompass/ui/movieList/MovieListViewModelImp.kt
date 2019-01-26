@@ -28,10 +28,9 @@ class MovieListViewModelImp(movieRepository: MovieRepository) : MovieListViewMod
         uiScope.launch {
             _stateLiveData.value = movieRepo.refreshMovies().let {
                 if (it is Try.Failure) {
-                    MainState.Error(it.exception, _stateLiveData.value!!.movieList)
-                } else _stateLiveData.value?.let {
-                    MainState.Success(it.movieList)
-                }
+                    MainState.Error(it.exception, _stateLiveData.value?.movieList)
+                } else MainState.Success(_stateLiveData.value?.movieList)
+
             }
 
         }

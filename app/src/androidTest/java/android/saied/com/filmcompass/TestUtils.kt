@@ -15,8 +15,7 @@ import org.hamcrest.TypeSafeMatcher
 object RecyclerViewMatchers {
     @JvmStatic
     fun hasItemCount(itemCount: Int): Matcher<View> {
-        return object : BoundedMatcher<View, RecyclerView>(
-            RecyclerView::class.java) {
+        return object : BoundedMatcher<View, RecyclerView>(RecyclerView::class.java) {
 
             override fun describeTo(description: Description) {
                 description.appendText("has $itemCount items")

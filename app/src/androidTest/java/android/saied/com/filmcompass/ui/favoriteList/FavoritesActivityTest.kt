@@ -36,7 +36,7 @@ class FavoritesActivityTest : KoinTest {
         val element = Movie("", 0, "", 0, 0, "")
         declare {
             viewModel(override = true) {
-                mockk<FavoritesViewModel>(relaxUnitFun = true){
+                mockk<FavoritesViewModel>(relaxUnitFun = true) {
                     every { favoritesLiveData } returns MutableLiveData<List<Movie>>().apply {
                         value = listOf(element, element, element, element)
                     }
@@ -54,7 +54,7 @@ class FavoritesActivityTest : KoinTest {
         val element = Movie("", 0, "", 0, 0, "")
         declare {
             viewModel(override = true) {
-                mockk<FavoritesViewModel>(relaxUnitFun = true){
+                mockk<FavoritesViewModel>(relaxUnitFun = true) {
                     every { favoritesLiveData } returns MutableLiveData<List<Movie>>().apply {
                         value = listOf(element, element, element, element)
                     }

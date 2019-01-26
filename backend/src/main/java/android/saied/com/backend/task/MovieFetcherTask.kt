@@ -10,7 +10,6 @@ import android.saied.com.common.model.Movie
 import android.saied.com.common.model.OmdbDetails
 import arrow.core.Success
 import arrow.core.Try
-import com.google.common.annotations.VisibleForTesting
 import kotlinx.coroutines.*
 import org.slf4j.LoggerFactory
 import java.util.*
@@ -26,7 +25,7 @@ class MovieFetcherTask(
     private val fetchJob = Job()
     private val serviceScope = CoroutineScope(fetchJob)
 
-    var timer: Timer? = null
+    private var timer: Timer? = null
 
     private suspend fun fetchMovies() {
         logFetchTaskStart()
@@ -45,7 +44,7 @@ class MovieFetcherTask(
         }
     }
 
-    suspend fun fetchMoviesOmdbData(movie: Movie): OmdbDetails? {
+    private suspend fun fetchMoviesOmdbData(movie: Movie): OmdbDetails? {
         val imdbId: String? = getMovieImdbId(movie)
         if (imdbId != null) {
             val omdbDetailsTry = omdbFetcher.getOmdbDetailsById(imdbId = imdbId)
@@ -68,13 +67,11 @@ class MovieFetcherTask(
     }
 
     private suspend fun getMovieImdbId(movie: Movie): String? {
-        val imdbId: String? =
-            if (disambiguationMap.containsKey(movie.name)) disambiguationMap[movie.name]!!
-            else {
-                val imdbIdTry = omdbSearcher.getImdbId(movie.name, movie.getDvdYear())
-                if (imdbIdTry is Success) imdbIdTry.value else null
-            }
-        return imdbId
+        return if (disambiguationMap.containsKey(movie.name)) disambiguationMap[movie.name]!!
+        else {
+            val imdbIdTry = omdbSearcher.getImdbId(movie.name, movie.getDvdYear())
+            if (imdbIdTry is Success) imdbIdTry.value else null
+        }
     }
 
     fun initRepeatingTask(period: Long = 120 * 60 * 1000) { //every two hours
@@ -96,7 +93,7 @@ class MovieFetcherTask(
             info("fetch movies task finished with success")
         }
 
-    val disambiguationMap = mapOf(
+    private val disambiguationMap = mapOf(
         "Trouble" to "tt5689632",
         "A.X.L." to "tt5709188",
         "The Oath" to "tt7461200",

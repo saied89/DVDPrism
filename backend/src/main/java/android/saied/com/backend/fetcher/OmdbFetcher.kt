@@ -1,6 +1,6 @@
 package android.saied.com.backend.fetcher
 
-import android.saied.com.backend.EnviromentPropertiesReader
+import android.saied.com.backend.EnvironmentPropertiesReader
 import android.saied.com.common.model.OmdbDetails
 import arrow.core.Try
 import com.fasterxml.jackson.module.kotlin.MissingKotlinParameterException
@@ -17,7 +17,7 @@ private const val title_queryLabel = "t"
 private const val year_querryLabel = "y"
 private const val id_querryLabel = "i"
 
-class OmdbFetcher(private val client: HttpClient, private val envReader: EnviromentPropertiesReader) {
+class OmdbFetcher(private val client: HttpClient, private val envReader: EnvironmentPropertiesReader) {
 
     suspend fun getOmdbDetailsById(imdbId: String): Try<OmdbDetails> {
         val url = URLBuilder().apply {

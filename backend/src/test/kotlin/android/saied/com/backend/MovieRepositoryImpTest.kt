@@ -29,8 +29,8 @@ private const val DB_NAME = "TEST"
 internal class MovieRepositoryImpTest {
 
 
-    val movieTestCollection: MongoCollection<Movie> = KMongo.createClient().getDatabase(DB_NAME).getCollection()
-    val movieRepository: MovieRepository = MovieRepositoryImp(movieTestCollection)
+    private val movieTestCollection: MongoCollection<Movie> = KMongo.createClient().getDatabase(DB_NAME).getCollection()
+    private val movieRepository: MovieRepository = MovieRepositoryImp(movieTestCollection)
 
     @BeforeEach
     fun cleanDB() {

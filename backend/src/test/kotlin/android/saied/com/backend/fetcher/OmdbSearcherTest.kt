@@ -1,6 +1,6 @@
 package android.saied.com.backend.fetcher
 
-import android.saied.com.backend.EnviromentPropertiesReader
+import android.saied.com.backend.EnvironmentPropertiesReader
 import arrow.core.Failure
 import arrow.core.Success
 import arrow.core.Try
@@ -25,11 +25,11 @@ internal class OmdbSearcherTest {
     fun appropriateResultIsReturned() {
         val content = javaClass.classLoader.getResource("searchResult.json").readText()
         val omdbApiKey = "omdbApiKey"
-        val mockEnvReader = mockk<EnviromentPropertiesReader>() {
+        val mockEnvReader = mockk<EnvironmentPropertiesReader> {
             every { getOmdbApiKey() } returns omdbApiKey
         }
         val testEngine = MockEngine {
-            when(url.toString()) {
+            when (url.toString()) {
                 "http://www.omdbapi.com/?apikey=$omdbApiKey&s=halloween" ->
                     response(
                         content = content,
@@ -58,11 +58,11 @@ internal class OmdbSearcherTest {
     fun `search error is handled gracefully`() {
         val content = javaClass.classLoader.getResource("SearchError.json").readText()
         val omdbApiKey = "omdbApiKey"
-        val mockEnvReader = mockk<EnviromentPropertiesReader>() {
+        val mockEnvReader = mockk<EnvironmentPropertiesReader> {
             every { getOmdbApiKey() } returns omdbApiKey
         }
         val testEngine = MockEngine {
-            when(url.toString()) {
+            when (url.toString()) {
                 "http://www.omdbapi.com/?apikey=$omdbApiKey&s=halloween" ->
                     response(
                         content = content,

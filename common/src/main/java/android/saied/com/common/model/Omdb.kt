@@ -1,11 +1,9 @@
 package android.saied.com.common.model
-import androidx.room.Ignore
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
-import com.sun.org.apache.xpath.internal.operations.Bool
 import java.io.Serializable
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -63,10 +61,10 @@ enum class OmdbType(@JsonValue val typeStr: String) {
 }
 
 @TypeConverters
-class OmdbTypeConverters() {
+class OmdbTypeConverters {
     @TypeConverter
     fun fromString(str: String) =
-        when(str) {
+        when (str) {
             OmdbType.MOVIE.typeStr -> OmdbType.MOVIE
             OmdbType.SERIES.typeStr -> OmdbType.SERIES
             else -> throw IllegalArgumentException()
