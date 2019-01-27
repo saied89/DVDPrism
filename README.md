@@ -1,4 +1,4 @@
-# FilmCompass
+# DVDPrism
 [![Build Status](https://travis-ci.com/saied89/FilmCompass.svg?branch=master)](https://travis-ci.com/saied89/FilmCompass)
 [![codecov](https://codecov.io/gh/saied89/FilmCompass/branch/master/graph/badge.svg)](https://codecov.io/gh/saied89/FilmCompass) [![codebeat badge](https://codebeat.co/badges/8b43d9a1-1fb1-4a72-bf89-ca1ec9ae56a7)](https://codebeat.co/projects/github-com-saied89-filmcompass-master)
 
