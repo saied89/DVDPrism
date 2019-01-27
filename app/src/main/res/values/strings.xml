@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Film Compass</string>
+    <string name="app_name">DVD Prism</string>
 
     <string name="release_date_pattern">Release Date:%s</string>
 </resources>
