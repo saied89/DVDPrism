@@ -1,5 +1,7 @@
 # DVDPrism
-![logo](./logo.svg =250x250)
+<p>
+  <img src="https://github.com/saied89/DVDPrism/blob/master/logo.svg" width="200" height="200"/>
+</p>
 
 [![Build Status](https://travis-ci.com/saied89/DVDPrism.svg?branch=master)](https://travis-ci.com/saied89/DVDPrism)
 [![codecov](https://codecov.io/gh/saied89/DVDPrism/branch/master/graph/badge.svg)](https://codecov.io/gh/saied89/DVDPrism) 
