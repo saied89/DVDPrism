@@ -1,8 +1,9 @@
 # DVDPrism
+![logo](./logo.svg250x250)
+
 [![Build Status](https://travis-ci.com/saied89/DVDPrism.svg?branch=master)](https://travis-ci.com/saied89/DVDPrism)
 [![codecov](https://codecov.io/gh/saied89/DVDPrism/branch/master/graph/badge.svg)](https://codecov.io/gh/saied89/DVDPrism) 
 [![codebeat badge](https://codebeat.co/badges/3e3e2365-f99c-414a-89ee-1efae89fa841)](https://codebeat.co/projects/github-com-saied89-dvdprism-master)
-![logo](./logo.svg)
 
 This project will helps users keep track of all DVD releases. It consists of an android app and a Ktor backend. The backend will pull data from several sources, merge them and deliver data to the application through a REST API. The app will present the data to the user while also having some side functions.
 
