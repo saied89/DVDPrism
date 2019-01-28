@@ -12,7 +12,7 @@ val appModule = module {
     single {
         MovieFetcherTask(
             repository = get(),
-            movieFetcher = MovieFetcher.MetacriticFetcher(httpClient = get(HTML_CLIENT)),
+            movieFetcher = MovieFetcher(httpClient = get(HTML_CLIENT)),
             omdbFetcher = OmdbFetcher(
                 client = get(JSON_CLIENT),
                 envReader = EnvironmentPropertiesReader(get())

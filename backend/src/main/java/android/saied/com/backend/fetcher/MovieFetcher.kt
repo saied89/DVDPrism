@@ -9,51 +9,61 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 
-private const val metacriticUrl: String = "https://www.metacritic.com/browse/dvds/release-date/new-releases/date"
+const val metacriticLatestUrl = "https://www.metacritic.com/browse/dvds/release-date/new-releases/date"
+const val metacriticUpcomingUrl = "https://www.metacritic.com/browse/dvds/release-date/coming-soon/date"
 
-sealed class MovieFetcher(protected val url: String, private val httpClient: HttpClient) {
-
-    abstract fun parseHtml(htmlStr: String): List<Movie>
+class MovieFetcher(private val httpClient: HttpClient, val sources: List<MovieSource> = sourceList) {
 
     suspend fun fetchMovies(): Try<List<Movie>> =
         withContext(Dispatchers.IO) {
             try {
-                val res = fetchHtml(url, httpClient)
-                val htmlStr: String = //TODO check if there is a better way to propagate try
-                    when (res) {
-                        is Try.Success -> res.value
-                        is Try.Failure -> throw res.exception
-                    }
-                Try.just(parseHtml(htmlStr))
+                val res: ArrayList<Movie> = arrayListOf()
+                sources.forEach { movieSource ->
+                    val htmlStrTry = fetchHtml(movieSource.url, httpClient)
+                    val htmlStr: String = //TODO check if there is a better way to propagate try
+                        when (htmlStrTry) {
+                            is Try.Success -> htmlStrTry.value
+                            is Try.Failure -> throw htmlStrTry.exception
+                        }
+                    res.addAll(movieSource.parse(htmlStr))
+                }
+                Try.just(res)
             } catch (exp: Exception) {
                 Try.raise<List<Movie>>(exp)
             }
         }
+}
 
-    class MetacriticFetcher(httpClient: HttpClient = HttpClient()) : MovieFetcher(metacriticUrl, httpClient) {
-        override fun parseHtml(htmlStr: String): List<Movie> =
-            Jsoup.parse(htmlStr)
-                .body()
-                .select("table.clamp-list tbody tr:not(.spacer)")
-                .map { element ->
-                    val title = element.select(".clamp-summary-wrap a.title h3").html()
-                    val dateStr = element.select(".clamp-summary-wrap .clamp-details span:nth-child(2)").html()
-                    val date = parseDate(dateStr).time
-                    val posterUrl = element.select(".clamp-image-wrap a img").first().absUrl("src")
-                    val metaScore = element.select(".clamp-summary-wrap .browse-score-clamp .clamp-metascore a div")
-                        .first()
-                        .html()
-                        .toInt()
-                    val userScore = element.select(".clamp-summary-wrap .browse-score-clamp .clamp-userscore a div")
-                        .first()
-                        .html()
-                        .toFloatOrNull()
-                        ?.let {
-                            (it * 10).toInt()
-                        }
-                    val description = element.select(".summary").html()
-                    Movie(title, date, posterUrl, metaScore, userScore, description)
+private val sourceList = listOf(
+    MovieSource(metacriticLatestUrl, ::parseMetacriticHtml),
+    MovieSource(metacriticUpcomingUrl, ::parseMetacriticHtml)
+)
+
+private fun parseMetacriticHtml(htmlStr: String): List<Movie> =
+    Jsoup.parse(htmlStr)
+        .body()
+        .select("table.clamp-list tbody tr:not(.spacer)")
+        .map { element ->
+            val title = element.select(".clamp-summary-wrap a.title h3").html()
+            val dateStr = element.select(".clamp-summary-wrap .clamp-details span:nth-child(2)").html()
+            val date = parseDate(dateStr).time
+            val posterUrl = element.select(".clamp-image-wrap a img").first().absUrl("src")
+            val metaScore = element.select(".clamp-summary-wrap .browse-score-clamp .clamp-metascore a div")
+                .first()
+                .html()
+                .toInt()
+            val userScore = element.select(".clamp-summary-wrap .browse-score-clamp .clamp-userscore a div")
+                .first()
+                .html()
+                .toFloatOrNull()
+                ?.let {
+                    (it * 10).toInt()
                 }
-}
+            val description = element.select(".summary").html()
+            Movie(title, date, posterUrl, metaScore, userScore, description)
+        }
 
-}
+
+class MovieSource(val url: String, val parse: (String) -> List<Movie>)
+
+
