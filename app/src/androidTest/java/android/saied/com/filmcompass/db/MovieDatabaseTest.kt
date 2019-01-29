@@ -46,17 +46,6 @@ internal class MovieDatabaseTest {
     }
 
     @Test
-    fun saveMovieAndVerify() {
-        val dummyMovie = Movie("saied", 0, "", 0, 0, "")
-
-        movieDAO.insertMovies(listOf(dummyMovie))
-
-        val res = movieDAO.getAllMovies().toLiveData(20).blockingObserve()
-        assertEquals(1, res?.size)
-        assertEquals(dummyMovie, res!![0])
-    }
-
-    @Test
     fun addMovieToFavsAndVerify() {
         val dummyMovies = listOf(
             Movie("saied", 0, "", 0, 0, ""),
@@ -64,7 +53,7 @@ internal class MovieDatabaseTest {
             Movie("saied2", 0, "", 0, 0, "")
         )
         movieDAO.insertMovies(dummyMovies)
-        val movies: List<Movie> = movieDAO.getAllMovies().toLiveData(20).blockingObserve()!!
+        val movies: List<Movie> = movieDAO.getLatestReleases(1000).toLiveData(20).blockingObserve()!!
         movieDAO.addToFav(FavMovie(movies[0].name))
         movieDAO.addToFav(FavMovie(movies[2].name))
 
@@ -73,7 +62,7 @@ internal class MovieDatabaseTest {
         assertEquals(res?.get(0), movies[0])
         assertEquals(res?.get(1), movies[2])
     }
-
+//
     @Test
     fun deleteFavAndVerify() {
         movieDAO.insertMovies(
@@ -83,7 +72,7 @@ internal class MovieDatabaseTest {
                 Movie("saied2", 0, "", 0, 0, "")
             )
         )
-        val movies: List<Movie> = movieDAO.getAllMovies().toLiveData(20).blockingObserve()!!
+        val movies: List<Movie> = movieDAO.getLatestReleases(1000).toLiveData(20).blockingObserve()!!
         movieDAO.addToFav(FavMovie(movies[0].name))
         movieDAO.addToFav(FavMovie(movies[2].name))
 
@@ -93,7 +82,7 @@ internal class MovieDatabaseTest {
         assertEquals(1, res?.size)
         assertEquals(res?.get(0), movies[2])
     }
-
+//
     @Test
     fun selectFavoriteLiveDataIsUpdateOnDeleteAndAdd() {
         movieDAO.insertMovies(
@@ -103,7 +92,7 @@ internal class MovieDatabaseTest {
                 Movie("saied2", 0, "", 0, 0, "")
             )
         )
-        val movies: List<Movie> = movieDAO.getAllMovies().toLiveData(20).blockingObserve()!!
+        val movies: List<Movie> = movieDAO.getLatestReleases(1000).toLiveData(20).blockingObserve()!!
 
         val res = movieDAO.selectFav(movies[2].name)
 

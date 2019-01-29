@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="4dp"
-    android:layout_margin="4dp"
-    >
+    android:layout_margin="4dp">
+
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/posterImgView"
         android:transitionName="poster"

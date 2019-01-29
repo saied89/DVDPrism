@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import androidx.paging.toLiveData
 import arrow.core.Try
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -29,12 +30,13 @@ class MovieRepositoryImp(movieFetcher: MovieFetcher, movieDAO: MovieDAO) : Movie
             } else Try.raise((allMoviesTry as Try.Failure).exception)
         }
 
-    override fun getAllMovies(): LiveData<PagedList<Movie>> {
-        return LivePagedListBuilder(
-            movieDAO.getAllMovies(),
-            DATABASE_PAGE_SIZE
-        ).build()
-    }
+    override fun getLatestMovies(now: Long): LiveData<PagedList<Movie>> =
+        movieDAO.getLatestReleases(now).toLiveData(DATABASE_PAGE_SIZE)
+
+
+    override fun getUpcomingMovies(now: Long): LiveData<PagedList<Movie>> =
+        movieDAO.getUpcommingReleases(now).toLiveData(DATABASE_PAGE_SIZE)
+
 
     override suspend fun addToFavs(title: String) =
         withContext(Dispatchers.IO) {

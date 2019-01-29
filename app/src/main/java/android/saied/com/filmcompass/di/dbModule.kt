@@ -14,7 +14,7 @@ val dbModule = module {
             androidContext().applicationContext,
             MovieDatabase::class.java,
             "Movie_database"
-        ).build().movieDao()
+        ).allowMainThreadQueries().build().movieDao()
     }
 
 //    single {

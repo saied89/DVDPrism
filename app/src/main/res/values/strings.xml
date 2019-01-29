@@ -2,4 +2,7 @@
     <string name="app_name">DVD Prism</string>
 
     <string name="release_date_pattern">Release Date:%s</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

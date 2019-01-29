@@ -1,4 +1,4 @@
-package android.saied.com.filmcompass.ui.movieList
+package android.saied.com.filmcompass.ui.main
 
 import android.saied.com.common.model.Movie
 import android.saied.com.filmcompass.repository.MovieRepository
@@ -9,8 +9,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.util.*
 
-class MovieListViewModelImp(movieRepository: MovieRepository) : MovieListViewModel(movieRepository) {
+class MainViewModelImp(movieRepository: MovieRepository) : MainViewModel(movieRepository) {
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
@@ -18,7 +19,7 @@ class MovieListViewModelImp(movieRepository: MovieRepository) : MovieListViewMod
     override val stateLiveData: LiveData<MainState> = _stateLiveData
 
     init {
-        _stateLiveData.addSource(movieRepo.getAllMovies()) {
+        _stateLiveData.addSource(movieRepo.getLatestMovies(Date().time)) {
             _stateLiveData.value = _stateLiveData.value?.mutateMovieList(it)
         }
     }
@@ -49,8 +50,15 @@ sealed class MainState(val movieList: PagedList<Movie>?) {
 
     fun mutateMovieList(movieList: PagedList<Movie>): MainState =
         when (this) {
-            is Loading -> Loading(movieList)
-            is Success -> Success(movieList)
-            is Error -> Error(throwable, movieList)
+            is Loading -> Loading(
+                movieList
+            )
+            is Success -> Success(
+                movieList
+            )
+            is Error -> Error(
+                throwable,
+                movieList
+            )
         }
 }

@@ -2,7 +2,6 @@ package android.saied.com.filmcompass.ui.main
 
 import android.content.Intent
 import android.saied.com.common.model.Movie
-import android.saied.com.filmcompass.ui.movieList.MainState
 import androidx.lifecycle.MediatorLiveData
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
@@ -23,7 +22,6 @@ import android.saied.com.filmcompass.ui.favoriteList.FavoritesActivity
 import android.saied.com.filmcompass.ui.favoriteList.FavoritesViewModel
 import android.saied.com.filmcompass.ui.movieDetail.DetailActivity
 import android.saied.com.filmcompass.ui.movieDetail.DetailsViewModel
-import android.saied.com.filmcompass.ui.movieList.MovieListViewModel
 import android.saied.com.filmcompass.ui.movieList.MovieViewHolder
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
@@ -59,7 +57,7 @@ class MainActivityTest : KoinTest {
         val mockData = listOf(element, element, element).asPagedList()
         declare {
             viewModel(override = true) {
-                mockk<MovieListViewModel>(relaxUnitFun = true) {
+                mockk<MainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MutableLiveData<MainState>().apply {
                         value = MainState.Success(mockData)
                     }
@@ -78,7 +76,7 @@ class MainActivityTest : KoinTest {
         val mockData = listOf(element, element, element).asPagedList()
         declare {
             viewModel(override = true) {
-                mockk<MovieListViewModel>(relaxUnitFun = true) {
+                mockk<MainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MediatorLiveData<MainState>().apply {
                         value = MainState.Success(mockData)
                     }
@@ -115,7 +113,7 @@ class MainActivityTest : KoinTest {
     fun correctLoadingStateRender() {
         declare {
             viewModel(override = true) {
-                mockk<MovieListViewModel>(relaxUnitFun = true) {
+                mockk<MainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MediatorLiveData<MainState>().apply {
                         value = MainState.Loading(null)
                     }
@@ -132,7 +130,7 @@ class MainActivityTest : KoinTest {
         val testMessage = "test message"
         declare {
             viewModel(override = true) {
-                mockk<MovieListViewModel>(relaxUnitFun = true) {
+                mockk<MainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MediatorLiveData<MainState>().apply {
                         value = MainState.Error(Exception(testMessage), null)
                     }
@@ -149,7 +147,7 @@ class MainActivityTest : KoinTest {
     fun clickOnFavsActionLaunchesFavoritesActivity() {
         declare {
             viewModel(override = true) {
-                mockk<MovieListViewModel>(relaxUnitFun = true) {
+                mockk<MainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MediatorLiveData<MainState>().apply {
                         value = MainState.Success(null)
                     }

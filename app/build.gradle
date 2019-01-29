@@ -23,7 +23,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
         html.enabled = true
     }
 
-    def fileFilter = [ '**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*' ]
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
     def debugTree = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
     def mainSrc = "$project.projectDir/src/main/kotlin"
 
@@ -33,6 +33,13 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
             'jacoco/testDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
     ])
 }
+
+repositories {
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
 
 android {
     compileSdkVersion 28
@@ -108,8 +115,7 @@ dependencies {
     // Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
     ////
-    
-    
+
     ////paging
     def paging_version = "2.1.0"
 
@@ -139,7 +145,6 @@ dependencies {
 
     testImplementation "io.mockk:mockk:$mockK_version"
     androidTestImplementation "io.mockk:mockk-android:$mockK_version"
-
 
     ////Lifecycle
     // alternatively - just ViewModel
