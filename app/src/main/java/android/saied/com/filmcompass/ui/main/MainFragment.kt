@@ -10,12 +10,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.fragment_main.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
 
     @VisibleForTesting
     val viewModel: MainViewModel by viewModel()
+
+    val pagerAdapter: MovieListPagerAdapter by lazy { MovieListPagerAdapter(childFragmentManager) }
 
     private var snackbar: Snackbar? = null
 
@@ -35,6 +38,8 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rootView.apply { } // fix for wierd null exception error happening in showError
+        viewPager.adapter = pagerAdapter
+        tabLayout.setupWithViewPager(viewPager)
         viewModel.stateLiveData.observe(this, Observer {
             progressbar.visibility = if (it is MainState.Loading) View.VISIBLE else View.GONE
             snackbar?.dismiss()

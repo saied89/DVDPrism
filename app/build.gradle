@@ -107,6 +107,10 @@ dependencies {
     implementation "com.google.android.material:material:1.1.0-alpha02"
     implementation "androidx.recyclerview:recyclerview:1.0.0"
 
+    debugImplementation('androidx.fragment:fragment-testing:1.1.0-alpha03') {
+        transitive = false
+    }
+
     ////Room
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version" // use kapt for Kotlin

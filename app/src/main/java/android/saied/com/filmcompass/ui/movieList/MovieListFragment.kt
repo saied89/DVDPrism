@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_movie_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MovieListFragment : Fragment() {
+abstract class MovieListFragment : Fragment() {
 
-    val viewModel: MovieListViewModel by viewModel()
+    abstract val viewModel: MovieListViewModel
     private val adapter: MovieListAdapter by lazy { MovieListAdapter() }
 
     override fun onCreateView(
@@ -35,4 +35,12 @@ class MovieListFragment : Fragment() {
             adapter.submitList(it)
         })
     }
+}
+
+class LatestListFragment : MovieListFragment() {
+    override val viewModel: LatestListViewModel by viewModel()
+}
+
+class UpcommingListFragment : MovieListFragment() {
+    override val viewModel: UpcommingListViewModel by viewModel()
 }

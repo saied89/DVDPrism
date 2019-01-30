@@ -48,7 +48,7 @@ class MovieRepositoryImpInstrumentationTest {
     }
 
     @Test
-    fun saveMovieAndVerify() {
+    fun saveMovieAndVerifyLatest() {
         val dummyMovie = Movie("saied", 0, "", 0, 0, "")
 //        val dummyMovie = Movie("saied", 0, "", 0, 0, "")
 //        val dummyMovie = Movie("saied", 0, "", 0, 0, "")
@@ -62,5 +62,23 @@ class MovieRepositoryImpInstrumentationTest {
 
         TestCase.assertEquals(1, res?.size)
         TestCase.assertEquals(dummyMovie, res!![0])
+    }
+
+    @Test
+    fun saveMovieAndVerifyUpcomming() {
+        val dummyUpcoming = Movie("saied", 1200, "", 0, 0, "")
+        val dummyLatest = Movie("saied", 900, "", 0, 0, "")
+//        val dummyMovie = Movie("saied", 0, "", 0, 0, "")
+//        val dummyMovie = Movie("saied", 0, "", 0, 0, "")
+        val mockFetcher = mockk<MovieFetcher> {
+            coEvery { fetchMovies() } returns Try.just(listOf(dummyUpcoming))
+        }
+        val subject: MovieRepository = MovieRepositoryImp(mockFetcher, movieDao)
+        runBlocking { subject.refreshMovies() }
+
+        val res = subject.getUpcomingMovies(1000).blockingObserve()
+
+        TestCase.assertEquals(1, res?.size)
+        TestCase.assertEquals(dummyUpcoming, res!![0])
     }
 }
