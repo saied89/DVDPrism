@@ -9,8 +9,8 @@ import io.ktor.http.URLProtocol
 import java.io.IOException
 import java.net.ConnectException
 
-class MovieFetcher(private val httpClient: HttpClient) {
-    suspend fun fetchMovies(): Try<List<Movie>> =
+open class MovieFetcher(private val httpClient: HttpClient) {
+    open suspend fun fetchMovies(): Try<List<Movie>> =
         try {
             val res: List<Movie> = httpClient.get {
                 url {
