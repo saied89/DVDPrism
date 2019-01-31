@@ -6,12 +6,13 @@ import android.saied.com.filmcompass.network.MovieFetcher
 import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
 import arrow.core.Try
+import java.util.*
 
 abstract class MovieRepository(protected val movieFetcher: MovieFetcher, protected val movieDAO: MovieDAO) {
     abstract suspend fun refreshMovies(): Try<Unit>
 
-    abstract fun getLatestMovies(now: Long): LiveData<PagedList<Movie>>
-    abstract fun getUpcomingMovies(now: Long): LiveData<PagedList<Movie>>
+    abstract fun getLatestMovies(now: Long = Date().time): LiveData<PagedList<Movie>>
+    abstract fun getUpcomingMovies(now: Long = Date().time): LiveData<PagedList<Movie>>
 
     abstract suspend fun addToFavs(title: String)
 

@@ -2,10 +2,7 @@ package android.saied.com.filmcompass.ui.main
 
 import android.os.Bundle
 import android.saied.com.filmcompass.R
-import android.saied.com.filmcompass.ui.favoriteList.FavoritesActivity
 import android.saied.com.filmcompass.utils.fixExitShareElementCallback
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.fragment_main.*
 

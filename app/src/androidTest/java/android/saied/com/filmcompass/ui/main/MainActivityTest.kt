@@ -38,6 +38,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.UiObject
 import junit.framework.TestCase.assertTrue
+import org.hamcrest.Matchers.allOf
 import org.junit.Rule
 import org.junit.rules.TestRule
 
@@ -53,13 +54,13 @@ class MainActivityTest : KoinTest {
 
     @Test
     fun correctSuccessStateRender() {
-        val element = Movie("", 0, "", 0, 0, "")
+        val element = Movie("", 1000, "", 0, 0, "")
         val mockData = listOf(element, element, element).asPagedList()
         declare {
             viewModel(override = true) {
                 mockk<MainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MutableLiveData<MainState>().apply {
-                        value = MainState.Success(mockData)
+                        value = MainState.Success(latestMovies = mockData, upcomingMovies = null)
                     }
                 }
             }
@@ -67,7 +68,7 @@ class MainActivityTest : KoinTest {
 
         ActivityScenario.launch(MainActivity::class.java)
 
-        onView(withId(R.id.recyclerView)).check(matches(RecyclerViewMatchers.hasItemCount(mockData!!.size)))
+        onView(allOf(withId(R.id.recyclerView), isDisplayed())).check(matches(RecyclerViewMatchers.hasItemCount(mockData!!.size)))
     }
 
     @Test
@@ -78,7 +79,7 @@ class MainActivityTest : KoinTest {
             viewModel(override = true) {
                 mockk<MainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MediatorLiveData<MainState>().apply {
-                        value = MainState.Success(mockData)
+                        value = MainState.Success(mockData, null)
                     }
                 }
             }
@@ -97,7 +98,7 @@ class MainActivityTest : KoinTest {
             )
         )
 
-        onView(ViewMatchers.withId(R.id.recyclerView))
+        onView(allOf(withId(R.id.recyclerView), isDisplayed()))
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition<MovieViewHolder>(
                     1,
@@ -115,7 +116,7 @@ class MainActivityTest : KoinTest {
             viewModel(override = true) {
                 mockk<MainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MediatorLiveData<MainState>().apply {
-                        value = MainState.Loading(null)
+                        value = MainState.Loading(null, null)
                     }
                 }
             }
@@ -132,7 +133,7 @@ class MainActivityTest : KoinTest {
             viewModel(override = true) {
                 mockk<MainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MediatorLiveData<MainState>().apply {
-                        value = MainState.Error(Exception(testMessage), null)
+                        value = MainState.Error(Exception(testMessage), null, null)
                     }
                 }
             }
@@ -149,7 +150,7 @@ class MainActivityTest : KoinTest {
             viewModel(override = true) {
                 mockk<MainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MediatorLiveData<MainState>().apply {
-                        value = MainState.Success(null)
+                        value = MainState.Success(null, null)
                     }
                 }
             }

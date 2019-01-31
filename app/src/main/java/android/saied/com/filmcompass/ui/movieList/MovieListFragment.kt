@@ -8,15 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 
 import android.saied.com.filmcompass.R
+import android.saied.com.filmcompass.ui.main.MainViewModel
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_movie_list.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 abstract class MovieListFragment : Fragment() {
 
-    abstract val viewModel: MovieListViewModel
-    private val adapter: MovieListAdapter by lazy { MovieListAdapter() }
+    protected val viewModel: MainViewModel by sharedViewModel()
+    protected val adapter: MovieListAdapter by lazy { MovieListAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,16 +32,24 @@ abstract class MovieListFragment : Fragment() {
             layoutManager = GridLayoutManager(context, 2)
             adapter = this@MovieListFragment.adapter
         }
-        viewModel.moviesLiveData.observe(this, Observer {
-            adapter.submitList(it)
+        bindMovieList()
+    }
+
+    abstract fun bindMovieList()
+}
+
+class LatestListFragment : MovieListFragment() {
+    override fun bindMovieList() {
+        viewModel.stateLiveData.observe(this, Observer {
+            adapter.submitList(it.latestMovieList)
         })
     }
 }
 
-class LatestListFragment : MovieListFragment() {
-    override val viewModel: LatestListViewModel by viewModel()
-}
-
-class UpcommingListFragment : MovieListFragment() {
-    override val viewModel: UpcommingListViewModel by viewModel()
+class UpcomingListFragment : MovieListFragment() {
+    override fun bindMovieList() {
+        viewModel.stateLiveData.observe(this, Observer {
+            adapter.submitList(it.upcomingMovieList)
+        })
+    }
 }

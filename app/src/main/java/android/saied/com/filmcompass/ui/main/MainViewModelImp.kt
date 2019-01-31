@@ -15,25 +15,26 @@ class MainViewModelImp(movieRepository: MovieRepository) : MainViewModel(movieRe
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private val _stateLiveData = MediatorLiveData<MainState>()
-    override val stateLiveData: LiveData<MainState> = _stateLiveData
+    override val stateLiveData = MediatorLiveData<MainState>()
 
     init {
-        _stateLiveData.addSource(movieRepo.getLatestMovies(Date().time)) {
-            _stateLiveData.value = _stateLiveData.value?.mutateMovieList(it)
+        stateLiveData.value = MainState.Success(null, null)
+        stateLiveData.addSource(movieRepository.getLatestMovies()) {
+            stateLiveData.value = stateLiveData.value?.mutateLatestMovieList(it)
+        }
+        stateLiveData.addSource(movieRepository.getUpcomingMovies()) {
+            stateLiveData.value = stateLiveData.value?.mutateUpcomingMovieList(it)
         }
     }
 
     override fun refreshMovies() {
-        _stateLiveData.value = MainState.Loading(_stateLiveData.value?.movieList)
+        stateLiveData.value = stateLiveData.value?.toLoading()
         uiScope.launch {
-            _stateLiveData.value = movieRepo.refreshMovies().let {
+            stateLiveData.value = movieRepo.refreshMovies().let {
                 if (it is Try.Failure) {
-                    MainState.Error(it.exception, _stateLiveData.value?.movieList)
-                } else MainState.Success(_stateLiveData.value?.movieList)
-
+                    stateLiveData.value?.toError(it.exception)
+                } else stateLiveData.value?.toSuccess()
             }
-
         }
     }
 
@@ -43,21 +44,53 @@ class MainViewModelImp(movieRepository: MovieRepository) : MainViewModel(movieRe
     }
 }
 
-sealed class MainState(val movieList: PagedList<Movie>?) {
-    class Loading(movies: PagedList<Movie>?) : MainState(movies)
-    class Success(movies: PagedList<Movie>?) : MainState(movies)
-    class Error(val throwable: Throwable, movies: PagedList<Movie>?) : MainState(movies)
+sealed class MainState(
+    val latestMovieList: PagedList<Movie>?,
+    val upcomingMovieList: PagedList<Movie>?
+) {
+    class Loading(latestMovies: PagedList<Movie>?, upcomingMovies: PagedList<Movie>?) :
+        MainState(latestMovies, upcomingMovies)
 
-    fun mutateMovieList(movieList: PagedList<Movie>): MainState =
+    class Success(latestMovies: PagedList<Movie>?, upcomingMovies: PagedList<Movie>?) :
+        MainState(latestMovies, upcomingMovies)
+
+    class Error(val throwable: Throwable, latestMovies: PagedList<Movie>?, upcomingMovie: PagedList<Movie>?) :
+        MainState(latestMovies, upcomingMovie)
+
+    fun toError(throwable: Throwable): Error = MainState.Error(throwable, latestMovieList, upcomingMovieList)
+    fun toLoading(): Loading = MainState.Loading(latestMovieList, upcomingMovieList)
+    fun toSuccess(): Success = MainState.Success(latestMovieList, upcomingMovieList)
+
+    fun mutateLatestMovieList(movieList: PagedList<Movie>): MainState =
         when (this) {
             is Loading -> Loading(
+                movieList,
+                upcomingMovieList
+            )
+            is Success -> Success(
+                movieList,
+                upcomingMovieList
+            )
+            is Error -> MainState.Error(
+                throwable,
+                movieList,
+                upcomingMovieList
+            )
+        }
+
+    fun mutateUpcomingMovieList(movieList: PagedList<Movie>): MainState =
+        when (this) {
+            is Loading -> Loading(
+                latestMovieList,
                 movieList
             )
             is Success -> Success(
+                latestMovieList,
                 movieList
             )
-            is Error -> Error(
+            is Error -> MainState.Error(
                 throwable,
+                latestMovieList,
                 movieList
             )
         }

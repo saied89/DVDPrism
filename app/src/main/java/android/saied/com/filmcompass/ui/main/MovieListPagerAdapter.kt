@@ -1,7 +1,7 @@
 package android.saied.com.filmcompass.ui.main
 
 import android.saied.com.filmcompass.ui.movieList.LatestListFragment
-import android.saied.com.filmcompass.ui.movieList.UpcommingListFragment
+import android.saied.com.filmcompass.ui.movieList.UpcomingListFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -13,7 +13,7 @@ class MovieListPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePag
                 LatestListFragment()
             }
             1 -> {
-                UpcommingListFragment()
+                UpcomingListFragment()
             }
             else -> throw IllegalArgumentException()
         }

@@ -147,6 +147,8 @@ dependencies {
     implementation "io.ktor:ktor-client-jackson:$ktor_version"
     implementation "io.ktor:ktor-client-okhttp:$ktor_version"
 
+    debugImplementation 'com.facebook.stetho:stetho:1.5.0'
+
     testImplementation "io.mockk:mockk:$mockK_version"
     androidTestImplementation "io.mockk:mockk-android:$mockK_version"
 
