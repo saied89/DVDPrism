@@ -17,7 +17,7 @@ class MainFragment : Fragment() {
     @VisibleForTesting
     val viewModel: MainViewModel by viewModel()
 
-    val pagerAdapter: MovieListPagerAdapter by lazy { MovieListPagerAdapter(childFragmentManager) }
+    private val pagerAdapter: MovieListPagerAdapter by lazy { MovieListPagerAdapter(childFragmentManager, context!!) }
 
     private var snackbar: Snackbar? = null
 

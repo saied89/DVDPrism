@@ -68,7 +68,37 @@ class MainActivityTest : KoinTest {
 
         ActivityScenario.launch(MainActivity::class.java)
 
-        onView(allOf(withId(R.id.recyclerView), isDisplayed())).check(matches(RecyclerViewMatchers.hasItemCount(mockData!!.size)))
+        onView(
+            allOf(
+                withId(R.id.recyclerView),
+                isDisplayed()
+            )
+        ).check(matches(RecyclerViewMatchers.hasItemCount(mockData!!.size)))
+    }
+
+    @Test
+    fun correctUpcomingListRender() {
+        val element = Movie("", 1000, "", 0, 0, "")
+        val mockData = listOf(element, element, element).asPagedList()
+        declare {
+            viewModel(override = true) {
+                mockk<MainViewModel>(relaxUnitFun = true) {
+                    every { stateLiveData } returns MutableLiveData<MainState>().apply {
+                        value = MainState.Success(latestMovies = null, upcomingMovies = mockData)
+                    }
+                }
+            }
+        }
+
+        ActivityScenario.launch(MainActivity::class.java)
+        onView(withText(R.string.upcoming)).perform(click())
+
+        onView(
+            allOf(
+                withId(R.id.recyclerView),
+                isDisplayed()
+            )
+        ).check(matches(RecyclerViewMatchers.hasItemCount(mockData!!.size)))
     }
 
     @Test
@@ -171,6 +201,7 @@ class MainActivityTest : KoinTest {
 
         intended(hasComponent(FavoritesActivity::class.qualifiedName))
     }
+
 
     private fun uiObjectWithId(@IdRes id: Int): UiObject {
         val resourceId = InstrumentationRegistry.getInstrumentation().targetContext.resources.getResourceName(id)
