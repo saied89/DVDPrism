@@ -51,7 +51,7 @@ private fun parseMetacriticHtml(htmlStr: String): List<Movie> =
             val metaScore = element.select(".clamp-summary-wrap .browse-score-clamp .clamp-metascore a div")
                 .first()
                 .html()
-                .toInt()
+                .toIntOrNull()
             val userScore = element.select(".clamp-summary-wrap .browse-score-clamp .clamp-userscore a div")
                 .first()
                 .html()
