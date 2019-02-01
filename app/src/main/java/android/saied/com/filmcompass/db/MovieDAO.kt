@@ -12,7 +12,7 @@ interface MovieDAO {
     fun getLatestReleases(date: Long): DataSource.Factory<Int, Movie>
 
     @Query("SELECT * FROM Movie WHERE releaseDate > :date ORDER BY releaseDate ASC")
-    fun getUpcommingReleases(date: Long): DataSource.Factory<Int, Movie>
+    fun getUpcomingReleases(date: Long): DataSource.Factory<Int, Movie>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovies(movieList: List<Movie>)

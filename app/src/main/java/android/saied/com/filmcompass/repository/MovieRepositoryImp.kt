@@ -6,7 +6,6 @@ import android.saied.com.filmcompass.db.model.FavMovie
 import android.saied.com.filmcompass.network.MovieFetcher
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import arrow.core.Try
@@ -35,7 +34,7 @@ class MovieRepositoryImp(movieFetcher: MovieFetcher, movieDAO: MovieDAO) : Movie
 
 
     override fun getUpcomingMovies(now: Long): LiveData<PagedList<Movie>> =
-        movieDAO.getUpcommingReleases(now).toLiveData(DATABASE_PAGE_SIZE)
+        movieDAO.getUpcomingReleases(now).toLiveData(DATABASE_PAGE_SIZE)
 
 
     override suspend fun addToFavs(title: String) =
