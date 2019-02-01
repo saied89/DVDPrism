@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#9E0200</color>
-    <color name="colorPrimaryDark">#6B0705</color>
-    <color name="colorAccent">#FF005D</color>
+    <color name="colorPrimary">#4a148c</color>
+    <color name="colorPrimaryDark">#12005e</color>
+    <color name="colorAccent">#e040fb</color>
     <color name="scorePositive">#F6C3</color>
     <color name="scoreMixed">#FC3</color>
     <color name="scoreNegative">#F00</color>
