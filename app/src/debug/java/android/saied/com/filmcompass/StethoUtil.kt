@@ -5,6 +5,12 @@ import com.facebook.stetho.Stetho
 
 object StethoUtil {
     fun init(context: Context) {
-        Stetho.initializeWithDefaults(context)
+        Stetho.initialize(
+            Stetho.newInitializerBuilder(context)
+                .enableDumpapp(Stetho.defaultDumperPluginsProvider(context))
+                .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(context))
+                .build()
+        )
+
     }
 }
