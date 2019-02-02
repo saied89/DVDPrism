@@ -53,7 +53,7 @@ internal class MovieDatabaseTest {
             Movie("saied2", 0, "", 0, 0, "")
         )
         movieDAO.insertMovies(dummyMovies)
-        val movies: List<Movie> = movieDAO.getLatestReleases(1000).toLiveData(20).blockingObserve()!!
+        val movies: List<Movie> = movieDAO.getLatestReleases(1000, 0, 0).toLiveData(20).blockingObserve()!!
         movieDAO.addToFav(FavMovie(movies[0].name))
         movieDAO.addToFav(FavMovie(movies[2].name))
 
@@ -72,7 +72,7 @@ internal class MovieDatabaseTest {
                 Movie("saied2", 0, "", 0, 0, "")
             )
         )
-        val movies: List<Movie> = movieDAO.getLatestReleases(1000).toLiveData(20).blockingObserve()!!
+        val movies: List<Movie> = movieDAO.getLatestReleases(1000, 0, 0).toLiveData(20).blockingObserve()!!
         movieDAO.addToFav(FavMovie(movies[0].name))
         movieDAO.addToFav(FavMovie(movies[2].name))
 
@@ -92,7 +92,7 @@ internal class MovieDatabaseTest {
                 Movie("saied2", 0, "", 0, 0, "")
             )
         )
-        val movies: List<Movie> = movieDAO.getLatestReleases(1000).toLiveData(20).blockingObserve()!!
+        val movies: List<Movie> = movieDAO.getLatestReleases(1000, 0, 0).toLiveData(20).blockingObserve()!!
 
         val res = movieDAO.selectFav(movies[2].name)
 

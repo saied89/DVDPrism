@@ -29,12 +29,12 @@ class MovieRepositoryImp(movieFetcher: MovieFetcher, movieDAO: MovieDAO) : Movie
             } else Try.raise((allMoviesTry as Try.Failure).exception)
         }
 
-    override fun getLatestMovies(now: Long): LiveData<PagedList<Movie>> =
-        movieDAO.getLatestReleases(now).toLiveData(DATABASE_PAGE_SIZE)
+    override fun getLatestMovies(now: Long, minMetaScore: Int, minUserScore: Int): LiveData<PagedList<Movie>> =
+        movieDAO.getLatestReleases(now, minMetaScore, minUserScore).toLiveData(DATABASE_PAGE_SIZE)
 
 
-    override fun getUpcomingMovies(now: Long): LiveData<PagedList<Movie>> =
-        movieDAO.getUpcomingReleases(now).toLiveData(DATABASE_PAGE_SIZE)
+    override fun getUpcomingMovies(now: Long, minMetaScore: Int, minUserScore: Int): LiveData<PagedList<Movie>> =
+        movieDAO.getUpcomingReleases(now, minMetaScore, minUserScore).toLiveData(DATABASE_PAGE_SIZE)
 
 
     override suspend fun addToFavs(title: String) =

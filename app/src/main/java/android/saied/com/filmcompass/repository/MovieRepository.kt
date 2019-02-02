@@ -11,8 +11,17 @@ import java.util.*
 abstract class MovieRepository(protected val movieFetcher: MovieFetcher, protected val movieDAO: MovieDAO) {
     abstract suspend fun refreshMovies(): Try<Unit>
 
-    abstract fun getLatestMovies(now: Long = Date().time): LiveData<PagedList<Movie>>
-    abstract fun getUpcomingMovies(now: Long = Date().time): LiveData<PagedList<Movie>>
+    abstract fun getLatestMovies(
+        now: Long = Date().time,
+        minMetaScore: Int = 0,
+        minUserScore: Int = 0
+    ): LiveData<PagedList<Movie>>
+
+    abstract fun getUpcomingMovies(
+        now: Long = Date().time,
+        minMetaScore: Int = 0,
+        minUserScore: Int = 0
+    ): LiveData<PagedList<Movie>>
 
     abstract suspend fun addToFavs(title: String)
 

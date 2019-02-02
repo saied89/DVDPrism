@@ -81,4 +81,44 @@ class MovieRepositoryImpInstrumentationTest {
         TestCase.assertEquals(1, res?.size)
         TestCase.assertEquals(dummyUpcoming, res!![0])
     }
+
+    @Test
+    fun saveMovieAndVerifyMinMeta() {
+        val dummy1 = Movie("saied", 100, "", 55, 0, "")
+        val dummy2 = Movie("saied1", 0, "", 54, 0, "")
+        val dummy3 = Movie("saied2", 0, "", 56, 0, "")
+        val dummy4 = Movie("saied3", 0, "", 32, 0, "")
+//        val dummyMovie = Movie("saied", 0, "", 0, 0, "")
+//        val dummyMovie = Movie("saied", 0, "", 0, 0, "")
+        val mockFetcher = mockk<MovieFetcher> {
+            coEvery { fetchMovies() } returns Try.just(listOf(dummy1, dummy2, dummy3, dummy4))
+        }
+        val subject: MovieRepository = MovieRepositoryImp(mockFetcher, movieDao)
+        runBlocking { subject.refreshMovies() }
+
+        val res = subject.getLatestMovies(now = 1000, minMetaScore = 55).blockingObserve()
+
+        TestCase.assertEquals(2, res?.size)
+        TestCase.assertEquals(dummy1, res!![0])
+    }
+
+    @Test
+    fun saveMovieAndVerifyMinUser() {
+        val dummy1 = Movie("saied", 100, "", 55, 75, "")
+        val dummy2 = Movie("saied1", 0, "", 54, 74, "")
+        val dummy3 = Movie("saied2", 0, "", 56, 56, "")
+        val dummy4 = Movie("saied3", 0, "", 32, 32, "")
+//        val dummyMovie = Movie("saied", 0, "", 0, 0, "")
+//        val dummyMovie = Movie("saied", 0, "", 0, 0, "")
+        val mockFetcher = mockk<MovieFetcher> {
+            coEvery { fetchMovies() } returns Try.just(listOf(dummy1, dummy2, dummy3, dummy4))
+        }
+        val subject: MovieRepository = MovieRepositoryImp(mockFetcher, movieDao)
+        runBlocking { subject.refreshMovies() }
+
+        val res = subject.getLatestMovies(now = 1000, minUserScore = 55).blockingObserve()
+
+        TestCase.assertEquals(3, res?.size)
+        TestCase.assertEquals(dummy1, res!![0])
+    }
 }
