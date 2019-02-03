@@ -3,6 +3,7 @@ package android.saied.com.filmcompass.ui.main
 import android.content.Intent
 import android.graphics.pdf.PdfDocument
 import android.saied.com.common.model.Movie
+import android.saied.com.common.model.ScoreIndication
 import androidx.lifecycle.MediatorLiveData
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
@@ -31,6 +32,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
@@ -40,6 +42,7 @@ import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.UiObject
 import junit.framework.TestCase.assertTrue
 import org.hamcrest.Matchers.allOf
+import org.hamcrest.Matchers.not
 import org.junit.Rule
 import org.junit.rules.TestRule
 
@@ -61,7 +64,7 @@ class MainActivityTest : KoinTest {
             viewModel(override = true) {
                 mockk<MainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MutableLiveData<MainState>().apply {
-                        value = MainState.Success()
+                        value = MainState.Success(ScoreIndication.NEGATIVE, ScoreIndication.NEGATIVE)
                     }
                     every { latestLiveData } returns MutableLiveData<PagedList<Movie>>().apply {
                         value = mockData
@@ -97,7 +100,7 @@ class MainActivityTest : KoinTest {
                         value = mockData
                     }
                     every { stateLiveData } returns MutableLiveData<MainState>().apply {
-                        value = MainState.Success()
+                        value = MainState.Success(ScoreIndication.NEGATIVE, ScoreIndication.NEGATIVE)
                     }
                 }
             }
@@ -128,7 +131,7 @@ class MainActivityTest : KoinTest {
                         value = null
                     }
                     every { stateLiveData } returns MutableLiveData<MainState>().apply {
-                        value = MainState.Success()
+                        value = MainState.Success(ScoreIndication.NEGATIVE, ScoreIndication.NEGATIVE)
                     }
                 }
             }
@@ -165,7 +168,7 @@ class MainActivityTest : KoinTest {
             viewModel(override = true) {
                 mockk<MainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MutableLiveData<MainState>().apply {
-                        value = MainState.Loading()
+                        value = MainState.Loading(ScoreIndication.NEGATIVE, ScoreIndication.NEGATIVE)
                     }
                     every { latestLiveData } returns MutableLiveData<PagedList<Movie>>().apply {
                         value = null
@@ -188,7 +191,9 @@ class MainActivityTest : KoinTest {
             viewModel(override = true) {
                 mockk<MainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MediatorLiveData<MainState>().apply {
-                        value = MainState.Error(Exception(testMessage))
+
+                        value =
+                            MainState.Error(Exception(testMessage), ScoreIndication.NEGATIVE, ScoreIndication.NEGATIVE)
                     }
                     every { latestLiveData } returns MutableLiveData<PagedList<Movie>>().apply {
                         value = null
@@ -211,7 +216,7 @@ class MainActivityTest : KoinTest {
             viewModel(override = true) {
                 mockk<MainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MediatorLiveData<MainState>().apply {
-                        value = MainState.Success()
+                        value = MainState.Success(ScoreIndication.NEGATIVE, ScoreIndication.NEGATIVE)
                     }
                     every { latestLiveData } returns MediatorLiveData<PagedList<Movie>>().apply {
                         value = null
@@ -237,6 +242,40 @@ class MainActivityTest : KoinTest {
         onView(withId(R.id.favs)).perform(click())
 
         intended(hasComponent(FavoritesActivity::class.qualifiedName))
+    }
+
+    @Test
+    fun clickOnFilterOpensFilterDialog() {
+        declare {
+            viewModel(override = true) {
+                mockk<MainViewModel>(relaxUnitFun = true) {
+                    every { stateLiveData } returns MediatorLiveData<MainState>().apply {
+                        value = MainState.Success(ScoreIndication.NEGATIVE, ScoreIndication.NEGATIVE)
+                    }
+                    every { latestLiveData } returns MediatorLiveData<PagedList<Movie>>().apply {
+                        value = null
+                    }
+                    every { upcommingLiveData } returns MediatorLiveData<PagedList<Movie>>().apply {
+                        value = null
+                    }
+                }
+            }
+        }
+        ActivityScenario.launch(MainActivity::class.java)
+
+        onView(
+            withText(
+                InstrumentationRegistry.getInstrumentation().targetContext.resources
+                    .getStringArray(R.array.filter_choices)[0])
+        ).check(doesNotExist())
+
+        onView(withId(R.id.filter)).perform(click())
+
+        onView(
+            withText(
+                InstrumentationRegistry.getInstrumentation().targetContext.resources
+                    .getStringArray(R.array.filter_choices)[0])
+        ).check(matches(isDisplayed()))
     }
 
 
