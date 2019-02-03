@@ -2,20 +2,24 @@ package android.saied.com.filmcompass.ui.main
 
 
 import android.os.Bundle
+import android.saied.com.common.model.ScoreIndication
 import android.saied.com.filmcompass.R
 import android.saied.com.filmcompass.ui.favoriteList.FavoritesActivity
 import android.view.*
 import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_main.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
 
     @VisibleForTesting
-    val viewModel: MainViewModel by viewModel()
+    val viewModel: MainViewModel by sharedViewModel()
 
     private val pagerAdapter: MovieListPagerAdapter by lazy { MovieListPagerAdapter(childFragmentManager, context!!) }
 
@@ -63,6 +67,27 @@ class MainFragment : Fragment() {
                 }
                 true
             }
+            R.id.filter -> {
+                context?.let { cnx ->
+                    MaterialDialog(cnx)
+                        .listItemsSingleChoice(
+                            R.array.filter_choices,
+                            initialSelection = viewModel.stateLiveData.value?.minMetaIndication?.filterIndex() ?: 2
+                        ) { _, i, _ ->
+                            when (i) {
+                                0 -> ScoreIndication.POSITIVE
+                                1 -> ScoreIndication.MIXED
+                                2 -> ScoreIndication.NEGATIVE
+                                else -> IllegalStateException()
+                            }.let {
+                                val state = viewModel.stateLiveData.value?.mutateMetaScore(it as ScoreIndication)
+                                viewModel.stateLiveData.value = state
+                            }
+                        }
+                        .show()
+                }
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
 
@@ -73,4 +98,14 @@ class MainFragment : Fragment() {
             }
         snackbar?.show()
     }
+
+
 }
+
+private fun ScoreIndication.filterIndex(): Int =
+    when (this) {
+        ScoreIndication.POSITIVE -> 0
+        ScoreIndication.MIXED ->  1
+        ScoreIndication.NEGATIVE -> 2
+        else -> throw IllegalStateException()
+    }

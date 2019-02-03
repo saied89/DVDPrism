@@ -31,7 +31,7 @@ import org.junit.runner.RunWith
 //            every { getAllMovies() } returns liveData
 //            coEvery { refreshMovies() } returns Try.just(Unit)
 //        }
-//        val subject = MainViewModelImp(mockRepository)
+//        val subject = MainViewModel(mockRepository)
 //        subject.refreshMovies()
 //
 //        coVerify(exactly = 1) {

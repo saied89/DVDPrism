@@ -10,11 +10,7 @@ import org.koin.dsl.module.module
 
 val appModule = module {
 
-    viewModel<MainViewModel> {
-        MainViewModelImp(
-            get()
-        )
-    }
+    viewModel<MainViewModel> { MainViewModelImp(get()) }
 
     viewModel<DetailsViewModel> { DetailsViewModelImp(get()) }
 

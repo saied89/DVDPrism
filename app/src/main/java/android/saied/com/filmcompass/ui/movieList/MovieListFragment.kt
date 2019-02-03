@@ -9,6 +9,7 @@ import android.view.ViewGroup
 
 import android.saied.com.filmcompass.R
 import android.saied.com.filmcompass.ui.main.MainViewModel
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_movie_list.*
@@ -16,13 +17,14 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 abstract class MovieListFragment : Fragment() {
 
-    protected val viewModel: MainViewModel by sharedViewModel()
+    protected val viewModel by sharedViewModel<MainViewModel>()
     protected val adapter: MovieListAdapter by lazy { MovieListAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        bindMovieList()
         return inflater.inflate(R.layout.fragment_movie_list, container, false)
     }
 
@@ -32,7 +34,6 @@ abstract class MovieListFragment : Fragment() {
             layoutManager = GridLayoutManager(context, 2)
             adapter = this@MovieListFragment.adapter
         }
-        bindMovieList()
     }
 
     abstract fun bindMovieList()
@@ -40,16 +41,16 @@ abstract class MovieListFragment : Fragment() {
 
 class LatestListFragment : MovieListFragment() {
     override fun bindMovieList() {
-        viewModel.stateLiveData.observe(this, Observer {
-            adapter.submitList(it.latestMovieList)
+        viewModel.latestLiveData.observe(this, Observer {
+            adapter.submitList(it)
         })
     }
 }
 
 class UpcomingListFragment : MovieListFragment() {
     override fun bindMovieList() {
-        viewModel.stateLiveData.observe(this, Observer {
-            adapter.submitList(it.upcomingMovieList)
+        viewModel.upcommingLiveData.observe(this, Observer {
+            adapter.submitList(it)
         })
     }
 }

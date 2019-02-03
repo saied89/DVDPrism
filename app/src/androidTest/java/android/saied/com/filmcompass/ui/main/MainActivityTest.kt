@@ -1,6 +1,7 @@
 package android.saied.com.filmcompass.ui.main
 
 import android.content.Intent
+import android.graphics.pdf.PdfDocument
 import android.saied.com.common.model.Movie
 import androidx.lifecycle.MediatorLiveData
 import androidx.test.core.app.ActivityScenario
@@ -28,12 +29,12 @@ import androidx.test.uiautomator.UiSelector
 import androidx.annotation.IdRes
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.PagedList
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.UiObject
@@ -60,7 +61,13 @@ class MainActivityTest : KoinTest {
             viewModel(override = true) {
                 mockk<MainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MutableLiveData<MainState>().apply {
-                        value = MainState.Success(latestMovies = mockData, upcomingMovies = null)
+                        value = MainState.Success()
+                    }
+                    every { latestLiveData } returns MutableLiveData<PagedList<Movie>>().apply {
+                        value = mockData
+                    }
+                    every { upcommingLiveData } returns MutableLiveData<PagedList<Movie>>().apply {
+                        value = null
                     }
                 }
             }
@@ -83,8 +90,14 @@ class MainActivityTest : KoinTest {
         declare {
             viewModel(override = true) {
                 mockk<MainViewModel>(relaxUnitFun = true) {
+                    every { latestLiveData } returns MutableLiveData<PagedList<Movie>>().apply {
+                        value = null
+                    }
+                    every { upcommingLiveData } returns MutableLiveData<PagedList<Movie>>().apply {
+                        value = mockData
+                    }
                     every { stateLiveData } returns MutableLiveData<MainState>().apply {
-                        value = MainState.Success(latestMovies = null, upcomingMovies = mockData)
+                        value = MainState.Success()
                     }
                 }
             }
@@ -108,8 +121,14 @@ class MainActivityTest : KoinTest {
         declare {
             viewModel(override = true) {
                 mockk<MainViewModel>(relaxUnitFun = true) {
-                    every { stateLiveData } returns MediatorLiveData<MainState>().apply {
-                        value = MainState.Success(mockData, null)
+                    every { latestLiveData } returns MutableLiveData<PagedList<Movie>>().apply {
+                        value = mockData
+                    }
+                    every { upcommingLiveData } returns MutableLiveData<PagedList<Movie>>().apply {
+                        value = null
+                    }
+                    every { stateLiveData } returns MutableLiveData<MainState>().apply {
+                        value = MainState.Success()
                     }
                 }
             }
@@ -145,8 +164,14 @@ class MainActivityTest : KoinTest {
         declare {
             viewModel(override = true) {
                 mockk<MainViewModel>(relaxUnitFun = true) {
-                    every { stateLiveData } returns MediatorLiveData<MainState>().apply {
-                        value = MainState.Loading(null, null)
+                    every { stateLiveData } returns MutableLiveData<MainState>().apply {
+                        value = MainState.Loading()
+                    }
+                    every { latestLiveData } returns MutableLiveData<PagedList<Movie>>().apply {
+                        value = null
+                    }
+                    every { upcommingLiveData } returns MutableLiveData<PagedList<Movie>>().apply {
+                        value = null
                     }
                 }
             }
@@ -163,7 +188,13 @@ class MainActivityTest : KoinTest {
             viewModel(override = true) {
                 mockk<MainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MediatorLiveData<MainState>().apply {
-                        value = MainState.Error(Exception(testMessage), null, null)
+                        value = MainState.Error(Exception(testMessage))
+                    }
+                    every { latestLiveData } returns MutableLiveData<PagedList<Movie>>().apply {
+                        value = null
+                    }
+                    every { upcommingLiveData } returns MutableLiveData<PagedList<Movie>>().apply {
+                        value = null
                     }
                 }
             }
@@ -180,7 +211,13 @@ class MainActivityTest : KoinTest {
             viewModel(override = true) {
                 mockk<MainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MediatorLiveData<MainState>().apply {
-                        value = MainState.Success(null, null)
+                        value = MainState.Success()
+                    }
+                    every { latestLiveData } returns MediatorLiveData<PagedList<Movie>>().apply {
+                        value = null
+                    }
+                    every { upcommingLiveData } returns MediatorLiveData<PagedList<Movie>>().apply {
+                        value = null
                     }
                 }
             }

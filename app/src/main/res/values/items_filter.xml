@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="filter_choices">
+        <item>Only Positive</item>
+        <item>Positive &amp; Mixed</item>
+        <item>All</item>
+    </array>
+</resources>
