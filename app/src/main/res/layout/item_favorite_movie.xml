@@ -11,6 +11,8 @@
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         app:viewAspectRatio="0.662"
+        android:elevation="4dp"
+        android:layout_margin="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />

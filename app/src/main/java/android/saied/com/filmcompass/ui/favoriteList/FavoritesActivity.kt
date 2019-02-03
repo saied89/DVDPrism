@@ -22,6 +22,15 @@ class FavoritesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favotire_list)
         setSupportActionBar(toolbar)
+        title = "Favorites"
+        supportActionBar?.run {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+        }
+
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
 
         fixExitShareElementCallback()
 
