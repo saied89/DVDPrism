@@ -14,6 +14,8 @@ env:
   - EMU_ANDROID_API=21
   - ANDROID_BUILD_TOOLS=28.0.3
   - secure: tPaTjJrO4BnlHywgSZA91FKRAujpQf/Sn1v/e8Yu8g+0pLQAHRlZGi2xW4yOXpi666iEZKe6eewfvmrTvJncjjWIKkhFibZeYDoF3c8gf57l+IiH764yqL0YIaZhpN0ZDQ5gDVanmeNfwlUQDs2xWsEFF7IBxEzBiRJWGvSftXJ8CJgaLIMgLLPdWVuYPSb3d1SCqwaiSuuAllf65M2nD44GfoX9SUNyNcNBDAS0B+GpkWyS4KZ1EYnryUjwRmIyM39nM5D3oQBs6ZJI1U9Dwfohb5QEPJvibdytbPcoq2vZFWfLfAJPgg5pk22rck/c41p7rS8KJtg/TYMljOA0j+cuI4qYq4E0iSLFqvnhxCDIM+GXYwyWYLNaUD5a1xPCIC7TyjnKJ867sQprSbKLk85JMFXSB7pjNTtgHQXouWLWBxHkAJ2X4vqR7FD/zvOwjAT/UrmEtVDaBf1lKkiMQS42dsg7oFBTu6uQaRCe9OSXJUuOko32yhm8Rvr0mjkklgC7zKGstYXXyC32pQTQUJvf0Z8TJAZJHhuhywpobG5ffWJBmZwz+qJ1Pp7FHvkWbsEN7kFaWjdQ7gEajHCGsMNj5D85c0QRqTwdMyD2nbF9ceeInNrBOswnDjusMPnI3GnvzcJgIq81M8zDlUXzoo+SYp7nBNRK4DwT5jSszls=
+  - secure: IgVn6x1agkkOMA0Xh2FQIiOJT7HFT/qN+GqjRVQ2Q+ms3pq5GLVb0OyAhteOMBfwE6Mxb+7TWzL9C2kGw1r18/DtaolZhf/a0+wxnZ1iyGg6lBFt5LEDWal8CaR71GdnFRMJi5U7dsrzLNbD5n0EiOMWMkBMxCL412ONPje99v7lvm/eer3iLYMogr8zpKhhojWsvJfzRie5mS8G3YmHREoylWQx79QcDLJ9/zrK/fofoZkuGwcQxmyC9sIxVYXNumSCilyKyLacQDaETWvi0/w9pYcHa4kN43VK7r8otjeJY/drccI154mTXOD8R80mvDIn7/QCCPlIcDvgM6iz6pfwBEh5t3zt8ZSDWzmolu6i8GHAtweEQ7T6w41fAuret3TVCwtyP+R9tUiuz90fS0zQL9RixNK+YEDBtPHcuIVB+eCkqUaPOY87xjajWR5Yy8FmBqb2Bh31vviz+L+zn4hbWmegLz6WUT4SXRouSZcO5pypJaYjaS5MG7Pa/NG8NOlaO4OkmQ02SoFawwnxrpcsu9vc0b3wu+WCOxtJa4gyeaqbJq5eN3br0FRh39HjycwVjhcEmYd1BjZHm68LhvIHRWNid+kY+jbMMGx282d9jtuxDZkNSvehrGW5RA56gAZYh9xFGqy1qdoDzWIpZEk/xjJgOIjKJ53RTjrwLpg=
+  - secure: otFyiZRMYgJPPQ1TAquwy+JHwJaITA5CYCZa3Ql4y2LoHgcX/UJasoB+OjWSt2dEnoCv11AsqEr/BiDVh9G9bGzp+nZQDa7HJ3NsWL9fiF6RbeVbpAKlbMeG8/iYL8sgiAJ9ZkcUue0HgukFmsYGgxJh7vdZgOeMJqwWHNQNwiGO4C0B8tkpwo3xThZ2Wj4eyfWiZ6cRn6lKkVa2lqvbD5o9MriV2Nl8F3okP7NkyB1b2tVK3zDNrxFS6bNhjSLpq68oq59V/NWVl5Yo7iIIg8hyHBzh/zpaqDqf1LBeeQ7xK23lj8Rm8Uy9D+8eHKKit5OpC5goT03U58uxmB7hVbU5AAJ4ba7CwvvGp1kV/sJzXiqchJSM6RfaymbGHer6fdtMyApk0Afimg6r4xJtfKMeoOAU3U0r13XQ05tF0W0E2D/8zxFtD6St20wYZg5bQ2qdqXoEmld0Lh8OUolrf5BhO05n4yMM27zcUnZFI7cj9xRIV/aQkU/pClKuKvB3vEPcoG7thDFD1nz9WcRNAvgh+KmJgzUMf8eOec7n8C2oLMkIM8gbqtH6YqytBpFfnWI5u0dVXAXCpkQLB48Zs8q3YEpYy4CoNdiuUAU+atHJyE8ydpSQEI3pQ0Dy/HnXO3eaIf3q2U7nxkvBHHJ6vyHEInLqW7bNThAygjmDuf0=
 android:
   components:
   - tools
@@ -34,10 +36,11 @@ android:
   - android-sdk-license-.+
   - google-gdk-license-.+
 before_install:
-  - yes | sdkmanager "platforms;android-28"
-  - chmod +x gradlew
-  - ./gradlew dependencies || true
-
+- openssl aes-256-cbc -K $encrypted_e23a1bae845f_key -iv $encrypted_e23a1bae845f_iv
+  -in key.jks.enc -out key.jks -d
+- yes | sdkmanager "platforms;android-28"
+- chmod +x gradlew
+- "./gradlew dependencies || true"
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -61,3 +64,12 @@ script:
 - "./gradlew build check jacocoTestReport"
 after_success:
 - bash <(curl -s https://codecov.io/bash)
+deploy:
+  provider: releases
+  api_key:
+    secure: aLj/rCHMIa0+QS9Klh/xHLRIufqCYoL6TjsUv3Sjpr1pa4FY8+Qw6lKQbYy6lCccMJ7ITxoD4MC3SrnXdCmm5pNm0T34v1ccEaPB9r8x0OO+zmKm1//otS+QKeyQahp6O40KF+KWvBf148no1g8Gpav3OucGJ/5gNrPY5Dmk+tKozL6xr+y+7oVY/xEQGvJNtq0jGFZQGBvOF0+uednIHNwh4A6j6tH9yABIl3Bgl0cxLkn5A1Js33DA53vVsvymFsWpaKnu9XRKWJNw9TVtCgUVEIxV4kekxwnI4vi9vsRiBhYZZ9tMHFRYZP5bRUelGMaeGv5lsd8klMmOtn4f1nagXBBFoMRCvGpFUg/mFJAWGGe0X5yOuajrwFj3CTZ8HxjA2poei6fS20venZo4JGkqkWFNFZEgQudfCiP0C+vH64SYsySma9MzK2g7HkRjP6dy0oJ/m5C/W+H23kaWnXBFKAzv8v+h0kZhUTsDvWaPc+k1vTho//Dp46t7xvFwjM60HXVJCRR3toAdz2emYxrBbPdQ2fPr7ypZkmnT7q3cVgT1HupAOedMzR+oKakbLyhyOxBeJxpWxODMH+ZKuDpxz+Oexj+jNDY0YfzIlWCtlfju952py7XTCsdwdOWlOW7MTsNmamEhhVpnD620yGc4ow6/bn4adjDgo3BDNfw=
+  file: app/release/app-release.apk
+  skip_cleanup: true
+  on:
+    tags: true
+    repo: saied89/DVDPrism

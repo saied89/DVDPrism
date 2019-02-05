@@ -52,15 +52,31 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
     }
+
+    signingConfigs {
+        release
+    }
+
     buildTypes {
         release {
             testCoverageEnabled false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
         debug {
             testCoverageEnabled true
         }
+    }
+
+    def isRunningOnTravis = System.getenv("CI") == "true"
+
+    if (isRunningOnTravis) {
+        // configure keystore
+        signingConfigs.release.storeFile = file("../key.jks")
+        signingConfigs.release.storePassword = System.getenv("KEYSTORE_PASSWORD")
+        signingConfigs.release.keyAlias = System.getenv("KEY_ALIAS")
+        signingConfigs.release.keyPassword = System.getenv("KEYSTORE_PASSWORD")
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
