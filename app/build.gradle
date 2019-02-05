@@ -16,6 +16,17 @@ tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
 }
 
+ext.signing = [
+        storeFilePath : 'path/to/keystore',
+        storePassword : 'keystore password',
+        keyAlias      : 'key alias',
+        keyPassword   : 'key password',
+]
+
+if (file('../signing.gradle').exists()) {
+    apply from: '../signing.gradle'
+}
+
 task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
 
     reports {
@@ -77,6 +88,11 @@ android {
         signingConfigs.release.storePassword = System.getenv("KEYSTORE_PASSWORD")
         signingConfigs.release.keyAlias = System.getenv("KEY_ALIAS")
         signingConfigs.release.keyPassword = System.getenv("KEYSTORE_PASSWORD")
+    } else {
+        signingConfigs.release.storeFile = file(signing.storeFilePath)
+        signingConfigs.release.storePassword = signing.storePassword
+        signingConfigs.release.keyAlias = signing.keyAlias
+        signingConfigs.release.keyPassword = signing.storePassword
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
