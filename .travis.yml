@@ -1,83 +1,63 @@
 sudo: false
 language: android
 jdk: oraclejdk8
-
-
 services: mongodb
-
 addons:
   apt:
     sources:
-      - mongodb-3.4-trusty
+    - mongodb-3.4-trusty
     packages:
-      - mongodb-org-server
-
+    - mongodb-org-server
 env:
   global:
-    - ANDROID_API=28
-    - EMU_ANDROID_API=21
-    - ANDROID_BUILD_TOOLS=28.0.3
-    - CODECOV_TOKEN=51c0b2f0-c0e3-40fe-8b87-98328d8f7775
-
+  - ANDROID_API=28
+  - EMU_ANDROID_API=21
+  - ANDROID_BUILD_TOOLS=28.0.3
+  - secure: tPaTjJrO4BnlHywgSZA91FKRAujpQf/Sn1v/e8Yu8g+0pLQAHRlZGi2xW4yOXpi666iEZKe6eewfvmrTvJncjjWIKkhFibZeYDoF3c8gf57l+IiH764yqL0YIaZhpN0ZDQ5gDVanmeNfwlUQDs2xWsEFF7IBxEzBiRJWGvSftXJ8CJgaLIMgLLPdWVuYPSb3d1SCqwaiSuuAllf65M2nD44GfoX9SUNyNcNBDAS0B+GpkWyS4KZ1EYnryUjwRmIyM39nM5D3oQBs6ZJI1U9Dwfohb5QEPJvibdytbPcoq2vZFWfLfAJPgg5pk22rck/c41p7rS8KJtg/TYMljOA0j+cuI4qYq4E0iSLFqvnhxCDIM+GXYwyWYLNaUD5a1xPCIC7TyjnKJ867sQprSbKLk85JMFXSB7pjNTtgHQXouWLWBxHkAJ2X4vqR7FD/zvOwjAT/UrmEtVDaBf1lKkiMQS42dsg7oFBTu6uQaRCe9OSXJUuOko32yhm8Rvr0mjkklgC7zKGstYXXyC32pQTQUJvf0Z8TJAZJHhuhywpobG5ffWJBmZwz+qJ1Pp7FHvkWbsEN7kFaWjdQ7gEajHCGsMNj5D85c0QRqTwdMyD2nbF9ceeInNrBOswnDjusMPnI3GnvzcJgIq81M8zDlUXzoo+SYp7nBNRK4DwT5jSszls=
 android:
   components:
-    - tools
-    - tools
-    - platform-tools
-    # The BuildTools version used by your project
-    - build-tools-$ANDROID_BUILD_TOOLS
-    - android-$ANDROID_API
-    - android-$EMU_ANDROID_API
-    #- android-$EMULATOR_API
-
-    # Additional components
-    - extra-google-google_play_services
-    - extra-google-m2repository
-    - extra-android-m2repository
-    - addon-google_apis-google-$ANDROID_API
-
-    # Specify at least one system image,
-    # if you need to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-addon-google_apis-google-$EMU_ANDROID_API
-    - sys-img-armeabi-v7a-android-$EMU_ANDROID_API
-
-    # Support library
-    - extra-android-support
-
+  - tools
+  - tools
+  - platform-tools
+  - build-tools-$ANDROID_BUILD_TOOLS
+  - android-$ANDROID_API
+  - android-$EMU_ANDROID_API
+  - extra-google-google_play_services
+  - extra-google-m2repository
+  - extra-android-m2repository
+  - addon-google_apis-google-$ANDROID_API
+  - sys-img-armeabi-v7a-addon-google_apis-google-$EMU_ANDROID_API
+  - sys-img-armeabi-v7a-android-$EMU_ANDROID_API
+  - extra-android-support
   licenses:
-    - android-sdk-preview-license-.+
-    - android-sdk-license-.+
-    - google-gdk-license-.+
-
+  - android-sdk-preview-license-.+
+  - android-sdk-license-.+
+  - google-gdk-license-.+
 before_install:
   - yes | sdkmanager "platforms;android-28"
   - chmod +x gradlew
   - ./gradlew dependencies || true
 
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-    - $HOME/.android/build-cache
-
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+  - "$HOME/.android/build-cache"
 before_script:
-  #- android-update-sdk --components=sys-img-armeabi-v7a-android-21 --accept-licenses='android-sdk-license-[0-9a-f]{8}'
-  - android list sdk --extended --no-ui --all
-  - android list targets
-  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell settings put global window_animation_scale 0 &
-  - adb shell settings put global transition_animation_scale 0 &
-  - adb shell settings put global animator_duration_scale 0 &
-  - adb shell input keyevent 82 &
-
+- android list sdk --extended --no-ui --all
+- android list targets
+- echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+- emulator -avd test -no-skin -no-audio -no-window &
+- android-wait-for-emulator
+- adb shell settings put global window_animation_scale 0 &
+- adb shell settings put global transition_animation_scale 0 &
+- adb shell settings put global animator_duration_scale 0 &
+- adb shell input keyevent 82 &
 script:
-  - android list target
-  - ./gradlew build check jacocoTestReport
-
+- android list target
+- "./gradlew build check jacocoTestReport"
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+- bash <(curl -s https://codecov.io/bash)
