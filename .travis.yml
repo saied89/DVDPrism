@@ -61,7 +61,7 @@ before_script:
 - adb shell input keyevent 82 &
 script:
 - android list target
-- "./gradlew build check jacocoTestReport"
+- "./gradlew app:assembleRelease jacocoTestReport"
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 deploy:
