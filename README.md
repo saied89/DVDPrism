@@ -4,6 +4,7 @@
 
 # DVD Prism
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fee81b90074b40cc9b7dfda01b09fbb7)](https://app.codacy.com/app/saied89/DVDPrism?utm_source=github.com&utm_medium=referral&utm_content=saied89/DVDPrism&utm_campaign=Badge_Grade_Settings)
 [![Build Status](https://travis-ci.com/saied89/DVDPrism.svg?branch=master)](https://travis-ci.com/saied89/DVDPrism)
 [![codecov](https://codecov.io/gh/saied89/DVDPrism/branch/master/graph/badge.svg)](https://codecov.io/gh/saied89/DVDPrism) 
 [![codebeat badge](https://codebeat.co/badges/3e3e2365-f99c-414a-89ee-1efae89fa841)](https://codebeat.co/projects/github-com-saied89-dvdprism-master)
