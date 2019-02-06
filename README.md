@@ -19,6 +19,8 @@ There are several broad goals in this project of which some are achieved, others
 ### Transition APIs and the new MotionLayout
 Transition
 ![transition](https://github.com/saied89/DVDPrism/blob/master/gifs/transition.gif?raw=true)
+
+
 MotionLayout
 ![motionLayout](https://github.com/saied89/DVDPrism/blob/master/gifs/motionLayout.gif?raw=true)
 ### Using all of Architectural components
