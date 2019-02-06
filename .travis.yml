@@ -8,6 +8,7 @@ addons:
     - mongodb-3.4-trusty
     packages:
     - mongodb-org-server
+    - sshpass
 env:
   global:
   - ANDROID_API=28
@@ -60,7 +61,7 @@ before_script:
 - adb shell input keyevent 82 &
 script:
 - android list target
-- "./gradlew jacocoTestReport app:assembleRelease"
+- "./gradlew clean build jacocoTestReport"
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 deploy:
