@@ -30,7 +30,7 @@ The new MotionLayout API enables View components to transition smoothly between 
 ### Using all of Architectural components
 This app makes extensive use of Android Architectural Components with data flow of the application consisting of Room, Paging, LiveData and Lifecycle. I have made the the ground works for integrating the Navigation component by using an empty MainActivity which which be done in a later date.
 ### Coroutines & networking with Ktor Client
-Throughout this project Async operations are handled by coroutines and there is no RxJava dependency.
+There is strong emphasis on maximum usage of Kotlin in this project. Throughout this project Async operations are handled by coroutines and there is no RxJava dependency. The backend is written using Ktor Server and networking in app is handled with Ktor Client.
 ### Code sharing between app and backend through a common module
 The data models and some basic utils are shared via a common module.
 ### Completely tested app with good code coverage and integration of CI/CD
