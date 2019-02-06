@@ -17,7 +17,9 @@ Besides being a movie fan I'm a professional Android developer. I made this proj
 There are several broad goals in this project of which some are achieved, others are close to compeletion while others will be persued in phase 2 after the release of the application.
 
 ### Transition APIs and the new MotionLayout
+Transition
 ![transition](https://github.com/saied89/DVDPrism/blob/master/gifs/transition.gif?raw=true)
+MotionLayout
 ![motionLayout](https://github.com/saied89/DVDPrism/blob/master/gifs/motionLayout.gif?raw=true)
 ### Using all of Architectural components
 
