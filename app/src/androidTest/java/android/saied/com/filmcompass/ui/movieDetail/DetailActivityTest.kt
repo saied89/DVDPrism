@@ -1,5 +1,7 @@
 package android.saied.com.filmcompass.ui.movieDetail
 
+import android.content.ClipboardManager
+import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Intent
 import android.saied.com.common.model.Movie
 import android.saied.com.filmcompass.R
@@ -9,10 +11,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.longClick
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -20,6 +24,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import org.junit.Rule
 import org.junit.Test
@@ -135,6 +140,30 @@ class DetailActivityTest : KoinTest {
         onView(withId(R.id.posterImgView)).perform(click())
 
         intended(IntentMatchers.hasComponent(PosterActivity::class.qualifiedName))
+    }
+
+    @Test
+    fun longClickOnTitleCopiedTitleToClipBoard() {
+        val element = Movie("title", 0, "", 0, 0, "")
+        intentsTestRule.launchActivity(
+            Intent(
+                InstrumentationRegistry.getInstrumentation().targetContext,
+                DetailActivity::class.java
+            ).apply {
+                putExtra(MOVIE_EXTRA_TAG, element)
+            }
+        )
+
+        onView(withId(R.id.titleTV)).perform(longClick())
+
+        val clipboardManager = InstrumentationRegistry.getInstrumentation().targetContext
+            .getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+        assertEquals(1, clipboardManager.primaryClip?.itemCount)
+        assertEquals(element.name, clipboardManager.primaryClip?.getItemAt(0)?.text)
+        onView(withId(com.google.android.material.R.id.snackbar_text))
+            .check(matches(ViewMatchers.withText(
+                InstrumentationRegistry.getInstrumentation().targetContext.getText(R.string.title_copied).toString()
+            )))
     }
 
 

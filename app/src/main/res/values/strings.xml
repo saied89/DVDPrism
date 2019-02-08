@@ -7,4 +7,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="latest">Latest</string>
     <string name="upcoming">Upcoming</string>
+    <string name="title_copied">Movie title copied</string>
 </resources>

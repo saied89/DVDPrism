@@ -1,6 +1,8 @@
 package android.saied.com.filmcompass.ui.movieDetail
 
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -26,6 +28,7 @@ import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.imagepipeline.datasource.BaseBitmapDataSubscriber
 import com.facebook.imagepipeline.image.CloseableImage
 import com.facebook.imagepipeline.request.ImageRequest
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -53,9 +56,7 @@ class DetailActivity : AppCompatActivity() {
             setDisplayShowHomeEnabled(true)
             setDisplayShowTitleEnabled(false)
         }
-
         fixExitShareElementCallback()
-
         bindMovie(movie)
 
         isFavoriteLiveData.observe(this, Observer {
@@ -77,7 +78,19 @@ class DetailActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
+
+        titleTV.setOnLongClickListener {
+            with(getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager) {
+                primaryClip = ClipData.newPlainText("MovieTitle", movie.name)
+            }
+            showSnackBar(getString(R.string.title_copied))
+            true
+        }
     }
+
+    private fun showSnackBar(text: String) =
+        Snackbar.make(rootView, text, Snackbar.LENGTH_SHORT).show()
+
 
     private fun bindMovie(movie: Movie) {
         titleTV.text = movie.name
