@@ -156,8 +156,7 @@ class DetailActivityTest : KoinTest {
 
         onView(withId(R.id.titleTV)).perform(longClick())
 
-        val clipboardManager = InstrumentationRegistry.getInstrumentation().targetContext
-            .getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+        val clipboardManager = intentsTestRule.activity.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
         assertEquals(1, clipboardManager.primaryClip?.itemCount)
         assertEquals(element.name, clipboardManager.primaryClip?.getItemAt(0)?.text)
         onView(withId(com.google.android.material.R.id.snackbar_text))
