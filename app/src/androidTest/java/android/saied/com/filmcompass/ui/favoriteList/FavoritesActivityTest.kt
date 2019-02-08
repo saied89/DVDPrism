@@ -9,15 +9,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import io.mockk.every
 import io.mockk.mockk
+import org.hamcrest.CoreMatchers.not
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -47,6 +50,25 @@ class FavoritesActivityTest : KoinTest {
         ActivityScenario.launch(FavoritesActivity::class.java)
 
         onView(withId(R.id.recyclerView)).check(matches(RecyclerViewMatchers.hasItemCount(4)))
+        onView(withId(R.id.noFavoriteTV)).check(matches(not(isDisplayed())))
+    }
+
+    @Test
+    fun emptyListShowsNoFavoriteTV() {
+        declare {
+            viewModel(override = true) {
+                mockk<FavoritesViewModel>(relaxUnitFun = true) {
+                    every { favoritesLiveData } returns MutableLiveData<List<Movie>>().apply {
+                        value = listOf()
+                    }
+                }
+            }
+        }
+
+        ActivityScenario.launch(FavoritesActivity::class.java)
+
+        onView(withId(R.id.recyclerView)).check(matches(RecyclerViewMatchers.hasItemCount(0)))
+        onView(withId(R.id.noFavoriteTV)).check(matches(isDisplayed()))
     }
 
     @Test
@@ -72,6 +94,8 @@ class FavoritesActivityTest : KoinTest {
 
         intended(hasComponent(DetailActivity::class.qualifiedName))
     }
+
+
 
 
 }

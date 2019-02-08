@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.saied.com.filmcompass.R
 import android.saied.com.filmcompass.utils.fixExitShareElementCallback
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,6 +40,8 @@ class FavoritesActivity : AppCompatActivity() {
             adapter = this@FavoritesActivity.adapter
         }
         viewModel.favoritesLiveData.observe(this, Observer {
+            if(it.isNotEmpty())
+                noFavoriteTV.visibility = View.GONE
             adapter.data = it
         })
     }
