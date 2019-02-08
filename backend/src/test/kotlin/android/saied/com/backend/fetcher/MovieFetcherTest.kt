@@ -42,4 +42,11 @@ internal class MovieFetcherTest {
         assertNotNull(res)
     }
 
+    @Test
+    fun movieWithAmpersandIsParsedCorrectly() {
+        val content = javaClass.classLoader.getResource("metacriticAmpersandSample.html").readText()
+        val movies = parseMetacriticHtml(content)
+        assertEquals(1, movies.size)
+        assertEquals("The Old Man & the Gun", movies[0].name)
+    }
 }

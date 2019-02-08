@@ -4,6 +4,7 @@ import android.saied.com.backend.fetchHtml
 import android.saied.com.common.model.Movie
 import android.saied.com.common.model.parseDate
 import arrow.core.Try
+import com.google.common.annotations.VisibleForTesting
 import io.ktor.client.HttpClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -39,12 +40,13 @@ private val sourceList = listOf(
     MovieSource(metacriticUpcomingUrl, ::parseMetacriticHtml)
 )
 
-private fun parseMetacriticHtml(htmlStr: String): List<Movie> =
+@VisibleForTesting
+internal fun parseMetacriticHtml(htmlStr: String): List<Movie> =
     Jsoup.parse(htmlStr)
         .body()
         .select("table.clamp-list tbody tr:not(.spacer)")
         .map { element ->
-            val title = element.select(".clamp-summary-wrap a.title h3").html()
+            val title = element.select(".clamp-summary-wrap a.title h3").html().replace("&amp;", "&")
             val dateStr = element.select(".clamp-summary-wrap .clamp-details span:nth-child(2)").html()
             val date = parseDate(dateStr).time
             val posterUrl = element.select(".clamp-image-wrap a img").first().absUrl("src")
