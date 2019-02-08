@@ -15,7 +15,7 @@ open class MovieFetcher(private val httpClient: HttpClient) {
             val res: List<Movie> = httpClient.get {
                 url {
                     protocol = URLProtocol.HTTP
-                    host = "192.168.1.2"
+                    host = "88.99.153.213"
                     port = 8080
                 }
             }

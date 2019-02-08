@@ -8,10 +8,10 @@ import androidx.room.*
 
 @Dao
 interface MovieDAO {
-    @Query("SELECT * FROM Movie WHERE releaseDate < :date AND metaScore >= :minMetaScore And userScore >= :minUserScore ORDER BY releaseDate DESC")
+    @Query("SELECT * FROM Movie WHERE releaseDate <= :date AND (metaScore >= :minMetaScore OR metaScore IS NULL) And (userScore >= :minUserScore OR userScore IS NULL) ORDER BY releaseDate DESC")
     fun getLatestReleases(date: Long, minMetaScore: Int, minUserScore: Int): DataSource.Factory<Int, Movie>
 
-    @Query("SELECT * FROM Movie WHERE releaseDate > :date AND metaScore >= :minMetaScore And userScore >= :minUserScore ORDER BY releaseDate ASC")
+    @Query("SELECT * FROM Movie WHERE releaseDate > :date AND (metaScore >= :minMetaScore OR metaScore IS NULL) And (userScore >= :minUserScore OR userScore IS NULL) ORDER BY releaseDate ASC")
     fun getUpcomingReleases(date: Long, minMetaScore: Int, minUserScore: Int): DataSource.Factory<Int, Movie>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
