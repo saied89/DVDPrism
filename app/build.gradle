@@ -55,7 +55,7 @@ repositories {
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "android.saied.com.filmcompass"
+        applicationId "com.saied.dvdprism.app"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1

@@ -52,7 +52,7 @@ dependencies {
 
 jar {
     manifest {
-        attributes 'Main-Class': "android.saied.com.backend.MainKt"
+        attributes 'Main-Class': "com.saied.dvdprism.backend.MainKt"
     }
 }
 
