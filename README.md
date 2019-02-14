@@ -28,7 +28,7 @@ There are several broad goals in this project of which some are achieved, others
 ![transition](https://github.com/saied89/DVDPrism/blob/master/gifs/transition.gif?raw=true)
 
 #### MotionLayout
-The new MotionLayout API enables View components to transition smoothly between two states. The effort required in rather minimal and is only marginally harder than an making two seperate layout files.
+The new MotionLayout API enables View components to transition smoothly between two states. The effort required in rather minimal and is only marginally harder than making two seperate layout files.
 
 ![motionLayout](https://github.com/saied89/DVDPrism/blob/master/gifs/motionLayout.gif?raw=true)
 ### Using all of Architectural components
