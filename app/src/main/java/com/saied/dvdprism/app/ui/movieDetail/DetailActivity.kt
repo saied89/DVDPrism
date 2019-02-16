@@ -105,7 +105,7 @@ class DetailActivity : AppCompatActivity() {
         runTimeTV.text = movie.omdbDetails?.runtime
         genreTV.text = movie.omdbDetails?.genre
         starringTV.text = movie.omdbDetails?.actors
-        setUpPalette(movie.omdbDetails?.poster ?: movie.getPosterUrl250p())
+        setUpPalette(movie.getPosterUrl250p())
         posterImgView.setOnClickListener {
             PosterActivity.launchPosterActivityWithTransition(
                 this,
@@ -116,15 +116,9 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setUpPalette(uri: String) {
-        val imagePipeline = Fresco.getImagePipeline()
-        val dataSource = imagePipeline.fetchDecodedImage(ImageRequest.fromUri(uri), this)
-        dataSource.subscribe(object : BaseBitmapDataSubscriber() {
-            override fun onFailureImpl(dataSource: DataSource<CloseableReference<CloseableImage>>?) {
-                dataSource?.close()
-            }
-
-            override fun onNewResultImpl(bitmap: Bitmap?) {
-                val palette = Palette.from(bitmap!!).generate()
+        FrescoUtils.withBitmap(uri) { bitMap ->
+            if(bitMap != null) {
+                val palette = Palette.from(bitMap).generate()
 
                 toolbar.background = palette.getLightMutedColor(
                     ContextCompat.getColor(this@DetailActivity, R.color.defaultColor)
@@ -135,9 +129,8 @@ class DetailActivity : AppCompatActivity() {
                 window.statusBarColor = palette.getDarkMutedColor(
                     ContextCompat.getColor(this@DetailActivity, R.color.defaultColorDark)
                 )
-                dataSource.close()
             }
-        }, CallerThreadExecutor.getInstance())
+        }
     }
 
     companion object {
