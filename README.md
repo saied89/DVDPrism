@@ -37,7 +37,7 @@ This app makes extensive use of Android Architectural Components with data flow 
 There is strong emphasis on maximum usage of Kotlin in this project. Throughout this project Async operations are handled by coroutines and there is no RxJava dependency. The backend is written using Ktor Server and networking in app is handled with Ktor Client.
 ### Code sharing between app and backend through a common module
 The data models and some basic utils are shared via a common module.
-### Completely tested app with good code coverage and integration of CI/CD
+### Well tested with good code coverage and integration of CI/CD
 The app is highly tested. Currently Jacoco has some [issues](https://stackoverflow.com/questions/53485360/incorrect-jacoco-code-coverage-for-kotlin-coroutine) with coroutines and as such the actual code coverage is probably higher.
 
 
