@@ -1,6 +1,7 @@
 package com.saied.dvdprism.backend
 
 import com.fasterxml.jackson.databind.SerializationFeature
+import com.rollbar.notifier.Rollbar
 import com.saied.dvdprism.backend.di.appModule
 import com.saied.dvdprism.backend.di.dbModule
 import com.saied.dvdprism.backend.di.jsonModule
@@ -19,6 +20,7 @@ import io.ktor.routing.routing
 import io.ktor.server.netty.EngineMain
 import org.koin.ktor.ext.get
 import org.koin.standalone.StandAloneContext.startKoin
+import com.rollbar.notifier.config.ConfigBuilder.withAccessToken
 
 fun main(args: Array<String>) {
     startKoin(listOf(dbModule, appModule, networkModule, jsonModule))
@@ -36,7 +38,7 @@ fun Application.module() {
             enable(SerializationFeature.INDENT_OUTPUT)
         }
     }
-
+    greetRollbar()
     val repository: MovieRepository = get()
     val fetcherService: MovieFetcherTask = get()
     fetcherService.initRepeatingTask()
@@ -47,4 +49,10 @@ fun Application.module() {
             call.respond(movies)
         }
     }
+}
+
+fun greetRollbar() {
+    val rollbar = Rollbar.init(withAccessToken("415168ef894d4304a4a791e6fce176a1").build())
+    rollbar.log("Hello, Rollbar")
+    rollbar.close(true)
 }
