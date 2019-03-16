@@ -1,6 +1,11 @@
 <p>
   <img src="https://github.com/saied89/DVDPrism/blob/master/logo.svg" width="200" height="200"/>
 </p>
+<a href='https://play.google.com/store/apps/details?id=com.saied.dvdprism.app'>
+    <img alt='Get it on Google Play' 
+         src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'
+         height="116" width="300"/>
+</a>
 
 # DVD Prism
 
@@ -23,7 +28,7 @@ There are several broad goals in this project of which some are achieved, others
 ![transition](https://github.com/saied89/DVDPrism/blob/master/gifs/transition.gif?raw=true)
 
 #### MotionLayout
-The new MotionLayout API enables View components to transition smoothly between two states. The effort required in rather minimal and is only marginally harder than an making two seperate layout files.
+The new MotionLayout API enables View components to transition smoothly between two states. The effort required in rather minimal and is only marginally harder than making two seperate layout files.
 
 ![motionLayout](https://github.com/saied89/DVDPrism/blob/master/gifs/motionLayout.gif?raw=true)
 ### Using all of Architectural components
@@ -32,7 +37,7 @@ This app makes extensive use of Android Architectural Components with data flow 
 There is strong emphasis on maximum usage of Kotlin in this project. Throughout this project Async operations are handled by coroutines and there is no RxJava dependency. The backend is written using Ktor Server and networking in app is handled with Ktor Client.
 ### Code sharing between app and backend through a common module
 The data models and some basic utils are shared via a common module.
-### Completely tested app with good code coverage and integration of CI/CD
+### Well tested with good code coverage and integration of CI/CD
 The app is highly tested. Currently Jacoco has some [issues](https://stackoverflow.com/questions/53485360/incorrect-jacoco-code-coverage-for-kotlin-coroutine) with coroutines and as such the actual code coverage is probably higher.
 
 
