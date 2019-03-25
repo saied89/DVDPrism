@@ -46,5 +46,6 @@ fun Application.module() {
             val movies = repository.getMovies()
             call.respond(movies)
         }
+        detailless()
     }
 }
