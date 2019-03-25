@@ -3,6 +3,7 @@ package com.saied.dvdprism.backend
 import arrow.core.Try
 import com.mongodb.MongoBulkWriteException
 import com.mongodb.client.MongoCollection
+import com.mongodb.client.model.Filters.eq
 import com.mongodb.client.model.InsertManyOptions
 import com.saied.dvdprism.common.model.Movie
 import org.litote.kmongo.deleteMany
@@ -37,6 +38,9 @@ class MovieRepositoryImp(private val mongoCollection: MongoCollection<Movie>) : 
 //            }
 //        }
     }
+
+    override fun getDetaillessMovies(): List<Movie> =
+        mongoCollection.find(eq("omdbDetails", null)).toList()
 
     override fun getMovies(): List<Movie> =
         mongoCollection.find().sort("{ releaseDate: -1 }").asSequence().toList()

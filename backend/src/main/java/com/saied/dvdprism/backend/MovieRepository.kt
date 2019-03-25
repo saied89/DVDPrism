@@ -11,6 +11,8 @@ interface MovieRepository {
 
     fun getMovies(): List<Movie>
 
+    fun getDetaillessMovies(): List<Movie>
+
 //    fun getInfoLessMovies(): List<Movie>
 
 //    fun setOmdbDataOfMovie(movie: Movie, omdbData: OmdbData): UpdateResult

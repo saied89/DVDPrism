@@ -74,6 +74,20 @@ internal class MovieRepositoryImpTest {
         assertNotNull(res[0].omdbDetails)
     }
 
+    @Test
+    fun `notFoundMovies Returns movies with null omdbDetails`() {
+        val movie = dummyMovie.copy(omdbDetails = dummyOmdbDetails)
+        val detaillessMovie1 = dummyMovie.copy(name = "DetailLess1")
+        val detaillessMovie2 = dummyMovie.copy(name = "DetailLess2")
+
+        movieRepository.saveMovies(listOf(movie, detaillessMovie1, detaillessMovie2))
+        val movies = movieRepository.getDetaillessMovies()
+
+        assertEquals(2, movies.size)
+        assertEquals(detaillessMovie1, movies[0])
+        assertEquals(detaillessMovie2, movies[1])
+    }
+
     //
 //    @Test
 //    fun `getInfoLessMovies returns only infoless movies`() {
