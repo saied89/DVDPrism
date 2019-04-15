@@ -10,7 +10,7 @@ dependencies {
     def mongo_version = "3.9.1"
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     compile 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
-    implementation project(':common')
+    implementation project(':common-jvm')
     compile "org.litote.kmongo:kmongo:$mongo_version"
 
     testCompile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8" //for parsing sample jsons

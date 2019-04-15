@@ -7,6 +7,5 @@ pluginManagement {
         }
     }
 }
-include ':app', ':common', ':backend'
-include 'panel'
+include ':app', ':common-jvm', ':backend', ':panel'
 
