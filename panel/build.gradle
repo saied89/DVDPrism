@@ -11,6 +11,8 @@ dependencies {
     implementation 'org.jetbrains:kotlin-react-dom:16.6.0-pre.70-kotlin-1.3.21'
     implementation "org.jetbrains.kotlinx:kotlinx-html-js:$html_version"
     implementation "io.ktor:ktor-client-json-js:$ktor_version"
+
+    implementation "io.ktor:ktor-client-js:$ktor_version"
 }
 
 kotlinFrontend {
@@ -22,6 +24,7 @@ kotlinFrontend {
         dependency "core-js"
         dependency "react"
         dependency "react-dom"
+        dependency "text-encoding"
         devDependency("karma")
     }
 
@@ -60,6 +63,7 @@ compileTestKotlin2Js {
     kotlinOptions.metaInfo = true
     kotlinOptions.outputFile = "$project.buildDir.path/js-tests/${project.name}-tests.js"
     kotlinOptions.sourceMap = true
+    kotlinOptions.sourceMapEmbedSources = "always"
     kotlinOptions.moduleKind = 'commonjs'
 //    kotlinOptions.moduleName = project.name + "-test"
     kotlinOptions.main = "call"
