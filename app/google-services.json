@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "573174708383",
+    "firebase_url": "https://dvdprism.firebaseio.com",
+    "project_id": "dvdprism",
+    "storage_bucket": "dvdprism.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573174708383:android:ce10e0733cbb7e5b",
+        "android_client_info": {
+          "package_name": "com.saied.dvdprism.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "573174708383-f0cpntlj8hkb4invmo7vqgt07etcom6m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBj5MjuA-TllElLvS85LXRrmGeTOWhyc00"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "573174708383-f0cpntlj8hkb4invmo7vqgt07etcom6m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
