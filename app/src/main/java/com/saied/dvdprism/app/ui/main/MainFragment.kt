@@ -18,7 +18,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 class MainFragment : Fragment() {
 
     @VisibleForTesting
-    val viewModel: MainViewModel by sharedViewModel()
+    val viewModel: IMainViewModel by sharedViewModel()
 
     private val pagerAdapter: MovieListPagerAdapter by lazy { MovieListPagerAdapter(childFragmentManager, context!!) }
 

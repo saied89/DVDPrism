@@ -60,7 +60,7 @@ class MainActivityTest : KoinTest {
         val mockData = listOf(element, element, element).asPagedList()
         declare {
             viewModel(override = true) {
-                mockk<MainViewModel>(relaxUnitFun = true) {
+                mockk<IMainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MutableLiveData<MainState>().apply {
                         value = MainState.Success(ScoreIndication.NEGATIVE, ScoreIndication.NEGATIVE)
                     }
@@ -90,7 +90,7 @@ class MainActivityTest : KoinTest {
         val mockData = listOf(element, element, element).asPagedList()
         declare {
             viewModel(override = true) {
-                mockk<MainViewModel>(relaxUnitFun = true) {
+                mockk<IMainViewModel>(relaxUnitFun = true) {
                     every { latestLiveData } returns MutableLiveData<PagedList<Movie>>().apply {
                         value = null
                     }
@@ -121,7 +121,7 @@ class MainActivityTest : KoinTest {
         val mockData = listOf(element, element, element).asPagedList()
         declare {
             viewModel(override = true) {
-                mockk<MainViewModel>(relaxUnitFun = true) {
+                mockk<IMainViewModel>(relaxUnitFun = true) {
                     every { latestLiveData } returns MutableLiveData<PagedList<Movie>>().apply {
                         value = mockData
                     }
@@ -164,7 +164,7 @@ class MainActivityTest : KoinTest {
     fun correctLoadingStateRender() {
         declare {
             viewModel(override = true) {
-                mockk<MainViewModel>(relaxUnitFun = true) {
+                mockk<IMainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MutableLiveData<MainState>().apply {
                         value = MainState.Loading(ScoreIndication.NEGATIVE, ScoreIndication.NEGATIVE)
                     }
@@ -187,7 +187,7 @@ class MainActivityTest : KoinTest {
         val testMessage = "test message"
         declare {
             viewModel(override = true) {
-                mockk<MainViewModel>(relaxUnitFun = true) {
+                mockk<IMainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MediatorLiveData<MainState>().apply {
 
                         value =
@@ -212,7 +212,7 @@ class MainActivityTest : KoinTest {
     fun clickOnFavsActionLaunchesFavoritesActivity() {
         declare {
             viewModel(override = true) {
-                mockk<MainViewModel>(relaxUnitFun = true) {
+                mockk<IMainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MediatorLiveData<MainState>().apply {
                         value = MainState.Success(ScoreIndication.NEGATIVE, ScoreIndication.NEGATIVE)
                     }
@@ -246,7 +246,7 @@ class MainActivityTest : KoinTest {
     fun clickOnFilterOpensFilterDialog() {
         declare {
             viewModel(override = true) {
-                mockk<MainViewModel>(relaxUnitFun = true) {
+                mockk<IMainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MediatorLiveData<MainState>().apply {
                         value = MainState.Success(ScoreIndication.NEGATIVE, ScoreIndication.NEGATIVE)
                     }

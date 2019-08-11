@@ -25,7 +25,7 @@ package com.saied.dvdprism.app.ui.movieList
 //            every { getAllMovies() } returns liveData
 //            coEvery { refreshMovies() } returns Try.just(Unit)
 //        }
-//        val subject = MainViewModel(mockRepository)
+//        val subject = IMainViewModel(mockRepository)
 //        subject.refreshMovies()
 //
 //        coVerify(exactly = 1) {
