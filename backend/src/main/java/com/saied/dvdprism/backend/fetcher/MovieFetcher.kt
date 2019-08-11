@@ -47,7 +47,7 @@ internal fun parseMetacriticHtml(htmlStr: String): List<Movie> =
         .select("table.clamp-list tbody tr:not(.spacer)")
         .map { element ->
             val title = element.select(".clamp-summary-wrap a.title h3").html().replace("&amp;", "&")
-            val dateStr = element.select(".clamp-summary-wrap .clamp-details span:nth-child(2)").html()
+            val dateStr = element.select(".clamp-summary-wrap .clamp-details span:first-child").html()
             val date = parseDate(dateStr).time
             val posterUrl = element.select(".clamp-image-wrap a img").first().absUrl("src")
             val metaScore = element.select(".clamp-summary-wrap .browse-score-clamp .clamp-metascore a div")

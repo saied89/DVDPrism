@@ -29,8 +29,7 @@ internal class MovieFetcherTest {
 
             assert(movies.isSuccess())
             assertEquals(100 * subject.sources.size, (movies as Try.Success).value.size)
-            assertNull(movies.value[0].userScore)
-            assertEquals(60, movies.value[1].userScore)
+            assertEquals(68, movies.value[1].userScore)
             assert(movies.value[0].description.isNotEmpty())
         }
     }
