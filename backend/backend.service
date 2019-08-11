@@ -1,0 +1,12 @@
+[Unit]
+Description=backend
+After=syslog.target
+Requires=mongod.service
+
+[Service]
+User=saied
+ExecStart=/usr/bin/java -jar /home/saied/IdeaProjects/DVDPrism/backend/build/libs/backend-all.jar
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
