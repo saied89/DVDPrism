@@ -11,7 +11,7 @@ apply plugin: 'jacoco'
 apply plugin: 'io.fabric'
 
 jacoco {
-    toolVersion = '0.8.0'
+    toolVersion = '0.8.4'
 }
 
 tasks.withType(Test) {
