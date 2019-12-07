@@ -81,7 +81,7 @@ class DetailActivity : AppCompatActivity() {
 
         titleTV.setOnLongClickListener {
             with(getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager) {
-                primaryClip = ClipData.newPlainText("MovieTitle", movie.name)
+                setPrimaryClip(ClipData.newPlainText("MovieTitle", movie.name))
             }
             showSnackBar(getString(R.string.title_copied))
             true
