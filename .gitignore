@@ -11,3 +11,9 @@
 /captures
 .externalNativeBuild
 /panel/build
+/key.jks
+/signing.gradle
+/debug_build.sh
+/.gitignore.save
+/scripts/local_vps_depoloy.sh
+/pepk.jar
