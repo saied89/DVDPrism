@@ -15,7 +15,7 @@ internal class OmdbSearchTest : KoinTest {
     @Test
     fun `is parsed correctly`() {
         startKoin(listOf(jsonModule))
-        val content = javaClass.classLoader.getResource("searchResult.json").readText()
+        val content = javaClass.classLoader.getResource("searchResult.json")!!.readText()
         val objectMapper: ObjectMapper = get()
         val res = objectMapper.readValue(content, OmdbSearch::class.java)
 
