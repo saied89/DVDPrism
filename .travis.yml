@@ -5,7 +5,7 @@ jdk: oraclejdk8
 addons:
   apt:
     sources:
-    - mongodb-3.4-trusty
+    - mongodb-4.0-xenial
     packages:
     - mongodb-org-server
     - sshpass
