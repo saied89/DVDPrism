@@ -2,13 +2,13 @@ sudo: false
 language: android
 jdk: oraclejdk8
 services: mongodb
-addons:
-  apt:
-    sources:
-    - mongodb-3.4-trusty
-    packages:
-    - mongodb-org-server
-    - sshpass
+#addons:
+#  apt:
+#    sources:
+#    - mongodb-3.4-trusty
+#    packages:
+#    - mongodb-org-server
+#    - sshpass
 env:
   global:
   - ANDROID_API=29
