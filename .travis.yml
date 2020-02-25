@@ -1,7 +1,7 @@
 sudo: false
 language: android
 jdk: oraclejdk8
-#services: mongodb
+services: mongodb
 addons:
   apt:
     sources:
