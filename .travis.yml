@@ -1,6 +1,9 @@
-sudo: required
+root: required
 language: android
 jdk: oraclejdk8
+
+services:
+  - docker
 
 env:
   global:
