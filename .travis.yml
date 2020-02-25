@@ -2,13 +2,7 @@ sudo: false
 language: android
 jdk: oraclejdk8
 services: mongodb
-addons:
-  apt:
-    sources:
-    - mongodb-4.0-xenial
-    packages:
-    - mongodb-org-server
-    - sshpass
+
 env:
   global:
   - ANDROID_API=29
@@ -49,7 +43,7 @@ cache:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
   - "$HOME/.android/build-cache"
-#before_script:
+before_script:
 #- android list sdk --extended --no-ui --all
 #- android list targets
 #- echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
@@ -59,6 +53,7 @@ cache:
 #- adb shell settings put global transition_animation_scale 0 &
 #- adb shell settings put global animator_duration_scale 0 &
 #- adb shell input keyevent 82 &
+- sleep 15
 script:
 - android list target
 - "./gradlew clean backend:build"
