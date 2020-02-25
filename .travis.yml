@@ -1,7 +1,6 @@
-sudo: false
+sudo: required
 language: android
 jdk: oraclejdk8
-services: mongodb
 
 env:
   global:
@@ -34,6 +33,8 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_e23a1bae845f_key -iv $encrypted_e23a1bae845f_iv -in key.jks.enc -out key.jks -d
 - yes | sdkmanager "platforms;android-28"
 - chmod +x gradlew
+- sudo docker pull mvertes/alpine-mongo
+- sudo docker run -d -p 27017:27017 mvertes/alpine-mongo
 - "./gradlew dependencies || true"
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
