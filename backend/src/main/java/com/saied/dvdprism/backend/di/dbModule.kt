@@ -1,5 +1,6 @@
 package com.saied.dvdprism.backend.di
 
+import com.mongodb.ServerAddress
 import com.saied.dvdprism.backend.MovieRepository
 import com.saied.dvdprism.backend.MovieRepositoryImp
 import com.saied.dvdprism.common.model.Movie
@@ -17,7 +18,7 @@ val dbModule = module {
 }
 
 private fun provideMongoCollection(): MongoCollection<Movie> =
-    KMongo.createClient().getDatabase(DB_NAME).getCollection()
+    KMongo.createClient(ServerAddress("mongo")).getDatabase(DB_NAME).getCollection()
 
 private fun provideMovieRepository(collection: MongoCollection<Movie>): MovieRepository =
     MovieRepositoryImp(collection)
