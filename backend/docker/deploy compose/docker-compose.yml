@@ -1,7 +1,7 @@
 version: '3'
 services:
   backend:
-    image: "docker-compose.yml"
+    image: "saied89/dvdprism"
     ports:
       - "8080:8080"
   mongo:

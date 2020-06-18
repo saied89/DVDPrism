@@ -30,9 +30,11 @@ import junit.framework.TestCase.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.koin.androidx.viewmodel.ext.koin.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 import org.koin.test.KoinTest
-import org.koin.test.declare
+import org.koin.test.mock.declare
+import org.koin.test.mock.declareModule
 
 @RunWith(AndroidJUnit4::class)
 class DetailActivityTest : KoinTest {
@@ -49,7 +51,7 @@ class DetailActivityTest : KoinTest {
                 postValue(true)
             }
         }
-        declare {
+        declareModule {
             viewModel(override = true) {
                 mockViewModel
             }
@@ -104,7 +106,7 @@ class DetailActivityTest : KoinTest {
                 postValue(false)
             }
         }
-        declare {
+        declareModule {
             viewModel(override = true) {
                 mockViewModel
             }
@@ -159,13 +161,19 @@ class DetailActivityTest : KoinTest {
 
         onView(withId(R.id.titleTV)).perform(longClick())
 
-        val clipboardManager = intentsTestRule.activity.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+        val clipboardManager =
+            intentsTestRule.activity.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
         assertEquals(1, clipboardManager.primaryClip?.itemCount)
         assertEquals(element.name, clipboardManager.primaryClip?.getItemAt(0)?.text)
         onView(withId(com.google.android.material.R.id.snackbar_text))
-            .check(matches(ViewMatchers.withText(
-                InstrumentationRegistry.getInstrumentation().targetContext.getText(R.string.title_copied).toString()
-            )))
+            .check(
+                matches(
+                    ViewMatchers.withText(
+                        InstrumentationRegistry.getInstrumentation().targetContext.getText(R.string.title_copied)
+                            .toString()
+                    )
+                )
+            )
     }
 
 

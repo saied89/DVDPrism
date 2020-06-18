@@ -2,9 +2,9 @@ package com.saied.dvdprism.backend
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
-import io.ktor.client.engine.mock.MockHttpResponse
+import io.ktor.client.engine.mock.respond
 import io.ktor.http.HttpStatusCode
-import kotlinx.coroutines.io.ByteReadChannel
+import io.ktor.utils.io.ByteReadChannel
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 
@@ -15,11 +15,10 @@ internal class NetworkUtilKtTest {
     @Test
     fun `successful network request results in Try$Success`() = runBlocking {
         val sampleResStr = "Hello, Saied"
-        val httpMockEngine = MockEngine {
-            MockHttpResponse(
-                call,
-                HttpStatusCode.OK,
-                ByteReadChannel(sampleResStr.toByteArray(Charsets.UTF_8))
+        val httpMockEngine = MockEngine { resqData ->
+            respond(
+                ByteReadChannel(sampleResStr.toByteArray(Charsets.UTF_8)),
+                HttpStatusCode.OK
             )
         }
         val res = fetchHtml("arbitary URL", HttpClient(httpMockEngine))
@@ -29,8 +28,8 @@ internal class NetworkUtilKtTest {
     @Test
     fun `failed network request results in Try$Failure`() = runBlocking {
         val httpMockEngine = MockEngine {
-            MockHttpResponse(
-                call,
+            respond(
+                ByteReadChannel(""),
                 HttpStatusCode.Unauthorized
             )
         }

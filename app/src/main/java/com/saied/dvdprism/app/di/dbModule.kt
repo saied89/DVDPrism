@@ -6,7 +6,7 @@ import com.saied.dvdprism.app.network.MovieFetcher
 import com.saied.dvdprism.app.repository.MovieRepositoryImp
 import androidx.room.Room
 import org.koin.android.ext.koin.androidContext
-import org.koin.dsl.module.module
+import org.koin.dsl.module
 
 val dbModule = module {
     single {

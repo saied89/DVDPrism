@@ -8,7 +8,7 @@ import arrow.core.Try
 import com.fasterxml.jackson.module.kotlin.MissingKotlinParameterException
 import io.ktor.client.HttpClient
 import io.ktor.client.call.ReceivePipelineException
-import io.ktor.client.features.BadResponseStatusException
+import io.ktor.client.features.ResponseException
 import io.ktor.client.request.get
 import io.ktor.http.ParametersBuilder
 import io.ktor.http.URLBuilder
@@ -34,7 +34,7 @@ class OmdbSearcher(private val client: HttpClient, private val envReader: Enviro
                 Try.raise(OMDBMovieNotFoundException(url.toString()))
             else
                 Try.raise(exp.cause)
-        } catch (exp: BadResponseStatusException) {
+        } catch (exp: Exception) {
             Try.raise(exp)
         }
     }

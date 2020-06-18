@@ -9,11 +9,11 @@ dependencies {
     def logback_version = '1.2.3'
     def mongo_version = "3.9.1"
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib'
     implementation project(':common-jvm')
-    compile "org.litote.kmongo:kmongo:$mongo_version"
+    implementation "org.litote.kmongo:kmongo:$mongo_version"
 
-    testCompile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8" //for parsing sample jsons
+    testImplementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.10.2" //for parsing sample jsons
 
     implementation 'org.jsoup:jsoup:1.11.3' // for parsing html
 
@@ -21,26 +21,27 @@ dependencies {
     api "io.arrow-kt:arrow-core:$arrow_version"
     
     //ktor
-    compile "io.ktor:ktor-server-netty:$ktor_version"
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    compile "io.ktor:ktor-server-netty:$ktor_version"
-    compile "ch.qos.logback:logback-classic:$logback_version"
-    compile "io.ktor:ktor-server-core:$ktor_version"
-    compile "io.ktor:ktor-auth:$ktor_version"
-    compile "io.ktor:ktor-auth-jwt:$ktor_version"
-    compile "io.ktor:ktor-jackson:$ktor_version"
-    testCompile "io.ktor:ktor-server-tests:$ktor_version"
-    compile "io.ktor:ktor-client-json-jvm:$ktor_version"
-    compile "io.ktor:ktor-client-logging-jvm:$ktor_version"
+    implementation "io.ktor:ktor-server-netty:$ktor_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "io.ktor:ktor-server-netty:$ktor_version"
+    implementation "ch.qos.logback:logback-classic:$logback_version"
+    implementation "io.ktor:ktor-server-core:$ktor_version"
+    implementation "io.ktor:ktor-auth:$ktor_version"
+    implementation "io.ktor:ktor-auth-jwt:$ktor_version"
+    implementation "io.ktor:ktor-jackson:$ktor_version"
+    testImplementation "io.ktor:ktor-server-tests:$ktor_version"
+    implementation "io.ktor:ktor-client-json-jvm:$ktor_version"
+    implementation "io.ktor:ktor-client-logging-jvm:$ktor_version"
+    testImplementation "io.ktor:ktor-client-mock:$ktor_version"
     testImplementation "io.ktor:ktor-client-mock-jvm:$ktor_version"
-    compile "io.ktor:ktor-client-jackson:$ktor_version"
+    implementation "io.ktor:ktor-client-jackson:$ktor_version"
     implementation "io.ktor:ktor-client-okhttp:$ktor_version"
     
 
     //// Koin
     // Koin for Kotlin
     implementation "org.koin:koin-core:$koin_version"
-    compile "org.koin:koin-ktor:$koin_version"
+    implementation "org.koin:koin-ktor:$koin_version"
     // Koin for Unit tests
     testImplementation "org.koin:koin-test:$koin_version"
     ////
@@ -75,14 +76,8 @@ jacocoTestReport {
 }
 
 sourceCompatibility = "8"
-targetCompatibility = "8"
 
 compileKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}
-compileTestKotlin {
     kotlinOptions {
         jvmTarget = "1.8"
     }

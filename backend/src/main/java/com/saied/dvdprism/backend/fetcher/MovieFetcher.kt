@@ -4,7 +4,6 @@ import com.saied.dvdprism.backend.fetchHtml
 import com.saied.dvdprism.common.model.Movie
 import com.saied.dvdprism.common.model.parseDate
 import arrow.core.Try
-import com.google.common.annotations.VisibleForTesting
 import io.ktor.client.HttpClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -40,7 +39,6 @@ private val sourceList = listOf(
     MovieSource(metacriticUpcomingUrl, ::parseMetacriticHtml)
 )
 
-@VisibleForTesting
 internal fun parseMetacriticHtml(htmlStr: String): List<Movie> =
     Jsoup.parse(htmlStr)
         .body()

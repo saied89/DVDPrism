@@ -4,8 +4,7 @@
 
     <Transition
         app:constraintSetEnd="@+id/end"
-        app:constraintSetStart="@+id/start"
-        app:interpolator="easeInOut">
+        app:constraintSetStart="@+id/start">
 
         <OnSwipe
             app:dragDirection="dragUp"

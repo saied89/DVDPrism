@@ -19,10 +19,10 @@ tasks.withType(Test) {
 }
 
 ext.signing = [
-        storeFilePath : 'path/to/keystore',
-        storePassword : 'keystore password',
-        keyAlias      : 'key alias',
-        keyPassword   : 'key password',
+        storeFilePath: '../.signing/ks.jks',
+        storePassword: 'keystore password',
+        keyAlias     : 'key alias',
+        keyPassword  : 'key password',
 ]
 
 if (file('../signing.gradle').exists()) {
@@ -40,11 +40,11 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
     def debugTree = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
     def mainSrc = "$project.projectDir/src/main/kotlin"
 
-    sourceDirectories = files([mainSrc])
-    classDirectories = files([debugTree])
-    executionData = fileTree(dir: project.buildDir, includes: [
+    getSourceDirectories().setFrom(files([mainSrc]))
+    getClassDirectories().setFrom(files([debugTree]))
+    getExecutionData().setFrom(fileTree(dir: project.buildDir, includes: [
             'jacoco/testDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
-    ])
+    ]))
 }
 
 repositories {
@@ -100,6 +100,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 
     testOptions {
         unitTests.all {
@@ -128,34 +131,32 @@ androidExtensions {
 }
 
 dependencies {
-    def lifecycle_version = '2.0.0'
-    def koin_version = '1.0.2'
-    def room_version = "2.1.0-alpha04"
-    def espresso_version = "3.1.1"
+    def lifecycle_version = '2.2.0'
+    def koin_version = '2.1.6'
+    def room_version = "2.2.5"
+    def espresso_version = "3.2.0"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':common-jvm')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0-alpha01'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
-    implementation "com.google.android.material:material:1.1.0-alpha02"
-    implementation "androidx.recyclerview:recyclerview:1.0.0"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta6'
+    implementation "com.google.android.material:material:1.2.0-beta01"
+//    implementation "androidx.recyclerview:recyclerview:1.1.0"
 
-    debugImplementation('androidx.fragment:fragment-testing:1.1.0-alpha03') {
+    debugImplementation('androidx.fragment:fragment-testing:1.2.5') {
         transitive = false
     }
 
     ////Room
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version" // use kapt for Kotlin
-    // optional - Coroutines support for Room
-    implementation "androidx.room:room-coroutines:$room_version"
     // Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
     ////
 
     ////paging
-    def paging_version = "2.1.0"
+    def paging_version = "2.1.2"
 
     implementation "androidx.paging:paging-runtime-ktx:$paging_version" // use -ktx for Kotlin
     ////
@@ -168,7 +169,7 @@ dependencies {
     //coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
-    implementation 'androidx.core:core-ktx:1.0.1'
+    implementation 'androidx.core:core-ktx:1.3.0'
 
     implementation 'com.facebook.fresco:fresco:1.11.0'
     implementation 'me.relex:photodraweeview:2.0.0'
@@ -177,26 +178,22 @@ dependencies {
 
     ////Firebase
     // Check for v11.4.2 or higher
-    implementation 'com.google.firebase:firebase-core:17.0.1'
-
+    implementation 'com.google.firebase:firebase-core:17.4.3'
     // (Recommended) Add Analytics
-    implementation 'com.google.firebase:firebase-analytics:17.0.1'
+    implementation 'com.google.firebase:firebase-analytics:17.4.3'
 
     // Add dependency
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     ////
-
-    implementation "com.google.firebase:firebase-analytics:17.0.1"
 
     implementation "io.ktor:ktor-client-json-jvm:$ktor_version"
     implementation "io.ktor:ktor-client-logging-jvm:$ktor_version"
     testImplementation "io.ktor:ktor-client-mock-jvm:$ktor_version"
     implementation "io.ktor:ktor-client-jackson:$ktor_version"
     implementation "io.ktor:ktor-client-okhttp:$ktor_version"
-    
-    
 
-    implementation 'com.afollestad.material-dialogs:core:2.0.0-rc9'
+
+    implementation 'com.afollestad.material-dialogs:core:3.1.1'
 
     debugImplementation 'com.facebook.stetho:stetho:1.5.0'
 
@@ -205,15 +202,16 @@ dependencies {
 
     ////Lifecycle
     // alternatively - just ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version" // use -ktx for Kotlin
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    // use -ktx for Kotlin
     // alternatively - just LiveData
     implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
     // alternately - if using Java8, use the following instead of lifecycle-compiler
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
     // optional - Test helpers for LiveData
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation "androidx.arch.core:core-testing:$lifecycle_version"
-    androidTestImplementation "androidx.arch.core:core-testing:$lifecycle_version"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
 
     ////Koin
     implementation "org.koin:koin-android:$koin_version"

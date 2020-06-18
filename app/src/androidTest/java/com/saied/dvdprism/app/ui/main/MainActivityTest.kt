@@ -13,9 +13,7 @@ import io.mockk.every
 import io.mockk.mockk
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.test.KoinTest
-import org.koin.test.declare
 import com.saied.dvdprism.app.R
 import com.saied.dvdprism.app.RecyclerViewMatchers
 import com.saied.dvdprism.app.asPagedList
@@ -43,6 +41,10 @@ import junit.framework.TestCase.assertTrue
 import org.hamcrest.Matchers.allOf
 import org.junit.Rule
 import org.junit.rules.TestRule
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
+import org.koin.test.mock.declare
+import org.koin.test.mock.declareModule
 
 
 @RunWith(AndroidJUnit4::class)
@@ -58,11 +60,15 @@ class MainActivityTest : KoinTest {
     fun correctSuccessStateRender() {
         val element = Movie("", 1000, "", 0, 0, "")
         val mockData = listOf(element, element, element).asPagedList()
-        declare {
+        declareModule {
             viewModel(override = true) {
                 mockk<IMainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MutableLiveData<MainState>().apply {
-                        value = MainState.Success(ScoreIndication.NEGATIVE, ScoreIndication.NEGATIVE)
+                        value =
+                            MainState.Success(
+                                ScoreIndication.NEGATIVE,
+                                ScoreIndication.NEGATIVE
+                            )
                     }
                     every { latestLiveData } returns MutableLiveData<PagedList<Movie>>().apply {
                         value = mockData
@@ -88,8 +94,8 @@ class MainActivityTest : KoinTest {
     fun correctUpcomingListRender() {
         val element = Movie("", 1000, "", 0, 0, "")
         val mockData = listOf(element, element, element).asPagedList()
-        declare {
-            viewModel(override = true) {
+        declareModule {
+            viewModel {
                 mockk<IMainViewModel>(relaxUnitFun = true) {
                     every { latestLiveData } returns MutableLiveData<PagedList<Movie>>().apply {
                         value = null
@@ -98,7 +104,11 @@ class MainActivityTest : KoinTest {
                         value = mockData
                     }
                     every { stateLiveData } returns MutableLiveData<MainState>().apply {
-                        value = MainState.Success(ScoreIndication.NEGATIVE, ScoreIndication.NEGATIVE)
+                        value =
+                            MainState.Success(
+                                ScoreIndication.NEGATIVE,
+                                ScoreIndication.NEGATIVE
+                            )
                     }
                 }
             }
@@ -119,7 +129,7 @@ class MainActivityTest : KoinTest {
     fun tapOnMovieItemOpensDetailsActivity() {
         val element = Movie("", 0, "", 0, 0, "")
         val mockData = listOf(element, element, element).asPagedList()
-        declare {
+        declareModule {
             viewModel(override = true) {
                 mockk<IMainViewModel>(relaxUnitFun = true) {
                     every { latestLiveData } returns MutableLiveData<PagedList<Movie>>().apply {
@@ -129,7 +139,11 @@ class MainActivityTest : KoinTest {
                         value = null
                     }
                     every { stateLiveData } returns MutableLiveData<MainState>().apply {
-                        value = MainState.Success(ScoreIndication.NEGATIVE, ScoreIndication.NEGATIVE)
+                        value =
+                            MainState.Success(
+                                ScoreIndication.NEGATIVE,
+                                ScoreIndication.NEGATIVE
+                            )
                     }
                 }
             }
@@ -162,11 +176,15 @@ class MainActivityTest : KoinTest {
 
     @Test
     fun correctLoadingStateRender() {
-        declare {
+        declareModule {
             viewModel(override = true) {
                 mockk<IMainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MutableLiveData<MainState>().apply {
-                        value = MainState.Loading(ScoreIndication.NEGATIVE, ScoreIndication.NEGATIVE)
+                        value =
+                            MainState.Loading(
+                                ScoreIndication.NEGATIVE,
+                                ScoreIndication.NEGATIVE
+                            )
                     }
                     every { latestLiveData } returns MutableLiveData<PagedList<Movie>>().apply {
                         value = null
@@ -185,13 +203,17 @@ class MainActivityTest : KoinTest {
     @Test
     fun correctErrorStateRender() {
         val testMessage = "test message"
-        declare {
+        declareModule {
             viewModel(override = true) {
                 mockk<IMainViewModel>(relaxUnitFun = true) {
                     every { stateLiveData } returns MediatorLiveData<MainState>().apply {
 
                         value =
-                            MainState.Error(Exception(testMessage), ScoreIndication.NEGATIVE, ScoreIndication.NEGATIVE)
+                            MainState.Error(
+                                Exception(testMessage),
+                                ScoreIndication.NEGATIVE,
+                                ScoreIndication.NEGATIVE
+                            )
                     }
                     every { latestLiveData } returns MutableLiveData<PagedList<Movie>>().apply {
                         value = null
@@ -200,6 +222,7 @@ class MainActivityTest : KoinTest {
                         value = null
                     }
                 }
+
             }
         }
         ActivityScenario.launch(MainActivity::class.java)
@@ -211,22 +234,28 @@ class MainActivityTest : KoinTest {
     @Test
     fun clickOnFavsActionLaunchesFavoritesActivity() {
         declare {
-            viewModel(override = true) {
-                mockk<IMainViewModel>(relaxUnitFun = true) {
-                    every { stateLiveData } returns MediatorLiveData<MainState>().apply {
-                        value = MainState.Success(ScoreIndication.NEGATIVE, ScoreIndication.NEGATIVE)
-                    }
-                    every { latestLiveData } returns MediatorLiveData<PagedList<Movie>>().apply {
-                        value = null
-                    }
-                    every { upcommingLiveData } returns MediatorLiveData<PagedList<Movie>>().apply {
-                        value = null
+            module {
+                viewModel(override = true) {
+                    mockk<IMainViewModel>(relaxUnitFun = true) {
+                        every { stateLiveData } returns MediatorLiveData<MainState>().apply {
+                            value =
+                                MainState.Success(
+                                    ScoreIndication.NEGATIVE,
+                                    ScoreIndication.NEGATIVE
+                                )
+                        }
+                        every { latestLiveData } returns MediatorLiveData<PagedList<Movie>>().apply {
+                            value = null
+                        }
+                        every { upcommingLiveData } returns MediatorLiveData<PagedList<Movie>>().apply {
+                            value = null
+                        }
                     }
                 }
-            }
-            viewModel(override = true) {
-                mockk<FavoritesViewModel>(relaxUnitFun = true) {
-                    every { favoritesLiveData } returns MutableLiveData<List<Movie>>()
+                viewModel(override = true) {
+                    mockk<FavoritesViewModel>(relaxUnitFun = true) {
+                        every { favoritesLiveData } returns MutableLiveData<List<Movie>>()
+                    }
                 }
             }
         }
@@ -245,16 +274,22 @@ class MainActivityTest : KoinTest {
     @Test
     fun clickOnFilterOpensFilterDialog() {
         declare {
-            viewModel(override = true) {
-                mockk<IMainViewModel>(relaxUnitFun = true) {
-                    every { stateLiveData } returns MediatorLiveData<MainState>().apply {
-                        value = MainState.Success(ScoreIndication.NEGATIVE, ScoreIndication.NEGATIVE)
-                    }
-                    every { latestLiveData } returns MediatorLiveData<PagedList<Movie>>().apply {
-                        value = null
-                    }
-                    every { upcommingLiveData } returns MediatorLiveData<PagedList<Movie>>().apply {
-                        value = null
+            module {
+                viewModel(override = true) {
+                    mockk<IMainViewModel>(relaxUnitFun = true) {
+                        every { stateLiveData } returns MediatorLiveData<MainState>().apply {
+                            value =
+                                MainState.Success(
+                                    ScoreIndication.NEGATIVE,
+                                    ScoreIndication.NEGATIVE
+                                )
+                        }
+                        every { latestLiveData } returns MediatorLiveData<PagedList<Movie>>().apply {
+                            value = null
+                        }
+                        every { upcommingLiveData } returns MediatorLiveData<PagedList<Movie>>().apply {
+                            value = null
+                        }
                     }
                 }
             }
@@ -264,7 +299,8 @@ class MainActivityTest : KoinTest {
         onView(
             withText(
                 InstrumentationRegistry.getInstrumentation().targetContext.resources
-                    .getStringArray(R.array.filter_choices)[0])
+                    .getStringArray(R.array.filter_choices)[0]
+            )
         ).check(doesNotExist())
 
         onView(withId(R.id.filter)).perform(click())
@@ -272,13 +308,15 @@ class MainActivityTest : KoinTest {
         onView(
             withText(
                 InstrumentationRegistry.getInstrumentation().targetContext.resources
-                    .getStringArray(R.array.filter_choices)[0])
+                    .getStringArray(R.array.filter_choices)[0]
+            )
         ).check(matches(isDisplayed()))
     }
 
 
     private fun uiObjectWithId(@IdRes id: Int): UiObject {
-        val resourceId = InstrumentationRegistry.getInstrumentation().targetContext.resources.getResourceName(id)
+        val resourceId =
+            InstrumentationRegistry.getInstrumentation().targetContext.resources.getResourceName(id)
         val selector = UiSelector().resourceId(resourceId)
         return UiDevice.getInstance(getInstrumentation()).findObject(selector)
     }

@@ -3,7 +3,7 @@ package com.saied.dvdprism.backend.fetcher
 import arrow.core.Try
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
-import io.ktor.client.engine.mock.response
+import io.ktor.client.engine.mock.respond
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.*
@@ -17,7 +17,7 @@ internal class MovieFetcherTest {
         val content = String(resource.readBytes())
         runBlocking {
             val mockEngine = MockEngine {
-                response(
+                respond(
                     status = HttpStatusCode.OK,
                     content = content
                 )

@@ -5,15 +5,15 @@ import com.saied.dvdprism.app.ui.movieDetail.DetailsViewModel
 import com.saied.dvdprism.app.ui.movieDetail.DetailsViewModelImp
 import com.saied.dvdprism.app.ui.main.IMainViewModel
 import com.saied.dvdprism.app.ui.main.MainViewModel
-import org.koin.androidx.viewmodel.ext.koin.viewModel
-import org.koin.dsl.module.module
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
 val appModule = module {
 
-    viewModel<IMainViewModel> { MainViewModel(get()) }
+    viewModel<IMainViewModel>(override = true) { MainViewModel(get()) }
 
-    viewModel<DetailsViewModel> { DetailsViewModelImp(get()) }
+    viewModel<DetailsViewModel>(override = true) { DetailsViewModelImp(get()) }
 
-    viewModel { FavoritesViewModel(movieRepository = get()) }
+    viewModel(override = true) { FavoritesViewModel(movieRepository = get()) }
 
 }

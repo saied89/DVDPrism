@@ -1,10 +1,10 @@
 buildscript {
-    ext.kotlin_version = '1.3.30'
-    ext.ktor_version = '1.1.1'
+    ext.kotlin_version = '1.3.72'
+    ext.ktor_version = '1.3.2'
     ext.arrow_version = '0.8.2'
-    ext.coroutines_version = '1.1.0'
+    ext.coroutines_version = '1.3.2'
     ext.junit5_version = '5.3.1'
-    ext.mockK_version = '1.9'
+    ext.mockK_version = '1.9.3'
     repositories {
         google()
         jcenter()
@@ -12,15 +12,15 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0'
+        classpath 'com.android.tools.build:gradle:4.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.github.jengelman.gradle.plugins:shadow:4.0.3'
-        classpath "org.jacoco:org.jacoco.core:0.8.3"
+        classpath "org.jacoco:org.jacoco.core:0.8.5"
         classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.45"
 
-        classpath 'com.google.gms:google-services:4.3.0'  // Google Services plugin
+        classpath 'com.google.gms:google-services:4.3.3'  // Google Services plugin
         // Add dependency
-        classpath 'io.fabric.tools:gradle:1.31.0'  // Crashlytics plugin
+        classpath 'io.fabric.tools:gradle:1.31.2'  // Crashlytics plugin
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -34,6 +34,14 @@ allprojects {
         maven { url "https://kotlin.bintray.com/kotlinx" }
         maven { url "https://kotlin.bintray.com/kotlin-js-wrappers" }
     }
+
+    // Added for Mockk compatiblity issue with objenesis https://github.com/mockk/mockk/issues/281#issuecomment-483329039
+    configurations.all {
+        resolutionStrategy {
+            force("org.objenesis:objenesis:2.6")
+        }
+    }
+
 //    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 //        kotlinOptions {
 //            freeCompilerArgs += '-Xmulti-platform'
