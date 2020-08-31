@@ -1,10 +1,8 @@
 root: required
 language: android
 jdk: oraclejdk8
-
 services:
-  - docker
-
+- docker
 env:
   global:
   - ANDROID_API=29
@@ -33,7 +31,8 @@ android:
   - android-sdk-license-.+
   - google-gdk-license-.+
 before_install:
-- openssl aes-256-cbc -K $encrypted_e23a1bae845f_key -iv $encrypted_e23a1bae845f_iv -in key.jks.enc -out key.jks -d
+- openssl aes-256-cbc -K $encrypted_e23a1bae845f_key -iv $encrypted_e23a1bae845f_iv
+  -in key.jks.enc -out key.jks -d
 - yes | sdkmanager "platforms;android-28"
 - chmod +x gradlew
 - sudo docker pull mvertes/alpine-mongo
@@ -66,9 +65,8 @@ after_success:
 deploy:
   provider: releases
   api_key:
-    secure: aLj/rCHMIa0+QS9Klh/xHLRIufqCYoL6TjsUv3Sjpr1pa4FY8+Qw6lKQbYy6lCccMJ7ITxoD4MC3SrnXdCmm5pNm0T34v1ccEaPB9r8x0OO+zmKm1//otS+QKeyQahp6O40KF+KWvBf148no1g8Gpav3OucGJ/5gNrPY5Dmk+tKozL6xr+y+7oVY/xEQGvJNtq0jGFZQGBvOF0+uednIHNwh4A6j6tH9yABIl3Bgl0cxLkn5A1Js33DA53vVsvymFsWpaKnu9XRKWJNw9TVtCgUVEIxV4kekxwnI4vi9vsRiBhYZZ9tMHFRYZP5bRUelGMaeGv5lsd8klMmOtn4f1nagXBBFoMRCvGpFUg/mFJAWGGe0X5yOuajrwFj3CTZ8HxjA2poei6fS20venZo4JGkqkWFNFZEgQudfCiP0C+vH64SYsySma9MzK2g7HkRjP6dy0oJ/m5C/W+H23kaWnXBFKAzv8v+h0kZhUTsDvWaPc+k1vTho//Dp46t7xvFwjM60HXVJCRR3toAdz2emYxrBbPdQ2fPr7ypZkmnT7q3cVgT1HupAOedMzR+oKakbLyhyOxBeJxpWxODMH+ZKuDpxz+Oexj+jNDY0YfzIlWCtlfju952py7XTCsdwdOWlOW7MTsNmamEhhVpnD620yGc4ow6/bn4adjDgo3BDNfw=
+    secure: WUkf1aFaClLiOZ5EujGgQeWRQTBC9xuRkmlJSq23HBpCjLDZTlzy0gWY7avN+O1T1CNzzEqPXyEG8IRWWA++ighbyffC0zGtPDlp2OFP5h1Fzo+Tv9OHr682/nOG4v15rfZu8C7j0UuZD+rivkh1/SmydsGYQh2dgrbM3/cJBbrJ1fpf+cAj+4Dj5I16RrpbtLWtHOOepS8OxM1Sz5YN0bkqK6lTa8ktFPQ9yinJkr8DCBQEh8l8FbbKpjrxowkj9gk0LI1U40Hix5PgsHXYDerhgoO17H4i+S8Sn0l5leCj4raOK5UsWgEvnhmLGUThs1NbQ0gAeSKjg2oj0LBtc+qlGIW3eZ7LIHVjH9ld8J2g+p211AOgpHH09TPH+KPQhS/1R34/bpEpdlz8VLKyROkc0TtVDlpYY9v458a/tN/JMOjYfojLMPxyvwJWh4BkZmsbFnZSNPWSnlM/X39c1onjj0B/Bn9NapdaITOvZEcLH+7lrcSMnFTqAEqy1DlGmoxys9dzIwXW31HRc2RSNn5Q9A8z0dMBHw5kJp/IWC0SvB4dTaM45GGk7U57xtBs1TM9sdYSIlViXXB2RSkBx+490XRZ7HCVPXHmC+Z4O8d/QQ3giYudLgysJo+l2XzZAG1yVNQjLReurUXPzqjTvnxkdwy90PHcV8/Mcr0/3sc=
   file: app/build/outputs/apk/release/app-release.apk
-  skip_cleanup: true
   on:
-    tags: true
     repo: saied89/DVDPrism
+  skip_cleanup: 'true'
