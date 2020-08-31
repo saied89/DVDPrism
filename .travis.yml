@@ -69,4 +69,5 @@ deploy:
   file: app/build/outputs/apk/release/app-release.apk
   on:
     repo: saied89/DVDPrism
+    tags: true
   skip_cleanup: 'true'
